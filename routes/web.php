@@ -39,9 +39,9 @@ Route::controller(DashboardController::class)->group(function() {
 });
 
 
-// Route::get("/login", function() {
-//     return view("login/login", ["nama"=> "login"]);
-// });
+ Route::get("/manufacturing", function() {
+    return view("manufacturing/manufacturing", ["nama"=> "manufacturing"]);
+ });
 
 // Route::get('/register', function () {
 //     return view("register/register", ["nama"=> "register"]);

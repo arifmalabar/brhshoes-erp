@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterTbRiwayatPembayaranTglPembayaran extends Migration
+class CreateProductDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,10 @@ class AlterTbRiwayatPembayaranTglPembayaran extends Migration
      */
     public function up()
     {
-        Schema::table('tb_riwayat_pembayaran', function (Blueprint $table) {
-            $table->timestamp('tanggal_bayar')->useCurrent();
+        Schema::create('product_detail', function (Blueprint $table) {
+            $table->bigIncrements("detail_product_id");
+            $table->bigInteger("product_id");
+            $table->bigInteger("component_id");
         });
     }
 
@@ -25,8 +27,6 @@ class AlterTbRiwayatPembayaranTglPembayaran extends Migration
      */
     public function down()
     {
-        Schema::table('tb_riwayat_pembayaran', function (Blueprint $table) {
-            $table->dropColumn('tanggal_bayar');
-        });
+        Schema::dropIfExists('product_detail');
     }
 }

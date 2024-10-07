@@ -34,17 +34,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/setting_gedung" class="nav-link {{ $nama == 'setting gedung' ? 'active' : '' }}">
+                    <a href="/setting_gedung" class="nav-link {{ $nama == 'manufacturing' ? 'active' : '' }}">
                         <i class="far nav-icon fa-solid fa-building"></i>
-                        <p>Produk</p>
+                        <p>Manufacturing</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="/setting_gedung" class="nav-link {{ $nama == 'setting gedung' ? 'active' : '' }}">
-                        <i class="far nav-icon fa-solid fa-building"></i>
-                        <p>Bahan</p>
-                    </a>
-                </li>
+                
                 
                 <li class="nav-header">Laporan</li>
                 <li class="nav-item">

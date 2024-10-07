@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTbGedungTable extends Migration
+class CreateCategoryTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateTbGedungTable extends Migration
      */
     public function up()
     {
-        Schema::create('tb_gedung', function (Blueprint $table) {
-            $table->string('kode_gedung', 100)->primary();
-            $table->string('nama_gedung', 200);
-            $table->text('alamat_gedung');
+        Schema::create('category', function (Blueprint $table) {
+            $table->bigIncrements("category_id");
+            $table->string("nama_kategori");
         });
     }
 
@@ -27,6 +26,6 @@ class CreateTbGedungTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tb_gedung');
+        Schema::dropIfExists('category');
     }
 }
