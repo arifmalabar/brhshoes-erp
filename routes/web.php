@@ -12,7 +12,7 @@ use App\Http\Controllers\penghuni\PenghuniController;
 use App\Http\Controllers\pembayaran\PembayaranController;
 use App\Http\Controllers\tagihan\TagihanController;
 use App\Http\Controllers\Login\LoginController;
-
+use App\Http\Controllers\manufacturing\ManufacturingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,10 +38,11 @@ Route::controller(DashboardController::class)->group(function() {
     Route::get('/informasikost', 'informasiKostJson');
 });
 
-
- Route::get("/manufacturing", function() {
-    return view("manufacturing/manufacturing", ["nama"=> "manufacturing"]);
- });
+Route::controller(ManufacturingController::class)->group(function () {
+    Route::get("/manufacturing", 'index')->name('manufacturing');
+    Route::get("/manufacturing/tambah", "create")->name("manufacturing");
+    Route::post("/manufacturing/tambah_data", "storeProduk")->name("manufacturing");
+});
 
 // Route::get('/register', function () {
 //     return view("register/register", ["nama"=> "register"]);

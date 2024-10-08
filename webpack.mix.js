@@ -18,4 +18,5 @@ mix.js("resources/js/app.js", "public/js").postCss(
         //
     ]
 );
-mix.js("resources/js/manufacturing.js", "public/js").react();
+mix.js("resources/js/manufacturing/manufacturing.js", "public/js").react();
+mix.js("resources/js/manufacturing/tambahproduk.js", "public/js").react();
