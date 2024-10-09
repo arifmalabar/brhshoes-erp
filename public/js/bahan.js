@@ -34837,9 +34837,9 @@ if (false) {} else {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-/*!***************************************!*\
-  !*** ./resources/js/produk/produk.js ***!
-  \***************************************/
+/*!*************************************!*\
+  !*** ./resources/js/bahan/bahan.js ***!
+  \*************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
@@ -34869,7 +34869,7 @@ var data = [{
   stok: 4,
   status: "bahan"
 }];
-function Produk() {
+function Bahan() {
   var no = 1;
   return data.map(function (e) {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("tr", {
@@ -34905,6 +34905,6 @@ function Produk() {
     });
   });
 }
-react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Produk, {}), document.getElementById("product-data"));
+react_dom__WEBPACK_IMPORTED_MODULE_1__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(Bahan, {}), document.getElementById("product-data"));
 /******/ })()
 ;

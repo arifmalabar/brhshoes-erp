@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\bahan\BahanController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Models\Penghuni;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,7 @@ use App\Http\Controllers\pembayaran\PembayaranController;
 use App\Http\Controllers\tagihan\TagihanController;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\manufacturing\ManufacturingController;
+use App\Http\Controllers\produk\ProdukController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +44,15 @@ Route::controller(ManufacturingController::class)->group(function () {
     Route::get("/manufacturing", 'index')->name('manufacturing');
     Route::get("/manufacturing/tambah", "create")->name("manufacturing");
     Route::post("/manufacturing/tambah_data", "storeProduk")->name("manufacturing");
+});
+
+Route::controller(ProdukController::class)->group(function () {
+    Route::get("/produk", 'index')->name('produk');
+    Route::get("/produk/tambah_produk", 'create')->name('produk');
+});
+Route::controller(BahanController::class)->group(function () {
+    Route::get("/bahan", 'index')->name('bahan');
+    
 });
 
 // Route::get('/register', function () {

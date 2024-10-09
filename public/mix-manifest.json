@@ -2,5 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/js/manufacturing.js": "/js/manufacturing.js",
     "/js/tambahproduk.js": "/js/tambahproduk.js",
+    "/js/produk.js": "/js/produk.js",
+    "/js/bahan.js": "/js/bahan.js",
     "/css/app.css": "/css/app.css"
 }

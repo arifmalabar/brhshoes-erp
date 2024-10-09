@@ -36,10 +36,15 @@
                 <li class="nav-item">
                     <a href="/manufacturing" class="nav-link {{ $nama == 'manufacturing' ? 'active' : '' }}">
                         <i class="far nav-icon fa-solid fa-building"></i>
-                        <p>Manufacturing</p>
+                        <p>Produk</p>
                     </a>
                 </li>
-                
+                <li class="nav-item">
+                    <a href="/manufacturing" class="nav-link {{ $nama == 'bahan' ? 'active' : '' }}">
+                        <i class="far nav-icon fa-solid fa-building"></i>
+                        <p>Bahan</p>
+                    </a>
+                </li>
                 
                 <li class="nav-header">Laporan</li>
                 <li class="nav-item">
