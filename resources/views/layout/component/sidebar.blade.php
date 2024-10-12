@@ -35,24 +35,25 @@
                 </li>
                 <li class="nav-item">
                     <a href="/manufacturing" class="nav-link {{ $nama == 'manufacturing' ? 'active' : '' }}">
-                        <i class="far nav-icon fa-solid fa-building"></i>
+                        <i class="fas nav-icon fa-box"></i>
                         <p>Produk</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="/manufacturing" class="nav-link {{ $nama == 'bahan' ? 'active' : '' }}">
-                        <i class="far nav-icon fa-solid fa-building"></i>
+                        <i class="fas nav-icon fa-industry"></i>
                         <p>Bahan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/bill_material" class="nav-link {{ $nama == 'bom' ? 'active' : '' }}">
+                        <i class="fas nav-icon fa-money-bill"></i>
+                        <p>Bill Of Material</p>
                     </a>
                 </li>
                 
                 <li class="nav-header">Laporan</li>
-                <li class="nav-item">
-                    <a href="/tagihan" class="nav-link {{ $nama == 'tagihan' ? 'active' : '' }}">
-                        <i class="fas nav-icon fa-dollar-sign"></i>
-                        <p>Tagihan</p>
-                    </a>
-                </li>
+                
                 
             </ul>
         </nav>

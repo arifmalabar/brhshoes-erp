@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\bahan\BahanController;
+use App\Http\Controllers\bom\BomController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Models\Penghuni;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,10 @@ Route::controller(ProdukController::class)->group(function () {
 Route::controller(BahanController::class)->group(function () {
     Route::get("/bahan", 'index')->name('bahan');
     
+});
+Route::controller(BomController::class)->group(function (){
+    Route::get("/bill_material", 'index')->name('bom');
+    Route::get("/bill_material/tambah", 'create')->name('bom');
 });
 
 // Route::get('/register', function () {
