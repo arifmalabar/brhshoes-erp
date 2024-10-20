@@ -9,28 +9,18 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h4 class="card-title">Bill Of Material</h4>
-                    </div>
-                    <div class="card-body" id="bom-data">
-                        
-                    </div>
-                </div>
-            </div>
+            
             <div class="col-md-12">
                 <div class="card card-default">
                     <div class="card-header">
                         <h4 class="card-title">Bill Of Material Detail</h4>
                         <div class="card-tools">
-                            <button class="btn btn-success btn-sm" data-toggle="modal"
-                            data-target="#tambahGedungModal">
+                            <a href="/bill_material/tambah" class="btn btn-success btn-sm">
                             <i class="fa fa-plus"></i>&nbsp;Tambah Komposisi
-                        </button>
+                        </a>
                         </div>
                     </div>
-                    <div class="card-body" id="form-data">
+                    <div class="card-body" id="bom-data">
                         
                     </div>
                 </div>

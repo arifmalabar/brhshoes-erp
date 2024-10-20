@@ -25,3 +25,4 @@ mix.js("resources/js/produk/tambahproduk.js", "public/js").react();
 mix.js("resources/js/bahan/bahan.js", "public/js").react();
 mix.js("resources/js/bom/tambah_bom.js", "public/js").react();
 mix.js("resources/js/bom/bom.js", "public/js").react();
+mix.js("resources/js/bom/update_bom.js", "public/js").react();

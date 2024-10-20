@@ -34809,14 +34809,14 @@ if (false) {} else {
 /************************************************************************/
 var __webpack_exports__ = {};
 /*!****************************************!*\
-  !*** ./resources/js/bom/tambah_bom.js ***!
+  !*** ./resources/js/bom/update_bom.js ***!
   \****************************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 
 
-function TambahBom(params) {
+function UpdateBom(params) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "row",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
@@ -34900,13 +34900,13 @@ function TambahBom(params) {
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
       className: "col-md-10",
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("button", {
-        className: "btn btn-success btn-sm",
+        className: "btn btn-warning btn-sm",
         style: {
           width: "100%"
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-          className: "fa fa-plus"
-        }), " Tambah Data"]
+          className: "fa fa-edit"
+        }), " Update Data"]
       })
     })]
   });
@@ -34942,7 +34942,7 @@ function Komposisi() {
     });
   });
 }
-function TambahKomposisi() {
+function UpdateKomposisi() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
     className: "row",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
@@ -34987,8 +34987,8 @@ function TambahKomposisi() {
     })]
   });
 }
-react_dom__WEBPACK_IMPORTED_MODULE_0__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(TambahBom, {}), document.getElementById("form-data"));
+react_dom__WEBPACK_IMPORTED_MODULE_0__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(UpdateBom, {}), document.getElementById("form-data"));
 react_dom__WEBPACK_IMPORTED_MODULE_0__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(Komposisi, {}), document.getElementById("form-data-komposisi"));
-react_dom__WEBPACK_IMPORTED_MODULE_0__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(TambahKomposisi, {}), document.getElementById("form-komponen-tambah"));
+react_dom__WEBPACK_IMPORTED_MODULE_0__.render(/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(UpdateKomposisi, {}), document.getElementById("form-komponen-tambah"));
 /******/ })()
 ;

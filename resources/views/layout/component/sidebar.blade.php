@@ -51,7 +51,12 @@
                         <p>Bill Of Material</p>
                     </a>
                 </li>
-                
+                <li class="nav-item">
+                    <a href="/manufacturing_order" class="nav-link {{ $nama == 'manufacturing order' ? 'active' : '' }}">
+                        <i class="fas nav-icon fa-money-bill"></i>
+                        <p>Manufacturing Order</p>
+                    </a>
+                </li>
                 <li class="nav-header">Laporan</li>
                 
                 

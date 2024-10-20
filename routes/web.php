@@ -15,6 +15,7 @@ use App\Http\Controllers\pembayaran\PembayaranController;
 use App\Http\Controllers\tagihan\TagihanController;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\manufacturing\ManufacturingController;
+use App\Http\Controllers\manufacturing_order\ManufacturingOrderController;
 use App\Http\Controllers\produk\ProdukController;
 
 /*
@@ -58,6 +59,11 @@ Route::controller(BahanController::class)->group(function () {
 Route::controller(BomController::class)->group(function (){
     Route::get("/bill_material", 'index')->name('bom');
     Route::get("/bill_material/tambah", 'create')->name('bom');
+    Route::get("bill_material/edit/{id}", "edit")->name("bom");
+});
+Route::controller(ManufacturingOrderController::class)->group(function ()  {
+    Route::get("/manufacturing_order", 'index')->name('manufacturing_order');
+
 });
 
 // Route::get('/register', function () {

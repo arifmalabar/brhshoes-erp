@@ -1,6 +1,6 @@
 import ReactDom from "react-dom";
 
-function TambahBom(params) {
+function UpdateBom(params) {
     return (
         <div className="row">
             <div className="col-md-12">
@@ -70,10 +70,10 @@ function TambahBom(params) {
             <div className="col-md-2"></div>
             <div className="col-md-10">
                 <button
-                    className="btn btn-success btn-sm"
+                    className="btn btn-warning btn-sm"
                     style={{ width: "100%" }}
                 >
-                    <i className="fa fa-plus"></i> Tambah Data
+                    <i className="fa fa-edit"></i> Update Data
                 </button>
             </div>
         </div>
@@ -104,7 +104,7 @@ function Komposisi() {
         </tr>
     ));
 }
-function TambahKomposisi() {
+function UpdateKomposisi() {
     return (
         <div className="row">
             <div className="col-md-12">
@@ -140,9 +140,9 @@ function TambahKomposisi() {
         </div>
     );
 }
-ReactDom.render(<TambahBom />, document.getElementById("form-data"));
+ReactDom.render(<UpdateBom />, document.getElementById("form-data"));
 ReactDom.render(<Komposisi />, document.getElementById("form-data-komposisi"));
 ReactDom.render(
-    <TambahKomposisi />,
+    <UpdateKomposisi />,
     document.getElementById("form-komponen-tambah")
 );

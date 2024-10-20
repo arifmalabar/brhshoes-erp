@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\bom;
+namespace App\Http\Controllers\manufacturing_order;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class BomController extends Controller
+class ManufacturingOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class BomController extends Controller
      */
     public function index()
     {
-        return view("bom/bom", ["nama"=> "bom"]);
+        return view("manufacturing_order.manufacturing_order", ["nama" => "manufacturing order"]);
     }
 
     /**
@@ -24,7 +24,7 @@ class BomController extends Controller
      */
     public function create()
     {
-        return view("bom/tambah_bom", ["nama"=> "bom"]);
+        //
     }
 
     /**
@@ -57,7 +57,7 @@ class BomController extends Controller
      */
     public function edit($id)
     {
-        return view("bom/update_bom", ["nama"=> "bom"]);
+        //
     }
 
     /**

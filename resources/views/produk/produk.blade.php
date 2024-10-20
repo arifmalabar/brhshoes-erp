@@ -14,10 +14,9 @@
             <div class="card-header">
                 <h4 class="card-title">Informasi Produk</h4>
                 <div class="card-tools">
-                    <button class="btn btn-success btn-sm" data-toggle="modal"
-                            data-target="#tambahGedungModal">
+                    <a href="/produk/tambah_produk" class="btn btn-success btn-sm">
                             <i class="fa fa-plus"></i>&nbsp;Tambah Produk
-                        </button>
+                        </a>
                 </div>
             </div>
             <div class="card-body">
