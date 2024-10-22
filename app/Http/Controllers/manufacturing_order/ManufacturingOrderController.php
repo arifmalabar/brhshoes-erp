@@ -24,7 +24,7 @@ class ManufacturingOrderController extends Controller
      */
     public function create()
     {
-        //
+        return view("manufacturing_order.mo_detail", ["nama" => "manufacturing order"]);
     }
 
     /**

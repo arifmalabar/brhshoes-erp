@@ -63,7 +63,7 @@ Route::controller(BomController::class)->group(function (){
 });
 Route::controller(ManufacturingOrderController::class)->group(function ()  {
     Route::get("/manufacturing_order", 'index')->name('manufacturing_order');
-
+    Route::get("/manufacturing_order/mo_detail", 'create')->name('manufacturing_order');
 });
 
 // Route::get('/register', function () {
