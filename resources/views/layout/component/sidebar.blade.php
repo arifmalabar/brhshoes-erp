@@ -23,8 +23,7 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-header">Menu Utama</li>
 
                 <li class="nav-item">
@@ -52,14 +51,40 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/manufacturing_order" class="nav-link {{ $nama == 'manufacturing order' ? 'active' : '' }}">
+                    <a href="/manufacturing_order"
+                        class="nav-link {{ $nama == 'manufacturing order' ? 'active' : '' }}">
                         <i class="fas nav-icon fa-money-bill"></i>
                         <p>Manufacturing Order</p>
                     </a>
                 </li>
-                <li class="nav-header">Laporan</li>
-                
-                
+                <li class="nav-header">Vendor</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link {{ $nama == 'manufacturing order' ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>
+                            Vendor
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/vendor/perusahaan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Company</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/vendor/perorangan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Perorangan</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

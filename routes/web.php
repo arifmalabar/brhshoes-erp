@@ -17,6 +17,7 @@ use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\manufacturing\ManufacturingController;
 use App\Http\Controllers\manufacturing_order\ManufacturingOrderController;
 use App\Http\Controllers\produk\ProdukController;
+use App\Http\Controllers\vendor\VendorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +65,10 @@ Route::controller(BomController::class)->group(function (){
 Route::controller(ManufacturingOrderController::class)->group(function ()  {
     Route::get("/manufacturing_order", 'index')->name('manufacturing_order');
     Route::get("/manufacturing_order/mo_detail", 'create')->name('manufacturing_order');
+});
+Route::controller(VendorController::class)->group(function () {
+    Route::get("/vendor/perusahaan", 'perusahaan')->name('vendor');
+    Route::get("/vendor/perorangan", "individu")->name("vendor");
 });
 
 // Route::get('/register', function () {
