@@ -1,28 +1,28 @@
 @extends('layout/layout')
 @section('status')
-    active
+active
 @endsection
 @section('judul')
-    Produk
+Produk
 @endsection
 @section('content')
 <section class="content">
-        
+
     <div class="container-fluid">
-        
+
         <div class="card card-default">
             <div class="card-header">
                 <h4 class="card-title">Informasi Produk</h4>
                 <div class="card-tools">
                     <a href="/produk/tambah_produk" class="btn btn-success btn-sm">
-                            <i class="fa fa-plus"></i>&nbsp;Tambah Produk
-                        </a>
+                        <i class="fa fa-plus"></i>&nbsp;Tambah Produk
+                    </a>
                 </div>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-12">
-                        
+
                         <table id="example2" class="table table-bordered table-hover" style="text-align: center">
                             <thead>
                                 <tr>
@@ -33,7 +33,7 @@
                                 </tr>
                             </thead>
                             <tbody id="product-data">
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -63,8 +63,8 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-tag"></i></span>
                             </div>
-                            <input type="text" class="form-control" name="nama_gedung"
-                                placeholder="Masukan Nama Gedung" required>
+                            <input type="text" class="form-control" name="nama_gedung" placeholder="Masukan Nama Gedung"
+                                required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -105,8 +105,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="editKodeGedung" name="kode_gedung"
-                                readonly>
+                            <input type="text" class="form-control" id="editKodeGedung" name="kode_gedung" readonly>
                         </div>
                     </div>
                     <div class="form-group">
@@ -115,8 +114,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-tag"></i></span>
                             </div>
-                            <input type="text" class="form-control" id="editNamaGedung" name="nama_gedung"
-                                required>
+                            <input type="text" class="form-control" id="editNamaGedung" name="nama_gedung" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -137,9 +135,10 @@
 </div>
 @endsection
 @section('js')
-    <script src="{{ mix('js/produk.js') }}"></script>
-    <script>
-        $(function() {
+<script src="{{ mix('js/produk.js') }}"></script>
+<script>
+    window.csrf_token = "{{ csrf_token() }}"
+    $(function() {
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -150,5 +149,5 @@
                 "responsive": true,
             });
         });
-    </script>  
+</script>
 @endsection

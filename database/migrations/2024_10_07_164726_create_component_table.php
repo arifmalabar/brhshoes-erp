@@ -13,8 +13,8 @@ class CreateComponentTable extends Migration
      */
     public function up()
     {
-        Schema::create('component', function (Blueprint $table) {
-            $table->bigIncrements('component_id');
+        Schema::create('components', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->string("nama");
             $table->integer("kuantitas")->unsigned();
             $table->integer("harga_modal")->unsigned();
@@ -29,6 +29,6 @@ class CreateComponentTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('component');
+        Schema::dropIfExists('components');
     }
 }

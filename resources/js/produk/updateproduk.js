@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-import { postproduk } from "../config/endpoint";
 import Swal from "sweetalert2";
-function TambahProduk() {
+function UpdateProduk() {
     let [preview, setPreview] = useState(null);
     let [produk, setProduk] = useState({
         category_id: "",
@@ -13,6 +12,7 @@ function TambahProduk() {
         internal_reference: "",
     });
     let [kategori, setKategori] = useState([]);
+    let [detailProduk, setDetailProduk] = useState([]);
 
     const inputProdukHander = (index, value) => {
         setProduk({ ...produk, [index]: value });
@@ -32,9 +32,25 @@ function TambahProduk() {
             console.log(error);
         }
     };
+    const getProduk = async () => {
+        const name = window.location.pathname.split("/");
+        const id = name[3];
+        try {
+            const response = await axios.get(`/produk/show/${id}`);
+            if (response.status == 200) {
+                const detail_produk = await response.data;
+                setProduk(detail_produk.data);
+            } else {
+                const err = await response.data;
+                throw new Error(err.message);
+            }
+        } catch (error) {
+            Swal.fire({ title: "Erorr", text: error, icon: "error" });
+        }
+    };
     useEffect(() => {
         getKategori();
-        console.log(kategori);
+        getProduk();
     }, []);
     async function postDataProduk() {
         try {
@@ -81,6 +97,7 @@ function TambahProduk() {
                                 className="form-control"
                                 id="inputEmail3"
                                 placeholder="Masukan Nama Produk/Bahan"
+                                value={produk.nama_produk}
                                 onChange={(e) => {
                                     inputProdukHander(
                                         "nama_produk",
@@ -117,6 +134,7 @@ function TambahProduk() {
                                 className="form-control"
                                 id="inputEmail3"
                                 placeholder="Masukan Harga Modal"
+                                value={produk.harga_modal}
                                 onChange={(e) => {
                                     /*if (type == 0) {
                                         inputProdukHander(
@@ -181,6 +199,7 @@ function TambahProduk() {
                                 className="form-control"
                                 id="inputEmail3"
                                 placeholder="Harga Jual"
+                                value={produk.harga_jual}
                                 onChange={(e) => {
                                     inputProdukHander(
                                         "harga_jual",
@@ -204,7 +223,8 @@ function TambahProduk() {
                                 type="email"
                                 className="form-control"
                                 id="inputEmail3"
-                                placeholder="Email"
+                                placeholder="Internal Refrence"
+                                value={produk.internal_reference}
                                 onChange={(e) => {
                                     inputProdukHander(
                                         "internal_reference",
@@ -266,5 +286,4 @@ function TambahProduk() {
         </div>
     );
 }
-
-ReactDOM.render(<TambahProduk />, document.getElementById("form-produk"));
+ReactDOM.render(<UpdateProduk />, document.getElementById("form-produk"));

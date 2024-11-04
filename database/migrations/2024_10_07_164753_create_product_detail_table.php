@@ -13,8 +13,8 @@ class CreateProductDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_detail', function (Blueprint $table) {
-            $table->bigIncrements("detail_product_id");
+        Schema::create('ProductComponents', function (Blueprint $table) {
+            $table->bigIncrements("id");
             $table->bigInteger("product_id");
             $table->bigInteger("component_id");
         });
@@ -27,6 +27,6 @@ class CreateProductDetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_detail');
+        Schema::dropIfExists('ProductComponents');
     }
 }

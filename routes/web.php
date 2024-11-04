@@ -51,7 +51,19 @@ Route::controller(ManufacturingController::class)->group(function () {
 
 Route::controller(ProdukController::class)->group(function () {
     Route::get("/produk", 'index')->name('produk');
+    Route::get("/produk/tambah", "create")->name("produk");
+    Route::post("/produk/tambah_data", "storeProduk")->name("produk");
+});
+
+Route::controller(ProdukController::class)->group(function () {
+    Route::get("/produk", 'index')->name('produk');
+    Route::get("/produk/get_produk", 'getProductData')->name("produk");
+    Route::get("/get_kategori", "getKategori")->name("produk");
     Route::get("/produk/tambah_produk", 'create')->name('produk');
+    Route::get("/produk/update_produk/{id}", "edit")->name("produk");
+    Route::get("/produk/show/{id}", "show")->name("produk");
+    Route::post("/produk/tambah_data", 'store')->name("produk");
+    Route::delete("/produk/hapus_data/{id}", "destroy")->name("produk");
 });
 Route::controller(BahanController::class)->group(function () {
     Route::get("/bahan", 'index')->name('bahan');

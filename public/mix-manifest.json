@@ -3,6 +3,7 @@
     "/js/manufacturing.js": "/js/manufacturing.js",
     "/js/tambahproduk.js": "/js/tambahproduk.js",
     "/js/produk.js": "/js/produk.js",
+    "/js/updateproduk.js": "/js/updateproduk.js",
     "/js/bahan.js": "/js/bahan.js",
     "/js/tambah_bom.js": "/js/tambah_bom.js",
     "/js/bom.js": "/js/bom.js",
