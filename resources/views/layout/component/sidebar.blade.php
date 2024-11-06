@@ -33,13 +33,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/manufacturing" class="nav-link {{ $nama == 'manufacturing' ? 'active' : '' }}">
+                    <a href="/produk" class="nav-link {{ $nama == 'manufacturing' ? 'active' : '' }}">
                         <i class="fas nav-icon fa-box"></i>
                         <p>Produk</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/manufacturing" class="nav-link {{ $nama == 'bahan' ? 'active' : '' }}">
+                    <a href="/bahan" class="nav-link {{ $nama == 'bahan' ? 'active' : '' }}">
                         <i class="fas nav-icon fa-industry"></i>
                         <p>Bahan</p>
                     </a>
