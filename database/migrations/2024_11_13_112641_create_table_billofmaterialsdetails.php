@@ -13,7 +13,7 @@ class CreateTableBillofmaterialsdetails extends Migration
      */
     public function up()
     {
-        Schema::create('table_billofmaterialsdetails', function (Blueprint $table) {
+        Schema::create('billofmaterialsdetails', function (Blueprint $table) {
             $table->char("id", 20);
             $table->bigInteger("components_id")->unsigned();
             $table->float("quantity");
