@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\manufacturing_order;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ManufacturingOrderController extends Controller
 {
@@ -26,7 +28,14 @@ class ManufacturingOrderController extends Controller
     {
         return view("manufacturing_order.mo_detail", ["nama" => "manufacturing order"]);
     }
-
+    public function getProductData()
+    {
+        return Product::getProduct();
+    }
+    public function getBomData($id)
+    {
+        //return DB::table("billofmaterials")->where("id", "=", "")->get();
+    }
     /**
      * Store a newly created resource in storage.
      *
