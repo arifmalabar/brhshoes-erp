@@ -33,7 +33,29 @@ Produk
                                 </tr>
                             </thead>
                             <tbody id="product-data">
-
+                                <tr>
+                                    <td>1</td>
+                                    <td>asas</td>
+                                    <td>asas</td>
+                                    <td>
+                                        <center>
+                                            <button
+                                                class="btn btn-outline-info btn-sm"
+                                                
+                                            >
+                                                <i class="fas fa-pencil-alt"></i>&nbsp;Ubah
+                                            </button>
+                                            &nbsp;
+                                            <button
+                                                type="button"
+                                                class="btn btn-outline-danger btn-sm"
+                                                
+                                            >
+                                                <i class="fas fa-trash-alt"></i>&nbsp;Hapus
+                                            </button>
+                                        </center>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -135,7 +157,6 @@ Produk
 </div>
 @endsection
 @section('js')
-<script src="{{ mix('js/produk.js') }}"></script>
 <script>
     window.csrf_token = "{{ csrf_token() }}"
     $(function() {
