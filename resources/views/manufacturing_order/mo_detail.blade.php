@@ -7,7 +7,7 @@ Manufacturing Order Detail
 @endsection
 @section('content')
 <section class="content">
-    <div class="container">
+    <div class="container-fluid">
         <div class="card card-default">
             <div class="card-body p-0">
                 <div class="bs-stepper">

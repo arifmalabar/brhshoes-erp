@@ -13,7 +13,7 @@ class CreateManufacturingorderdetails extends Migration
      */
     public function up()
     {
-        Schema::create('manufacturingorderdetails', function (Blueprint $table) {
+        Schema::create('manufacturing_order_details', function (Blueprint $table) {
             $table->char("manufacturingorderdetails_id")->primary();
             $table->char("billofmaterialdetails_id");
             $table->float("needed");

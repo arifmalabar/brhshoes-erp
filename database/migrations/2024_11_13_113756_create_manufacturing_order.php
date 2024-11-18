@@ -13,7 +13,7 @@ class CreateManufacturingOrder extends Migration
      */
     public function up()
     {
-        Schema::create('manufacturingorders', function (Blueprint $table) {
+        Schema::create('manufacturing_orders', function (Blueprint $table) {
             $table->char("id", 20)->primary();
             $table->char("billofmaterials_id", 20);
             $table->float("quantity");
@@ -29,6 +29,6 @@ class CreateManufacturingOrder extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manufacturing_order');
+        Schema::dropIfExists('manufacturingorders');
     }
 }
