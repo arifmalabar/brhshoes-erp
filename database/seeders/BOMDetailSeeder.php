@@ -14,6 +14,14 @@ class BOMDetailSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table("billofmaterialsdetails")->insert(
+            [
+                "id" => "BOD001",
+                "billofmaterials_id" => "BOM001",
+                "components_id" => 1,
+                "quantity" => 1,
+                "price" => 45000 
+            ]
+        );
     }
 }
