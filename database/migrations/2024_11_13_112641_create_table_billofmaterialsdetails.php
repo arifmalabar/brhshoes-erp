@@ -14,7 +14,8 @@ class CreateTableBillofmaterialsdetails extends Migration
     public function up()
     {
         Schema::create('billofmaterialsdetails', function (Blueprint $table) {
-            $table->char("id", 20);
+            $table->char("id", 20)->primary();
+            $table->char("billofmaterials_id");
             $table->bigInteger("components_id")->unsigned();
             $table->float("quantity");
             $table->integer("price")->unsigned();
@@ -28,6 +29,6 @@ class CreateTableBillofmaterialsdetails extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_billofmaterialsdetails');
+        Schema::dropIfExists('billofmaterialsdetails');
     }
 }
