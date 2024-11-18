@@ -9,4 +9,12 @@ class Product extends Model
 {
     public $timestamps = false;
     use HasFactory;
+    public static function getProduct()
+    {
+        try {
+            return Product::get();
+        } catch (\Throwable $th) {
+            return [];
+        }
+    }
 }

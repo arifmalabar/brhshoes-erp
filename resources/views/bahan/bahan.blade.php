@@ -34,7 +34,31 @@
                                 </tr>
                             </thead>
                             <tbody id="product-data">
-                                
+                                <tr>
+                                    <td>1</td>
+                                    <td>asasa</td>
+                                    <td>aasas</td>
+                                    <td>
+                                        <center>
+                                            <button
+                                                class="btn btn-outline-info btn-sm"
+                                                data-toggle="modal"
+                                                data-target="#editRuanganModal"
+                                                data-kode=""
+                                                data-gedung=""
+                                                data-ruang=""
+                                                data-nomor=""
+                                                data-kapasitas=""
+                                            >
+                                                <i class="fas fa-pencil-alt"></i>&nbsp;Ubah
+                                            </button>
+                                            &nbsp;
+                                            <button type="button" class="btn btn-outline-danger btn-sm">
+                                                <i class="fas fa-trash-alt"></i>&nbsp;Hapus
+                                            </button>
+                                        </center>
+                                    </td>
+                                </tr> 
                             </tbody>
                         </table>
                     </div>
