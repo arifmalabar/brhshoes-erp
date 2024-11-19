@@ -28,7 +28,6 @@ Manufacturing Order
                             <th>Reference</th>
                             <th>Jadwal</th>
                             <th>Produk</th>
-                            <th>Bahan</th>
                             <th>Status</th>
                         </tr>
                     </thead>
@@ -39,11 +38,10 @@ Manufacturing Order
                         @foreach($data["mo_data"] as $key)
                         <tr>
                             <td>{{ $no++ }}</td>
-                            <td></td>
-                            <td>31-10-2024</td>
-                            <td>[PSS] Sepatu Sekolah</td>
-                            <td><span class="badge badge-success">Tersedia</span></td>
-                            <td><a href="/manufacturing_order/mo_detail" class="btn btn-primary btn-sm">Draf</a>
+                            <td>{{ $key->id }}</td>
+                            <td>{{ $key->schedule }} - {{ $key->late }}</td>
+                            <td>{{ $key->nama_produk }}</td>
+                            <td><a href="/manufacturing_order/mo_detail/{{ $key->id }}" class="btn btn-primary btn-sm">Draf</a>
                             </td>
                         </tr>
                         @endforeach
@@ -77,7 +75,7 @@ Manufacturing Order
                                             <label class="col-sm-2 col-form-label" for="">Bill Of Material
                                                 <sup>*</sup></label>
                                             <div class="col-sm-10">
-                                                <select name="" id="" class="form-control">
+                                                <select name="" id="bom-data" class="form-control">
                                                     <option value="SP001">[PSS] Sepatu Sekolah</option>
                                                 </select>
                                             </div>
@@ -126,6 +124,7 @@ Manufacturing Order
 </section>
 @endsection
 @section('js')
+
 <script>
     $('.select2').select2();
 

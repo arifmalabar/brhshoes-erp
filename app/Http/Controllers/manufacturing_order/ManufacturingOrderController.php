@@ -18,9 +18,21 @@ class ManufacturingOrderController extends Controller
     public function index()
     {
         $data = array(
-            "mo_data" => $this->getData(),
+            "mo_data" => $this->getMoData(),
         );
         return view("manufacturing_order.manufacturing_order", ["nama" => "manufacturing order", "data"  => $data]);
+    }
+    private function getMoData()
+    {
+        try {
+            return $this->model
+                        ->join("products", "products.id", "=", "manufacturing_orders.products_id")
+                        
+                        ->get();
+            
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), 400);
+        }
     }
 
     public function create()
@@ -42,7 +54,10 @@ class ManufacturingOrderController extends Controller
     public function getDetailBom($id)
     {
         try {
-            return DB::table("billofmaterialsdetails")->where("billofmaterials_id", "=", $id)->get();
+            return DB::table("billofmaterialsdetails")
+                    ->join("components", "components.id", "=", "billofmaterialsdetails.components_id")
+                    ->where("billofmaterials_id", "=", $id)
+                    ->get();
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), 400);
         }

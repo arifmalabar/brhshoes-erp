@@ -16,7 +16,7 @@ Tambah Manufacturing
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label" for="">Produk <sup>*</sup></label>
                             <div class="col-sm-10">
-                                <select name="" id="" class="form-control select2bs4">
+                                <select name="" id="product-data" class="form-control select2bs4">
                                     <option value="SP001">Sepatu Sekolah</option>
                                 </select>
                             </div>
@@ -27,32 +27,41 @@ Tambah Manufacturing
                             <label class="col-sm-2 col-form-label" for="">Bill Of Material
                                 <sup>*</sup></label>
                             <div class="col-sm-10">
-                                <select name="" id="" class="form-control select2bs4">
+                                <select name="" id="bom-data" class="form-control select2bs4">
                                     <option value="SP001">[PSS] Sepatu Sekolah</option>
                                 </select>
                             </div>
 
                         </div>
                     </div>
+                    
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label" for="">Kuantitas <sup>*</sup></label>
-                            <div class="col-sm-10">
-                                <input type="number" class="form-control" name="NIK"
-                                    placeholder="Masukan Masukan Kuantias" value="100" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label" for="">Jadwal <sup>*</sup></label>
+                            <label class="col-sm-2 col-form-label" for="">Jadwal Awal<sup>*</sup></label>
                             <div class="col-sm-10">
                                 <input type="date" class="form-control" name="NIK"
                                     placeholder="Masukan Nama Produk" value="2024-10-24" required>
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="">Estimasi Selesai <sup>*</sup></label>
+                            <div class="col-sm-10">
+                                <input type="date" class="form-control" name="NIK"
+                                    placeholder="Masukan Nama Produk" value="2024-10-24" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label class="col-sm-1 col-form-label" for="">Kuantitas <sup>*</sup></label>
+                            <div class="col-sm-11">
+                                <input type="number" class="form-control" name="NIK"
+                                    placeholder="Masukan Masukan Kuantias" value="100" required>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-12">
                         <br>
                         <table id="example2" style="text-align: center"
@@ -60,7 +69,7 @@ Tambah Manufacturing
                             <thead>
                                 <tr>
                                     <th>Komponen</th>
-                                    <th>Membutuhkan</th>
+                                    <th>Disediakan</th>
 
                                 </tr>
                             </thead>
@@ -81,6 +90,7 @@ Tambah Manufacturing
 </section>
 @endsection
 @section('js')
+<script src="{{ asset("js/manufacturingorder/index.js") }}"  type="module"></script>
 <script>
     const dt = [
         {
@@ -136,6 +146,7 @@ Tambah Manufacturing
     ]
     let no = 1;
     $(function() {
+            
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -145,52 +156,7 @@ Tambah Manufacturing
                 "autoWidth": false,
                 "responsive": true,
                 "bDestroy": true,   
-                data : dt,
-                columns: [
-                    {
-                        data : 'komponen',
-                    },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return `${row.membutuhkan} ${row.satuan}`
-                        }
-                    }
-                ]
-            });
-            $('#example3').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "bDestroy": true,   
-                data : dt,
-                columns: [
-                    {
-                        data : 'komponen',
-                    },
-                    {
-                        data : null,
-                        render: function (data, type, row) {
-                            return `${row.membutuhkan} ${row.satuan}`
-                        }
-                    },
-                    {
-                        data : null,
-                        render: function (data, type, row) {
-                            return `${row.membutuhkan} ${row.satuan}`
-                        }
-                    },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return 0
-                        }
-                    }
-                ]
+                
             });
             $('#example1').DataTable({
                 "paging": true,
