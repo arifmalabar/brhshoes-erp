@@ -15,7 +15,7 @@ Manufacturing Order
                     <button href="#" class="btn btn-outline-warning btn-sm"><i
                             class="fa fa-sort"></i>&nbsp;Sorting</button>
 
-                    <a href="#" class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-xl"><i
+                    <a href="/manufacturing_order/tambah" class="btn btn-sm btn-success"><i
                             class="fa fa-plus"></i>&nbsp;Manufacturing
                         Order</a>
                 </div>
@@ -29,19 +29,24 @@ Manufacturing Order
                             <th>Jadwal</th>
                             <th>Produk</th>
                             <th>Status</th>
+                            <th>Opsi</th>
                         </tr>
                     </thead>
                     <tbody>
                         @php
-                            $no = 1;
+                        $no = 1;
                         @endphp
                         @foreach($data["mo_data"] as $key)
                         <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $key->id }}</td>
+                            <td>{{ $key->nama_produk }}</td>
                             <td>{{ $key->schedule }} - {{ $key->late }}</td>
                             <td>{{ $key->nama_produk }}</td>
-                            <td><a href="/manufacturing_order/mo_detail/{{ $key->id }}" class="btn btn-primary btn-sm">Draf</a>
+                            <td><span class="badge badge-info">Draf</span>
+                            </td>
+                            <td>
+                                <a href="/manufacturing_order/mo_detail/{{ $key->id }}"
+                                    class="btn btn-sm btn-outline-info">Detail</a>
                             </td>
                         </tr>
                         @endforeach
@@ -98,16 +103,14 @@ Manufacturing Order
                                                 <sup>*</sup></label>
                                             <div class="col-sm-10">
                                                 <input type="date" class="form-control" name="NIK"
-                                                    placeholder="Masukan Nama Produk" value="2024-10-24"
-                                                    required>
+                                                    placeholder="Masukan Nama Produk" value="2024-10-24" required>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-default"
-                                    data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>

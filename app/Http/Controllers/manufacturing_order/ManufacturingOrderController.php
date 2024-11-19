@@ -66,7 +66,12 @@ class ManufacturingOrderController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        return $this->insertData($data);
+        $data["id"] = $this->model->getId();
+        try {
+            return $this->model->insert($data);
+        } catch (\Throwable $th) {
+            return response()->json("Error as: ".$th->getMessage(), 400);
+        }
     }
 
     public function show($id)
@@ -76,7 +81,7 @@ class ManufacturingOrderController extends Controller
 
     public function edit($id)
     {
-        return view("manufacturing_order.mo_detail", ["nama" => "manufacturing order", "data" => $this->findData($id)]);
+        return view("manufacturing_order.mo_detail", ["nama" => "manufacturing order", "data" => ""]);
     }
 
 

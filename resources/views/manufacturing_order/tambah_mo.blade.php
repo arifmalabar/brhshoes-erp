@@ -11,7 +11,7 @@ Tambah Manufacturing
         <div class="card card-default">
             <div class="card-body">
                 <div class="row">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <input type="hidden" id="csrf_token" value="{{ csrf_token() }}">
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label" for="">Produk <sup>*</sup></label>
@@ -34,38 +34,33 @@ Tambah Manufacturing
 
                         </div>
                     </div>
-                    
+
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-sm-2 col-form-label" for="">Jadwal Awal<sup>*</sup></label>
+                            <label class="col-sm-2 col-form-label" for="">Kuantitas <sup>*</sup></label>
                             <div class="col-sm-10">
-                                <input type="date" class="form-control" name="NIK"
-                                    placeholder="Masukan Nama Produk" value="2024-10-24" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-2 col-form-label" for="">Estimasi Selesai <sup>*</sup></label>
-                            <div class="col-sm-10">
-                                <input type="date" class="form-control" name="NIK"
-                                    placeholder="Masukan Nama Produk" value="2024-10-24" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group row">
-                            <label class="col-sm-1 col-form-label" for="">Kuantitas <sup>*</sup></label>
-                            <div class="col-sm-11">
-                                <input type="number" class="form-control" name="NIK"
+                                <input type="number" class="form-control" id="kuantitas"
                                     placeholder="Masukan Masukan Kuantias" value="100" required>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label" for="">Estimasi <sup>*</sup></label>
+                            <div class="col-sm-5">
+                                <input type="date" class="form-control" id="et-mulai" placeholder="Masukan Nama Produk"
+                                    value="2024-10-24" required>
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="date" class="form-control" id="et-selesai" name="NIK"
+                                    placeholder="Masukan Nama Produk" value="2024-10-24" required>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-12">
                         <br>
-                        <table id="example2" style="text-align: center"
-                            class="table table-bordered table-hover">
+                        <table id="example2" style="text-align: center" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
                                     <th>Komponen</th>
@@ -81,7 +76,8 @@ Tambah Manufacturing
                     </div>
                     <div class="col-md-12">
                         <br>
-                        <button class="btn btn-success btn-sm float-right">Tambah Manufacturing Order</button>
+                        <button class="btn btn-success btn-sm float-right btn-tambah">Tambah Manufacturing
+                            Order</button>
                     </div>
                 </div>
             </div>
@@ -90,7 +86,8 @@ Tambah Manufacturing
 </section>
 @endsection
 @section('js')
-<script src="{{ asset("js/manufacturingorder/index.js") }}"  type="module"></script>
+<script src="{{ asset('js/manufacturingorder/index.js') }}" type="module"></script>
+<script src="{{ asset('js/manufacturingorder/tambah/index.js') }}" type="module"></script>
 <script>
     const dt = [
         {

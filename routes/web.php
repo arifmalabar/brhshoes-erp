@@ -77,10 +77,11 @@ Route::controller(BomController::class)->group(function (){
 Route::controller(ManufacturingOrderController::class)->group(function ()  {
     Route::get("/manufacturing_order", 'index')->name('manufacturing_order');
     Route::get("/manufacturing_order/tambah", "create")->name('manufacturing_order');
-    Route::get("/manufacturing_order/mo_detail/{id}", 'create')->name('manufacturing_order');
+    Route::get("/manufacturing_order/mo_detail/{id}", 'edit')->name('manufacturing_order');
     Route::get("/manufacturing_order/product_data", "getProductData");
     Route::get("/manufacturing_order/bom_data/{id}", "getBomData");
     Route::get("/manufacturing_order/detail_bom_data/{id}", "getDetailBom");
+    Route::post("/manufacturing_order/tambah_data", "store");
 });
 Route::controller(VendorController::class)->group(function () {
     Route::get("/vendor/perusahaan", 'perusahaan')->name('vendor');

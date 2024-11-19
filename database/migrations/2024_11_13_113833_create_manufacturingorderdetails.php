@@ -29,6 +29,6 @@ class CreateManufacturingorderdetails extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('manufacturingorderdetails');
+        Schema::dropIfExists('manufacturing_order_details');
     }
 }
