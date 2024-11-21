@@ -82,7 +82,14 @@
 
                     </ul>
                 </li>
-
+                <li class="nav-header">Sales</li>
+                <li class="nav-item">
+                    <a href="/customer" class="nav-link {{ $nama == 'customer' ? 'active' : '' }}">
+                        <i class="fas nav-icon fa-users">
+                        </i>
+                        <p>Customer</p>
+                    </a>
+                </li>
 
 
             </ul>
