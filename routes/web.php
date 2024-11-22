@@ -91,6 +91,7 @@ Route::controller(VendorController::class)->group(function () {
 Route::controller(CustomerContoller::class)->group(function() {
     $cust = "/customer";
     Route::get($cust, "index")->name("customer");
+    Route::get($cust."/data", "getCustomerData");
     Route::post($cust."/tambah", "store");
     Route::put($cust."/update/{id}", "update");
     Route::delete($cust."/delete/{id}", "destroy");

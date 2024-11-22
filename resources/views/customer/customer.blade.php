@@ -31,20 +31,7 @@ Customer
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($cust_data as $key)
-                                <tr>
-                                    <td>{{ $key->id }}</td>
-                                    <td>{{ $key->name }}</td>
-                                    <td>{{ $key->notelp }}</td>
-                                    <td>
-                                        <a href="#" onclick="" class="btn btn-outline-info btn-sm" id="update-customer" data-toggle="modal"
-                                            data-target="#modal-update" data-id="{{ $key->id }}" data-nik="{{ $key->NIK }}" data-nama="{{ $key->name }}" data-notelp="{{ $key->notelp }}" data-email="{{ $key->email }}" data-alamat="{{ $key->alamat }}"><i
-                                                class="fa fa-edit"></i> Update</a>
-                                        <a href="#" class="btn btn-outline-danger btn-sm"><i class="fa fa-trash"></i>
-                                            Hapus</a>
-                                    </td>
-                                </tr>
-                                @endforeach
+
                             </tbody>
                         </table>
                         <!--modal-->
@@ -101,7 +88,7 @@ Customer
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button class="btn btn-default float-left" data-dismiss="modal">Clear</button>
-                                        <button class="btn btn-success btn-proses">Tambah</button>
+                                        <button class="btn btn-success btn-proses" data-dismiss="modal">Tambah</button>
                                     </div>
                                 </div>
                             </div>
@@ -122,8 +109,8 @@ Customer
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">NIK</label>
-                                                    <input type="number" name="update-nik" id="update-nik" placeholder="Masukan NIK"
-                                                        class="form-control">
+                                                    <input type="number" name="update-nik" id="update-nik"
+                                                        placeholder="Masukan NIK" class="form-control">
                                                     <input type="hidden" class="id_customer">
                                                     <input type="hidden" class="csrf" value="{{ csrf_token() }}">
                                                 </div>
@@ -131,22 +118,22 @@ Customer
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">Nama</label>
-                                                    <input type="text" name="update-nama" id="" placeholder="Masukan Nama"
-                                                        class="form-control">
+                                                    <input type="text" name="update-nama" id=""
+                                                        placeholder="Masukan Nama" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">No Telp</label>
-                                                    <input type="number" name="update-notelp" placeholder="Masukan Notelp"
-                                                        id="" class="form-control">
+                                                    <input type="number" name="update-notelp"
+                                                        placeholder="Masukan Notelp" id="" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="">Email</label>
-                                                    <input type="email" name="update-email" id="update-email" placeholder="roa@email.id" id=""
-                                                        class="form-control">
+                                                    <input type="email" name="update-email" id="update-email"
+                                                        placeholder="roa@email.id" id="" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-12">
@@ -160,7 +147,7 @@ Customer
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button class="btn btn-default float-left" data-dismiss="modal">Clear</button>
-                                        <button class="btn btn-warning btn-update">Update</button>
+                                        <button class="btn btn-warning btn-update" data-dismiss="modal">Update</button>
                                     </div>
                                 </div>
                             </div>
@@ -173,8 +160,10 @@ Customer
 </section>
 @endsection
 @section('js')
+<script type="module" src="{{ asset('js/customer/index.js') }}"></script>
 <script type="module" src="{{ asset('js/customer/tambah/index.js') }}"></script>
 <script type="module" src="{{ asset('js/customer/update/index.js') }}"></script>
+<script type="module" src="{{ asset('js/customer/delete/index.js') }}"></script>
 <script>
     $("#modal-update").on('show.bs.modal', function (e) {
         let button = $(e.relatedTarget);
@@ -192,14 +181,6 @@ Customer
         $("input[name='update-email']").val(email);
         $(".update-alamat").val(alamat);
     });
-    $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
+    
 </script>
 @endsection

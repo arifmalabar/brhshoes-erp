@@ -1,4 +1,5 @@
 import { tambah_customer, update_customer } from "../../config/end_point.js";
+import { fecthCustomer } from "../customer.js";
 
 export function init() {
     $(".btn-update").on("click", function () {
@@ -25,7 +26,13 @@ async function prosesData() {
         });
         if (response.status == 200) {
             const data = await response.json();
-            window.location.href = "/customer";
+            //window.location.href = "/customer";
+            Swal.fire({
+                title: "Berhasil",
+                text: "Berhasil mengubah data",
+                icon: "success",
+            });
+            fecthCustomer();
         } else if (response.status == 400) {
             const error = await response.json();
             console.log(error);

@@ -21,7 +21,7 @@ class CustomerContoller extends Controller
     {
         $data = array(
             "nama" => "customer",
-            "cust_data" => $this->getCustomerData()
+            "cust_data" => []
         );
         return view("customer/customer", $data);
     }
@@ -30,7 +30,7 @@ class CustomerContoller extends Controller
         try {
             return Customer::get();
         } catch (\Throwable $th) {
-            return [];
+            return response()->json($th->getMessage(), 400);
         }
     }
     /**
