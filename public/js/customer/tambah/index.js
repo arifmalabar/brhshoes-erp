@@ -1,3 +1,3 @@
-import { TambahCustomer } from "./tambah_customer.js";
+import { init } from "./tambah_customer.js";
 
-new TambahCustomer();
+init();

@@ -1,28 +1,29 @@
-import { tambah_customer } from "../../config/end_point.js";
+import { tambah_customer, update_customer } from "../../config/end_point.js";
 
 export function init() {
-    $(".btn-proses").on("click", function () {
+    $(".btn-update").on("click", function () {
         prosesData();
     });
 }
 async function prosesData() {
     let data = {
-        NIK: $("input[name='nik']").val(),
-        name: $("input[name='nama']").val(),
-        notelp: $("input[name='notelp']").val(),
-        email: $("input[name='email']").val(),
-        alamat: $("#alamat").val(),
+        NIK: $("input[name='update-nik']").val(),
+        name: $("input[name='update-nama']").val(),
+        notelp: $("input[name='update-notelp']").val(),
+        email: $("input[name='update-email']").val(),
+        alamat: $(".update-alamat").val(),
     };
+    let id = $(".id_customer").val();
     try {
-        const response = await fetch(tambah_customer, {
+        const response = await fetch(`${update_customer}/${id}`, {
             headers: {
                 "Content-Type": "application/json",
-                "X-CSRF-TOKEN": $("#csrf").val(),
+                "X-CSRF-TOKEN": $(".csrf").val(),
             },
             body: JSON.stringify(data),
-            method: "POST",
+            method: "PUT",
         });
-        if (response.status == 201 || response.status == 200) {
+        if (response.status == 200) {
             const data = await response.json();
             window.location.href = "/customer";
         } else if (response.status == 400) {

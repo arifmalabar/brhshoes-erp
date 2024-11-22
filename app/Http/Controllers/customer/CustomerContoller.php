@@ -30,7 +30,7 @@ class CustomerContoller extends Controller
         try {
             return Customer::get();
         } catch (\Throwable $th) {
-            return "Error".$th->getMessage();
+            return [];
         }
     }
     /**
