@@ -76,6 +76,7 @@ Route::controller(BomController::class)->group(function (){
 });
 Route::controller(ManufacturingOrderController::class)->group(function ()  {
     Route::get("/manufacturing_order", 'index')->name('manufacturing_order');
+    Route::get("/manufacturing_order/detail/{id}", "show");
     Route::get("/manufacturing_order/tambah", "create")->name('manufacturing_order');
     Route::get("/manufacturing_order/mo_detail/{id}", 'edit')->name('manufacturing_order');
     Route::get("/manufacturing_order/product_data", "getProductData");

@@ -8,6 +8,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Exception;
+use PhpParser\Node\Stmt\Catch_;
 
 class ManufacturingOrderController extends Controller
 {
@@ -22,13 +23,18 @@ class ManufacturingOrderController extends Controller
         );
         return view("manufacturing_order.manufacturing_order", ["nama" => "manufacturing order", "data"  => $data]);
     }
+    private function baseData()
+    {
+        try {
+            return $this->model->join("products", "products.id", "=", "manufacturing_orders.products_id");
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), 400);
+        }
+    }
     private function getMoData()
     {
         try {
-            return $this->model
-                        ->join("products", "products.id", "=", "manufacturing_orders.products_id")
-                        
-                        ->get();
+            return $this->baseData()->get();
             
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), 400);
@@ -76,7 +82,12 @@ class ManufacturingOrderController extends Controller
 
     public function show($id)
     {
-        //
+        try {
+            $query = $this->baseData()->where("manufacturing_orders.id", "=", $id)->get();
+            return response()->json($query, 200);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), 400);
+        }
     }
 
     public function edit($id)

@@ -99,7 +99,15 @@ Manufacturing Order Detail
 
                                     </table>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-6 btn-update-place">
+                                    <br>
+                                    <button class="btn btn-warning text-white next-btn float-left"
+                                        onclick="stepper.next()" id="custom-tabs-four-profile-tab" data-toggle="pill"
+                                        href="#custom-tabs-four-profile" role="tab"
+                                        aria-controls="custom-tabs-four-profile" aria-selected="false"><i
+                                            class="fa fa-solid fa-edit"></i>&nbsp;Update</button>
+                                </div>
+                                <div class="col-md-6">
                                     <br>
                                     <button class="btn btn-info text-white next-btn float-right"
                                         onclick="stepper.next()" id="custom-tabs-four-profile-tab" data-toggle="pill"
