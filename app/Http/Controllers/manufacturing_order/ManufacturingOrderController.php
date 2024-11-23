@@ -26,7 +26,7 @@ class ManufacturingOrderController extends Controller
     private function baseData()
     {
         try {
-            return $this->model->join("products", "products.id", "=", "manufacturing_orders.products_id");
+            return $this->model->select("id as mo_id, products.id as product_id, products.nama_produk as nama_produk, quantity, schedule, late, products_id, status")->join("products", "products.id", "=", "manufacturing_orders.products_id");
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), 400);
         }
