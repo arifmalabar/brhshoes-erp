@@ -18,6 +18,26 @@ export async function getData(url) {
         alert(error);
     }
 }
+export async function getDetailData(url, id) {
+    try {
+        const response = await fetch(`${url}/${id}`);
+        switch (response.status) {
+            case 200:
+                const data = await response.json();
+                return data;
+                break;
+            case 400:
+                const error = await response.json();
+                throw new Error(error);
+                break;
+            default:
+                throw new Error(await response.status);
+                break;
+        }
+    } catch (error) {
+        alert(error);
+    }
+}
 export async function deleteData(url, id) {
     try {
         const response = await fetch(`${url}/${id}`, {

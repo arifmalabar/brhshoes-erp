@@ -47,7 +47,7 @@ Manufacturing Order Detail
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label" for="">Produk <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <select name="" id="" class="form-control select2bs4">
+                                            <select name="" id="product-data" class="form-control select2bs4">
                                                 <option value="SP001">Sepatu Sekolah</option>
                                             </select>
                                         </div>
@@ -58,7 +58,7 @@ Manufacturing Order Detail
                                         <label class="col-sm-2 col-form-label" for="">Bill Of Material
                                             <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <select name="" id="" class="form-control select2bs4">
+                                            <select name="" id="bom-data" class="form-control select2bs4">
                                                 <option value="SP001">[PSS] Sepatu Sekolah</option>
                                             </select>
                                         </div>
@@ -69,16 +69,20 @@ Manufacturing Order Detail
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label" for="">Kuantitas <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="NIK"
+                                            <input type="number" class="form-control" name="NIK" id="kuantitas"
                                                 placeholder="Masukan Masukan Kuantias" value="100" required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Jadwal <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <input type="date" class="form-control" name="NIK"
+                                        <label class="col-sm-2 col-form-label" for="">Estimasi <sup>*</sup></label>
+                                        <div class="col-sm-5">
+                                            <input type="date" class="form-control" id="et-mulai"
+                                                placeholder="Masukan Nama Produk" value="2024-10-24" required>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <input type="date" class="form-control" id="et-selesai" name="NIK"
                                                 placeholder="Masukan Nama Produk" value="2024-10-24" required>
                                         </div>
                                     </div>
@@ -125,7 +129,7 @@ Manufacturing Order Detail
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label" for="">Produk <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <select name="" id="" class="form-control select2bs4">
+                                            <select name="" id="product-data" class="form-control select2bs4">
                                                 <option value="SP001">Sepatu Sekolah</option>
                                             </select>
                                         </div>
@@ -193,10 +197,10 @@ Manufacturing Order Detail
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Produk <sup>*</sup></label>
+                                        <label class="col-sm-2 col-form-label" for="">Poduk <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <select name="" id="" class="form-control select2bs4">
-                                                <option value="SP001">Sepatu Sekolah</option>
+                                            <select name="" id="product-data" class="form-control select2bs4">
+                                                <option value="SP001">Sepau Sekolah</option>
                                             </select>
                                         </div>
                                     </div>
@@ -206,7 +210,7 @@ Manufacturing Order Detail
                                         <label class="col-sm-2 col-form-label" for="">Bill Of Material
                                             <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <select name="" id="" class="form-control select2bs4">
+                                            <select name="" id="bom-data" class="form-control select2bs4">
                                                 <option value="SP001">[PSS] Sepatu Sekolah</option>
                                             </select>
                                         </div>
@@ -264,6 +268,7 @@ Manufacturing Order Detail
 </section>
 @endsection
 @section('js')
+<script src="{{ asset('js/manufacturingorder/update/index.js') }}" type="module"></script>
 <script>
     const dt = [
         {
