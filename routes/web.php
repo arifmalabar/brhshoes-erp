@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\bahan\BahanController;
 use App\Http\Controllers\bom\BomController;
+use App\Http\Controllers\customer\CustomerContoller;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Models\Penghuni;
 use Illuminate\Support\Facades\Route;
@@ -87,6 +88,14 @@ Route::controller(ManufacturingOrderController::class)->group(function ()  {
 Route::controller(VendorController::class)->group(function () {
     Route::get("/vendor/perusahaan", 'perusahaan')->name('vendor');
     Route::get("/vendor/perorangan", "individu")->name("vendor");
+});
+Route::controller(CustomerContoller::class)->group(function() {
+    $cust = "/customer";
+    Route::get($cust, "index")->name("customer");
+    Route::get($cust."/data", "getCustomerData");
+    Route::post($cust."/tambah", "store");
+    Route::put($cust."/update/{id}", "update");
+    Route::delete($cust."/delete/{id}", "destroy");
 });
 
 // Route::get('/register', function () {
