@@ -165,6 +165,9 @@ Customer
 <script type="module" src="{{ asset('js/customer/update/index.js') }}"></script>
 <script type="module" src="{{ asset('js/customer/delete/index.js') }}"></script>
 <script>
+    window.data = {
+        token : "{{ csrf_token() }}"
+    };
     $("#modal-update").on('show.bs.modal', function (e) {
         let button = $(e.relatedTarget);
         let id = button.data("id");

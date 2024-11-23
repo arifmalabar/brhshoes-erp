@@ -1,4 +1,5 @@
 import { tambah_customer, update_customer } from "../../config/end_point.js";
+import { updateData } from "../../fecth/fetch.js";
 import { fecthCustomer } from "../customer.js";
 
 export function init() {
@@ -15,7 +16,9 @@ async function prosesData() {
         alamat: $(".update-alamat").val(),
     };
     let id = $(".id_customer").val();
-    try {
+    await updateData(update_customer, data, id);
+    fecthCustomer();
+    /*try {
         const response = await fetch(`${update_customer}/${id}`, {
             headers: {
                 "Content-Type": "application/json",
@@ -41,5 +44,5 @@ async function prosesData() {
         }
     } catch (error) {
         alert(error);
-    }
+    }*/
 }
