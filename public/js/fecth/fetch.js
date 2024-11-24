@@ -75,7 +75,7 @@ export async function postData(url, data) {
             method: "POST",
         });
         switch (response.status) {
-            case 200 || 201:
+            case 201:
                 const data = await response.json();
                 return data;
                 break;
