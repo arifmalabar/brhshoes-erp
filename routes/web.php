@@ -18,6 +18,7 @@ use App\Http\Controllers\manufacturing\ManufacturingController;
 use App\Http\Controllers\manufacturing_order\ManufacturingOrderController;
 use App\Http\Controllers\produk\ProdukController;
 use App\Http\Controllers\vendor\VendorController;
+use Illuminate\Routing\Route as RoutingRoute;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,12 @@ Route::controller(BomController::class)->group(function (){
     Route::get("/bill_material", 'index')->name('bom');
     Route::get("/bill_material/tambah", 'create')->name('bom');
     Route::get("bill_material/edit/{id}", "edit")->name("bom");
+    Route::get("/bill_material/show/{id)", "show")->name("bom");
+    Route::post("bill_material/tambah_data", 'store')->name("bom");
+    Route::delete("/bill_material/hapus_data/{id", "destroy")->name("bom");
+    Route::get("/bill_material/product_data", "getProductData")->name("bom");
+    Route::get("/bill_material", "getKategori")->name("bom");
+
 });
 Route::controller(ManufacturingOrderController::class)->group(function ()  {
     Route::get("/manufacturing_order", 'index')->name('manufacturing_order');
