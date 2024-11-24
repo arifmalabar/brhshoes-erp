@@ -78,7 +78,7 @@ Route::controller(BomController::class)->group(function (){
     Route::post("bill_material/tambah_data", 'store')->name("bom");
     Route::delete("/bill_material/hapus_data/{id", "destroy")->name("bom");
     Route::get("/bill_material/product_data", "getProductData")->name("bom");
-    Route::get("/bill_material", "getKategori")->name("bom");
+    Route::get("/get_kategori", "getKategori")->name("bom");
 
 });
 Route::controller(ManufacturingOrderController::class)->group(function ()  {

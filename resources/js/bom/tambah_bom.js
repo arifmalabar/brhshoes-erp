@@ -4,12 +4,12 @@ import axios from "axios";
 
 function TambahBom() {
     let [type, setType] = useState(0);
-    let [preview, setPreview] = useState(null);
     let [bom, setBom] = useState({
+        products_id: "",
+        categories_id: "",
         quantity: "",
         satuan: "",
-        price: "",
-    })
+    });
     let [produk, setProduk] = useState({
         nama_produk: "",
         kategori: "",
@@ -20,6 +20,7 @@ function TambahBom() {
         kuantitas: "",
         harga_modal: "",
     });
+    let [kategori, setKategori] = useState([]);
     const inputBomHandler = (index, value) => {
         setBom({...bom, [index]: value});
     };
@@ -29,6 +30,24 @@ function TambahBom() {
     const inputBahanHander = (index, value) => {
         setBahan({ ...bahan, [index]: value});
     };
+    const getKategori = async () => {
+        try {
+            let response = await axios.get("/get_kategori");
+            if (response.status == 200) {
+                const dt = await response.data;
+                setKategori(dt);
+            } else {
+                const err = await response.data;
+                throw new Error(`Error : ${err.message}`);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    useEffect(() => {
+        getKategori();
+        console.log(kategori);
+    }, []);
     async function postDataBom(){
         try {
             const response = await axios.post(
@@ -55,16 +74,22 @@ function TambahBom() {
                         Produk
                     </label>
                     <div className="col-sm-10">
-                    <input
-                                type="radio"
-                                id="produk"
-                                name="type"
-                                value={"produk"}
-                                onClick={(e) => {
-                                    setType(0);
-                                    setProduk({ ...produk});
-                                }}
-                            />{" "}
+                    <select
+                        className="form-control"
+                        onChange={(e) => {
+                            inputBomHandler(
+                                "products_id",
+                                e.target.value
+                            );
+                        }}
+                        >
+                            <option>Pilih Produk</option>
+                            {produk.map((e) => (
+                                <option value={e.products_id}>
+                                    {e.nama_produk}
+                                </option>
+                            ))}
+                    </select>
                     </div>
                 </div>
             </div>
@@ -77,19 +102,22 @@ function TambahBom() {
                         Kategori
                     </label>
                     <div className="col-sm-10">
-                        <select
-                            className="form-control select2bs4"
-                            style={{ width: "100%" }}
-                            onSelect={(e) => {
-                                inputProdukHandler(
-                                    "kategori",
-                                    e.target.value
-                                );
-                            }}
+                    <select
+                        className="form-control"
+                        onChange={(e) => {
+                            inputBomHandler(
+                                "categories_id",
+                                e.target.value
+                            );
+                        }}
                         >
-                            <option >Piih  Kategori</option>
-                            <option>---</option>
-                        </select>
+                            <option>Pilih Kategori</option>
+                            {kategori.map((e) => (
+                                <option value={e.categories_id}>
+                                    {e.nama_kategori}
+                                </option>
+                            ))}
+                    </select>
                     </div>
                 </div>
             </div>
@@ -107,8 +135,9 @@ function TambahBom() {
                             className="form-control"
                             placeholder="Masukan Kuantitas"
                             onChange={(e) => {
-                                inputBahanHander(
-                                    "kuantitas"
+                                inputBomHandler(
+                                    "quantity",
+                                    e.target.value
                                 );
                             }}
                         />
@@ -120,7 +149,8 @@ function TambahBom() {
                             placeholder="Satuan"
                             onChange={(e) => {
                                 inputBomHandler(
-                                    "satuan"
+                                    "satuan",
+                                    e.target.value
                                 );
                             }}
                         />
@@ -145,7 +175,8 @@ function TambahBom() {
 function Komposisi() {
     let data_komposisi = [
         {
-            bahan: "tali",
+            components_id: "",
+            jenis_bahan: "tali",
             kuantitas: 1,
             harga: 45000,
         },
@@ -154,7 +185,7 @@ function Komposisi() {
     return data_komposisi.map((e) => (
         <tr>
             <td>{no++}</td>
-            <td>{e.bahan}</td>
+            <td>{e.jenis_bahan}</td>
             <td>{e.kuantitas}</td>
             <td>{e.harga}</td>
             <td>
@@ -168,6 +199,31 @@ function Komposisi() {
     ));
 }
 function TambahKomposisi() {
+    let [bomDetail, setBomDetail] = useState({
+        components_id: "",
+        quantity: "",
+        price: "",
+    });
+
+    const inputBomDetailHander = (index, value) => {
+        setBomDetail({...bomDetail, [index]: value});
+    };
+
+    async function postDataBomDetail(){
+        try {
+            const response = await axios.post(
+                "bill_material/tambah_data", bom,
+                {
+                    Headers: {
+                        "X-CSRF-TOKEN": window.csrf_token,
+                    },
+                }
+            );
+            console.log(response,data);
+        } catch (error){
+            console.log(error);
+        }
+    }
     return (
         <div className="row">
             <div className="col-md-12">
@@ -177,14 +233,18 @@ function TambahKomposisi() {
                         className="form-control select2bs4"
                         style={{ width: "100%" }}
                         onChange={(e) => {
-                            inputBahanHander(
-                                "jenis_bahan",
+                            inputBomDetailHander(
+                                "components_id",
                                 e.target.value
                             );
                         }}
                     >
                         <option>Pilih Bahan</option>
-                        <option>---</option>
+                        {bomDetail.map((e) => (
+                            <option value={e.components_id}>
+                                {e.jenis_bahan}
+                            </option>
+                        ))}
                     </select>
                 </div>
             </div>
@@ -198,7 +258,7 @@ function TambahKomposisi() {
                                 placeholder="Masukan Kuantitas"
                                 onChange={(e) => {
                                     inputBahanHander(
-                                        "kuantitas",
+                                        "quantity",
                                         e.target.value
                                     );
                                 }}
