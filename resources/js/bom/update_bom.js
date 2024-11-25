@@ -21,6 +21,7 @@ function UpdateBom() {
         harga_modal: "",
     });
     let [kategori, setKategori] = useState([]);
+
     const inputBomHandler = (index, value) => {
         setBom({...bom, [index]: value});
     };
@@ -30,6 +31,7 @@ function UpdateBom() {
     const inputBahanHander = (index, value) => {
         setBahan({ ...bahan, [index]: value});
     };
+
     const getKategori = async () => {
         try {
             let response = await axios.get("/get_kategori");
@@ -44,10 +46,46 @@ function UpdateBom() {
             console.log(error);
         }
     };
+
+    const getComponent = async () => {
+        try {
+            let response = await axios.get("/get_component");
+            if (response.status == 200) {
+                const dt = await response.data;
+                setBahan(dt);
+            } else {
+                const err = await response.data;
+                throw new Error(`Error : ${err.message}`);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const getProduk = async () => {
+        try {
+            let response = await axios.get("/get_produk");
+            if (response.status == 200) {
+                const dt = await response.data;
+                setProduk(dt);
+            } else {
+                const err = await response.data;
+                throw new Error(`Error : ${err.message}`);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         getKategori();
+        getComponent();
+        getProduk();
         console.log(kategori);
-    }, []);
+        console.log(bahan);
+        console.log(produk);
+    }, []); 
+
     async function postDataBom(){
         try {
             const response = await axios.post(

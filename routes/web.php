@@ -79,7 +79,8 @@ Route::controller(BomController::class)->group(function (){
     Route::delete("/bill_material/hapus_data/{id", "destroy")->name("bom");
     Route::get("/bill_material/product_data", "getProductData")->name("bom");
     Route::get("/get_kategori", "getKategori")->name("bom");
-
+    Route::get("/get_component", "getComponent")->name("bom");
+    Route::get("/get_produk", "getProduk")->name("bom");
 });
 Route::controller(ManufacturingOrderController::class)->group(function ()  {
     Route::get("/manufacturing_order", 'index')->name('manufacturing_order');
