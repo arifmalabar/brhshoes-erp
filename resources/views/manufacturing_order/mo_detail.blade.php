@@ -4,6 +4,9 @@ active
 @endsection
 @section('judul')
 Manufacturing Order Detail
+@php
+
+@endphp
 @endsection
 @section('content')
 <section class="content">
@@ -48,7 +51,12 @@ Manufacturing Order Detail
                                         <label class="col-sm-2 col-form-label" for="">Produk <sup>*</sup></label>
                                         <div class="col-sm-10">
                                             <select name="" id="product-data" class="form-control select2bs4">
-                                                <option value="SP001">Sepatu Sekolah</option>
+                                                @foreach($data["data_produk"] as $key)
+                                                @if($data['mo_data']->product_id == $key->product_id)
+                                                <option selected value="{{ $key->id }}">{{ $key->nama_produk }}</option>
+                                                @endif
+                                                <option value="{{ $key->id }}">{{ $key->nama_produk }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -59,7 +67,12 @@ Manufacturing Order Detail
                                             <sup>*</sup></label>
                                         <div class="col-sm-10">
                                             <select name="" id="bom-data" class="form-control select2bs4">
-                                                <option value="SP001">[PSS] Sepatu Sekolah</option>
+                                                @foreach($data["data_bom"] as $key)
+                                                @if($data["mo_data"]->bom_id == $key->id)
+                                                <option selected value="{{ $key->id }}">{{ $key->id }}</option>
+                                                @endif
+                                                <option value="{{ $key->id }}">{{ $key->id }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
 
@@ -70,7 +83,8 @@ Manufacturing Order Detail
                                         <label class="col-sm-2 col-form-label" for="">Kuantitas <sup>*</sup></label>
                                         <div class="col-sm-10">
                                             <input type="number" class="form-control" name="NIK" id="kuantitas"
-                                                placeholder="Masukan Masukan Kuantias" value="100" required>
+                                                placeholder="Masukan Masukan Kuantias"
+                                                value="{{ $data['mo_data']->quantity }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -79,11 +93,13 @@ Manufacturing Order Detail
                                         <label class="col-sm-2 col-form-label" for="">Estimasi <sup>*</sup></label>
                                         <div class="col-sm-5">
                                             <input type="date" class="form-control" id="et-mulai"
-                                                placeholder="Masukan Nama Produk" value="2024-10-24" required>
+                                                placeholder="Masukan Nama Produk"
+                                                value="{{ $data['mo_data']->schedule }}" required>
                                         </div>
                                         <div class="col-sm-5">
                                             <input type="date" class="form-control" id="et-selesai" name="NIK"
-                                                placeholder="Masukan Nama Produk" value="2024-10-24" required>
+                                                placeholder="Masukan Nama Produk" value="{{ $data['mo_data']->late }}"
+                                                required>
                                         </div>
                                     </div>
                                 </div>
@@ -152,7 +168,7 @@ Manufacturing Order Detail
                                         <label class="col-sm-2 col-form-label" for="">Kuantitas <sup>*</sup></label>
                                         <div class="col-sm-10">
                                             <input type="number" class="form-control" name="NIK"
-                                                placeholder="Masukan Masukan Kuantias" value="100" required>
+                                                placeholder="Masukan Masukan Kuantias" value="19" required>
                                         </div>
                                     </div>
                                 </div>
@@ -221,8 +237,8 @@ Manufacturing Order Detail
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label" for="">Kuantitas <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="NIK"
-                                                placeholder="Masukan Masukan Kuantias" value="100" required>
+                                            <input type="number" class="form-control" name="Kuantitias"
+                                                placeholder="Masukan Masukan Kuantias" value="10" required>
                                         </div>
                                     </div>
                                 </div>
@@ -268,7 +284,6 @@ Manufacturing Order Detail
 </section>
 @endsection
 @section('js')
-<script src="{{ asset('js/manufacturingorder/update/index.js') }}" type="module"></script>
 <script>
     const dt = [
         {

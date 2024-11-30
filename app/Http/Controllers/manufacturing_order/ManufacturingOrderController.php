@@ -26,7 +26,9 @@ class ManufacturingOrderController extends Controller
     private function baseData()
     {
         try {
-            return $this->model->select("id as mo_id, products.id as product_id, products.nama_produk as nama_produk, quantity, schedule, late, products_id, status")->join("products", "products.id", "=", "manufacturing_orders.products_id");
+            return $this->model->selectRaw("manufacturing_orders.id, nama_produk, schedule, late, manufacturing_orders.quantity, billofmaterials.id as bom_id, manufacturing_orders.products_id")
+                                ->join("products", "products.id", "=", "manufacturing_orders.products_id")
+                                ->join("billofmaterials", "billofmaterials.id", "=", "manufacturing_orders.billofmaterials_id");
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), 400);
         }
@@ -34,7 +36,9 @@ class ManufacturingOrderController extends Controller
     private function getMoData()
     {
         try {
-            return $this->baseData()->get();
+            return ManufacturingOrder::selectRaw("manufacturing_orders.id, nama_produk, schedule, late, quantity")
+                                        ->join("products", "products.id", "=", "manufacturing_orders.products_id")
+                                        ->get();
             
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), 400);
@@ -84,7 +88,8 @@ class ManufacturingOrderController extends Controller
     {
         try {
             $query = $this->baseData()->where("manufacturing_orders.id", "=", $id)->get();
-            return response()->json($query, 200);
+            
+            //return response()->json($query, 200);
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), 400);
         }
@@ -92,7 +97,19 @@ class ManufacturingOrderController extends Controller
 
     public function edit($id)
     {
-        return view("manufacturing_order.mo_detail", ["nama" => "manufacturing order", "data" => ""]);
+        try {
+            $query = $this->baseData()->where("manufacturing_orders.id", "=", $id)->first();
+            $data = array(
+                "mo_data" => $query,
+                "data_produk" => Product::get(),
+                "data_bom" => DB::table("billofmaterials")->get(),
+            );
+            return view("manufacturing_order.mo_detail", ["nama" => "manufacturing order", "data" => $data]);
+            //return response()->json($query, 200);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), 400);
+        }
+        
     }
 
 
