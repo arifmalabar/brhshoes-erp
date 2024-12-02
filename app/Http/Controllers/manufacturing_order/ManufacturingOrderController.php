@@ -26,7 +26,7 @@ class ManufacturingOrderController extends Controller
     private function baseData()
     {
         try {
-            return $this->model->selectRaw("manufacturing_orders.id, nama_produk, schedule, late, manufacturing_orders.quantity, billofmaterials.id as bom_id, manufacturing_orders.products_id")
+            return $this->model->selectRaw("manufacturing_orders.id, nama_produk, schedule, late, manufacturing_orders.quantity, billofmaterials.id as bom_id, manufacturing_orders.products_id, manufacturing_orders.status as status")
                                 ->join("products", "products.id", "=", "manufacturing_orders.products_id")
                                 ->join("billofmaterials", "billofmaterials.id", "=", "manufacturing_orders.billofmaterials_id");
         } catch (\Throwable $th) {
@@ -111,7 +111,18 @@ class ManufacturingOrderController extends Controller
         }
         
     }
-
+    public function onStep($id)
+    {
+        $mo_data = ManufacturingOrder::find($id);
+        $last = $mo_data->status;
+        $mo_data->status = $last + 1;
+        if($mo_data->status == 2)
+        {
+            //kurangi bahan tambah produk
+        }
+        $mo_data->save();
+        return back()->with("berhasil melakukan konfirmasi");
+    }
 
     public function update(Request $request, $id)
     {
