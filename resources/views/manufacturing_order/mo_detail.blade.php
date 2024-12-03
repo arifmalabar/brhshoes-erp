@@ -55,8 +55,9 @@ $modata = $data["mo_data"];
                                                 @foreach($data["data_produk"] as $key)
                                                 @if($modata->product_id == $key->product_id)
                                                 <option selected value="{{ $key->id }}">{{ $key->nama_produk }}</option>
-                                                @endif
+                                                @elseif($modata->product_id != $key->product_id)
                                                 <option value="{{ $key->id }}">{{ $key->nama_produk }}</option>
+                                                @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -71,8 +72,9 @@ $modata = $data["mo_data"];
                                                 @foreach($data["data_bom"] as $key)
                                                 @if($modata->bom_id == $key->id)
                                                 <option selected value="{{ $key->id }}">{{ $key->id }}</option>
-                                                @endif
+                                                @elseif($modata->bom_id != $key->id)
                                                 <option value="{{ $key->id }}">{{ $key->id }}</option>
+                                                @endif
                                                 @endforeach
                                             </select>
                                         </div>
@@ -150,8 +152,14 @@ $modata = $data["mo_data"];
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label" for="">Produk <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <select name="" id="product-data" class="form-control select2bs4">
-                                                <option value="SP001">Sepatu Sekolah</option>
+                                            <select name="" id="product-data" disabled class="form-control select2bs4">
+                                                @foreach($data["data_produk"] as $key)
+                                                @if($modata->product_id == $key->product_id)
+                                                <option selected value="{{ $key->id }}">{{ $key->nama_produk }}</option>
+                                                @elseif($modata->product_id != $key->product_id)
+                                                <option value="{{ $key->id }}">{{ $key->nama_produk }}</option>
+                                                @endif
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -161,8 +169,14 @@ $modata = $data["mo_data"];
                                         <label class="col-sm-2 col-form-label" for="">Bill Of Material
                                             <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <select name="" id="" class="form-control select2bs4">
-                                                <option value="SP001">[PSS] Sepatu Sekolah</option>
+                                            <select name="" id="bom-data" disabled class="form-control select2bs4">
+                                                @foreach($data["data_bom"] as $key)
+                                                @if($modata->bom_id == $key->id)
+                                                <option selected value="{{ $key->id }}">{{ $key->id }}</option>
+                                                @elseif($modata->bom_id != $key->id)
+                                                <option value="{{ $key->id }}">{{ $key->id }}</option>
+                                                @endif
+                                                @endforeach
                                             </select>
                                         </div>
 
@@ -172,17 +186,23 @@ $modata = $data["mo_data"];
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label" for="">Kuantitas <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="NIK"
-                                                placeholder="Masukan Masukan Kuantias" value="19" required>
+                                            <input type="number" disabled class="form-control" name="NIK" id="kuantitas"
+                                                placeholder="Masukan Masukan Kuantias" value="{{ $modata->quantity }}"
+                                                required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Jadwal <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <input type="date" class="form-control" name="NIK"
-                                                placeholder="Masukan Nama Produk" value="2024-10-24" required>
+                                        <label class="col-sm-2 col-form-label" for="">Estimasi <sup>*</sup></label>
+                                        <div class="col-sm-5">
+                                            <input type="date" class="form-control" disabled id="et-mulai"
+                                                placeholder="Masukan Nama Produk" value="{{ $modata->schedule }}"
+                                                required>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <input type="date" class="form-control" disabled id="et-selesai" name="NIK"
+                                                placeholder="Masukan Nama Produk" value="{{ $modata->late }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -218,7 +238,7 @@ $modata = $data["mo_data"];
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label" for="">Poduk <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <select name="" id="product-data" class="form-control select2bs4">
+                                            <select name="" id="product-data" disabled class="form-control select2bs4">
                                                 <option value="SP001">Sepau Sekolah</option>
                                             </select>
                                         </div>
@@ -261,7 +281,7 @@ $modata = $data["mo_data"];
                                             <tr>
                                                 <th>Komponen</th>
                                                 <th>Membutuhkan</th>
-                                                <th>Digunakan</th>
+                                                <th>Disediakan</th>
                                                 <th>Diproduksi</th>
                                             </tr>
                                         </thead>
@@ -287,6 +307,7 @@ $modata = $data["mo_data"];
 </section>
 @endsection
 @section('js')
+<script src="{{ asset('js/manufacturingorder/update/index.js') }}" type="module"></script>
 <script>
     $(".btn-konfirm").on("click", function (e) {
         e.preventDefault();
@@ -383,40 +404,7 @@ $modata = $data["mo_data"];
                     }
                 ]
             });
-            $('#example3').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "bDestroy": true,   
-                data : dt,
-                columns: [
-                    {
-                        data : 'komponen',
-                    },
-                    {
-                        data : null,
-                        render: function (data, type, row) {
-                            return `${row.membutuhkan} ${row.satuan}`
-                        }
-                    },
-                    {
-                        data : null,
-                        render: function (data, type, row) {
-                            return `${row.membutuhkan} ${row.satuan}`
-                        }
-                    },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return 0
-                        }
-                    }
-                ]
-            });
+            
             $('#example1').DataTable({
                 "paging": true,
                 "lengthChange": false,
@@ -461,8 +449,12 @@ $modata = $data["mo_data"];
         // BS-Stepper Init
         document.addEventListener('DOMContentLoaded', function() {
             window.stepper = new Stepper(document.querySelector('.bs-stepper'))
-            let status = $(".status").val();
-            window.stepper.to(status);
+            try {
+                let status = parseInt($(".status").val()) + 1;
+                window.stepper.to(status);
+            } catch (error) {
+                window.stepper.to(1);
+            }
         })
 </script>
 @endsection

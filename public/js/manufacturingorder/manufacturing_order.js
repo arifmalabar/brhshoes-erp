@@ -55,7 +55,7 @@ function showBomData(data) {
     });
     $("#bom-data").html(opt);
 }
-async function BomDetail(id) {
+export async function BomDetail(id) {
     try {
         const response = await fetch(`${bom_detail_data}/${id}`);
         if (response.status) {
