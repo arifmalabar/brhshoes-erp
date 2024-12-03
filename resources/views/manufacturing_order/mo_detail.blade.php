@@ -83,11 +83,11 @@ $modata = $data["mo_data"];
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Kuantitas <sup>*</sup></label>
+                                        <label class="col-sm-2 col-form-label" for="">Jml Produksi <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="NIK" id="kuantitas"
-                                                placeholder="Masukan Masukan Kuantias" value="{{ $modata->quantity }}"
-                                                required>
+                                            <input type="number" class="form-control jml_produksi" name="NIK"
+                                                id="kuantitas" placeholder="Masukan Masukan Kuantias"
+                                                value="{{ $modata->quantity }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -184,11 +184,11 @@ $modata = $data["mo_data"];
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Kuantitas <sup>*</sup></label>
+                                        <label class="col-sm-2 col-form-label" for="">Jml Produksi <sup>*</sup></label>
                                         <div class="col-sm-10">
-                                            <input type="number" disabled class="form-control" name="NIK" id="kuantitas"
-                                                placeholder="Masukan Masukan Kuantias" value="{{ $modata->quantity }}"
-                                                required>
+                                            <input type="number" disabled class="form-control jml_produksi" name="NIK"
+                                                id="kuantitas" placeholder="Masukan Masukan Kuantias"
+                                                value="{{ $modata->quantity }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -212,9 +212,9 @@ $modata = $data["mo_data"];
                                         <thead>
                                             <tr>
                                                 <th>Komponen</th>
-                                                <th>Membutuhkan</th>
-                                                <th>Digunakan</th>
-                                                <th>Diproduksi</th>
+                                                <th>Dibutuhkan</th>
+                                                <th>Disediakan</th>
+                                                <th>Dipakai</th>
                                             </tr>
                                         </thead>
                                         <tbody>

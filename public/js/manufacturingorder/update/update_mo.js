@@ -3,6 +3,7 @@ import { getDetailData } from "../../fecth/fetch.js";
 import { ProductData } from "../manufacturing_order.js";
 import { init as moDefault } from "../manufacturing_order.js";
 var status = $(".status").val();
+var jml_produksi = 0;
 export function init() {
     BomDetail($("#bom-data").val());
     $("#bom-data").on("change", function () {
@@ -15,6 +16,11 @@ export function init() {
             });
         }
     });
+    try {
+        jml_produksi = parseInt($(".jml_produksi").val());
+    } catch (error) {
+        jml_produksi = 0;
+    }
 }
 async function BomDetail(id) {
     try {
@@ -56,7 +62,7 @@ function tabelKonfirmasi(dt) {
             {
                 data: null,
                 render: function (data, type, row) {
-                    return `${row.kuantitas}`;
+                    return `${row.kuantitas * jml_produksi}`;
                 },
             },
         ],
@@ -79,10 +85,20 @@ function tabelCekKetersediaan(dt) {
                 data: "nama",
             },
             {
-                data: "quantity",
+                data: null,
+                render: function (data, type, row) {
+                    return `${row.kuantitas * jml_produksi}`;
+                },
             },
             {
-                data: "on_hand",
+                data: null,
+                render: function (data, type, row) {
+                    if (row.on_hand < row.kuantitas * jml_produksi) {
+                        return `<p class="text-danger">${row.on_hand}</p>`;
+                    } else {
+                        return `<p>${row.on_hand}</p>`;
+                    }
+                },
             },
             {
                 data: null,
