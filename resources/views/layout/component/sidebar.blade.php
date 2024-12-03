@@ -23,7 +23,8 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
                 <li class="nav-header">Menu Utama</li>
 
                 <li class="nav-item">
@@ -79,7 +80,30 @@
                                 <p>Perorangan</p>
                             </a>
                         </li>
-
+                    </ul>
+                </li>
+                <li class="nav-header">Purchase</li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link {{ $nama == 'purchase' ? 'active' : '' }}">
+                        <i class="fas fa-cart-plus"></i>
+                        <p>
+                            Purchase
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/purchase/rfq" class="nav-link {{ $nama == 'rfq' ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>RFQ</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>PO</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 

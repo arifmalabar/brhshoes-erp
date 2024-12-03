@@ -1,23 +1,24 @@
 <?php
 
-use App\Http\Controllers\bahan\BahanController;
-use App\Http\Controllers\bom\BomController;
-use App\Http\Controllers\dashboard\DashboardController;
 use App\Models\Penghuni;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\pembayaran\Bayar;
-use App\Http\Controllers\gedung\GedungController;
-use App\Http\Controllers\grafik_pendapatan\GrafikPendapatan;
-use App\Http\Controllers\grafik_penghuni\GrafikPenghuni;
-use App\Http\Controllers\ruangan\RuanganController;
-use App\Http\Controllers\penghuni\PenghuniController;
-use App\Http\Controllers\pembayaran\PembayaranController;
-use App\Http\Controllers\tagihan\TagihanController;
+use App\Http\Controllers\bom\BomController;
+use App\Http\Controllers\rfq\RfqController;
+use App\Http\Controllers\bahan\BahanController;
 use App\Http\Controllers\Login\LoginController;
-use App\Http\Controllers\manufacturing\ManufacturingController;
-use App\Http\Controllers\manufacturing_order\ManufacturingOrderController;
+use App\Http\Controllers\gedung\GedungController;
 use App\Http\Controllers\produk\ProdukController;
 use App\Http\Controllers\vendor\VendorController;
+use App\Http\Controllers\ruangan\RuanganController;
+use App\Http\Controllers\tagihan\TagihanController;
+use App\Http\Controllers\penghuni\PenghuniController;
+use App\Http\Controllers\dashboard\DashboardController;
+use App\Http\Controllers\grafik_penghuni\GrafikPenghuni;
+use App\Http\Controllers\pembayaran\PembayaranController;
+use App\Http\Controllers\grafik_pendapatan\GrafikPendapatan;
+use App\Http\Controllers\manufacturing\ManufacturingController;
+use App\Http\Controllers\manufacturing_order\ManufacturingOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,6 +85,17 @@ Route::controller(VendorController::class)->group(function () {
     Route::get("/vendor/perusahaan", 'perusahaan')->name('vendor');
     Route::get("/vendor/perorangan", "individu")->name("vendor");
 });
+
+
+// Route Purchase
+Route::controller(RfqController::class)->group(function () {
+    Route::get("/purchase/rfq", "index")->name("rfq.index");
+    Route::get("/purchase/create", "create")->name("rfq.create");
+    Route::post("/purchase/rfq", "store")->name("rfq.store");
+});
+
+
+
 
 // Route::get('/register', function () {
 //     return view("register/register", ["nama"=> "register"]);
