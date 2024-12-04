@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class DataBahan extends Model
 {
     use HasFactory;
-    protected $table = 'data_bahan';
+    protected $table = 'components';
     public $timestamps = false;
     protected $fillable = [
-        'bahan',
+        'nama',
         'kuantitas',
-        'produk_cost',
+        'harga_modal',
     ];
 }

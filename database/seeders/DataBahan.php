@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class DatanamaSeeder extends Seeder
+class DataBahan extends Seeder
 {
     /**
      * Run the database seeds.
@@ -26,7 +26,6 @@ class DatanamaSeeder extends Seeder
             ['nama' => 'Busa / Foam', 'kuantitas' => 50, 'harga_modal' => 25000],
             ['nama' => 'Furing', 'kuantitas' => 50, 'harga_modal' => 10000],
         ];
-
         DB::table('components')->insert($data);
     }
 }
