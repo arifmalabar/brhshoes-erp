@@ -19,6 +19,7 @@ use App\Http\Controllers\manufacturing_order\ManufacturingOrderController;
 use App\Http\Controllers\produk\ProdukController;
 use App\Http\Controllers\vendor\VendorController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,11 +50,17 @@ Route::controller(ManufacturingController::class)->group(function () {
     Route::post("/manufacturing/tambah_data", "storeProduk")->name("manufacturing");
 });
 
-Route::controller(ProdukController::class)->group(function () {
-    Route::get("/produk", 'index')->name('produk');
-    Route::get("/produk/tambah", "create")->name("produk");
-    Route::post("/produk/tambah_data", "storeProduk")->name("produk");
+Route::prefix('bahan')->group(function () {
+    Route::get('/', [BahanController::class, 'index'])->name('bahan.index'); // Menampilkan semua bahan
+    Route::get('/tambah', [BahanController::class, 'create'])->name('bahan.create'); // Form tambah bahan
+    Route::post('/store', [BahanController::class, 'store'])->name('bahan.store'); // Menyimpan bahan
+    Route::get('/edit/{id}', [BahanController::class, 'edit'])->name('bahan.edit'); // Form edit bahan
+    Route::put('/update/{id}', [BahanController::class, 'update'])->name('bahan.update'); // Memperbarui bahan
+    Route::delete('/delete/{id}', [BahanController::class, 'destroy'])->name('bahan.delete'); // Menghapus bahan
 });
+
+
+
 
 Route::controller(ProdukController::class)->group(function () {
     Route::get("/produk", 'index')->name('produk');
@@ -64,10 +71,6 @@ Route::controller(ProdukController::class)->group(function () {
     Route::get("/produk/show/{id}", "show")->name("produk");
     Route::post("/produk/tambah_data", 'store')->name("produk");
     Route::delete("/produk/hapus_data/{id}", "destroy")->name("produk");
-});
-Route::controller(BahanController::class)->group(function () {
-    Route::get("/bahan", 'index')->name('bahan');
-    
 });
 Route::controller(BomController::class)->group(function (){
     Route::get("/bill_material", 'index')->name('bom');
