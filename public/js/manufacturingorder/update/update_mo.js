@@ -62,7 +62,7 @@ function tabelKonfirmasi(dt) {
             {
                 data: null,
                 render: function (data, type, row) {
-                    return `${row.kuantitas * jml_produksi}`;
+                    return `${row.quantity * jml_produksi}`;
                 },
             },
         ],
@@ -87,7 +87,7 @@ function tabelCekKetersediaan(dt) {
             {
                 data: null,
                 render: function (data, type, row) {
-                    return `${row.kuantitas * jml_produksi}`;
+                    return `${row.quantity * jml_produksi}`;
                 },
             },
             {

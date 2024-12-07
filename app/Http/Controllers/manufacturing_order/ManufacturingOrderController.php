@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\manufacturing_order;
 
 use App\Http\Controllers\Controller;
+use App\Models\Component;
 use App\Models\ManufacturingOrder;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -115,13 +116,64 @@ class ManufacturingOrderController extends Controller
     {
         $mo_data = ManufacturingOrder::find($id);
         $last = $mo_data->status;
-        $mo_data->status = $last + 1;
-        if($mo_data->status == 2)
+        $is_success = false;
+        if($mo_data->status == 1)
         {
-            //kurangi bahan tambah produk
+            if($this->checkBomValidity($mo_data->billofmaterials_id, $mo_data->quantity))
+            {
+                $bomdetail = DB::table("billofmaterialsdetails")->where("billofmaterials_id", "=", $mo_data->billofmaterials_id)->get();
+                foreach ($bomdetail as $key) {
+                    $demand = $key->quantity * $mo_data->quantity;
+                    if($this->reduceComponent($key->components_id, $demand))
+                    {
+                        $is_success = true;
+                        //store to manufacturing_orders_detail
+                    } else{
+                        $is_success = false;
+                    }
+                }
+                $mo_data->status = $last + 1;
+            } else {
+                $mo_data->status = 1;
+                return back()->with(["warning" => "Gagal produksi stok kurang"]);
+            }
         }
         $mo_data->save();
         return back()->with("berhasil melakukan konfirmasi");
+    }
+    private function checkBomValidity($billofmaterial_id, $demand)
+    {
+        $bomdetail = DB::table("billofmaterialsdetails")->where("billofmaterials_id", "=", $billofmaterial_id)->get();
+        foreach ($bomdetail as $key) {
+            if($this->checkOnHandAvailability($key->components_id, $demand))
+            {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    private function checkOnHandAvailability($component_id, $demand)
+    {
+        $compoent = Component::find($component_id);
+        if($compoent->on_hand >= $demand)
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private function reduceComponent($component_id, $demand)
+    {
+        if($this->checkOnHandAvailability($component_id, $demand))
+        {
+            $component = Component::find($component_id);
+            $component->on_hand = $component->on_hand - $demand;
+            $component->save();
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function update(Request $request, $id)
