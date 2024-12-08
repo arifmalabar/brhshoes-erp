@@ -137,6 +137,8 @@ class ManufacturingOrderController extends Controller
                 $mo_data->status = 1;
                 return back()->with(["warning" => "Gagal produksi stok kurang"]);
             }
+        } else {
+            $mo_data->status = $last + 1;
         }
         $mo_data->save();
         return back()->with("berhasil melakukan konfirmasi");
