@@ -42,11 +42,27 @@ Manufacturing Order
                             <td>{{ $key->nama_produk }}</td>
                             <td>{{ $key->schedule }} - {{ $key->late }}</td>
                             <td>{{ $key->nama_produk }}</td>
-                            <td><span class="badge badge-info">Draf</span>
+                            <td>
+                                @switch($key->status)
+                                    @case(0)
+                                        <span class="badge badge-info">Draf</span>
+                                        @break
+                                    @case(1)
+                                        <span class="badge badge-warning">Ready</span>
+                                        @break
+                                    @case(2)
+                                        <span class="badge badge-success">Finish</span>
+                                        @break
+                                    @default
+                                        <span class="badge badge-info">Dr1af</span>
+                                    @break
+                                @endswitch
                             </td>
                             <td>
                                 <a href="/manufacturing_order/mo_detail/{{ $key->id }}"
-                                    class="btn btn-sm btn-outline-info">Detail</a>
+                                    class="btn btn-sm btn-outline-info"><i class="fa fa-edit"></i> Detail</a>
+                                <a href="/manufacturing_order/mo_detail/{{ $key->id }}"
+                                        class="btn btn-sm btn-outline-danger"><i class="fa fa-edit"></i> delete</a>
                             </td>
                         </tr>
                         @endforeach

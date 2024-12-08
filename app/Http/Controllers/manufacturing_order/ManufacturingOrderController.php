@@ -37,7 +37,7 @@ class ManufacturingOrderController extends Controller
     private function getMoData()
     {
         try {
-            return ManufacturingOrder::selectRaw("manufacturing_orders.id, nama_produk, schedule, late, quantity")
+            return ManufacturingOrder::selectRaw("manufacturing_orders.id, nama_produk, schedule, late, quantity, status")
                                         ->join("products", "products.id", "=", "manufacturing_orders.products_id")
                                         ->get();
             
