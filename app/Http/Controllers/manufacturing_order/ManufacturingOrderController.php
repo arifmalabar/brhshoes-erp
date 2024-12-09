@@ -126,8 +126,16 @@ class ManufacturingOrderController extends Controller
                     $demand = $key->quantity * $mo_data->quantity;
                     if($this->reduceComponent($key->components_id, $demand))
                     {
+                        $component = Component::find($key->components_id);
                         $is_success = true;
-                        //store to manufacturing_orders_detail
+                        $data = [
+                            "manufacturingorders_id" => $mo_data->id,
+                            "billofmaterialdetails_id" => $key->id,
+                            "needed" => $demand,
+                            "served" => $component->on_hand,
+                            "used" => ($component->on_hand - $demand)
+                        ];
+                        $this->storeMoDetails($data);
                     } else{
                         $is_success = false;
                     }
@@ -175,6 +183,14 @@ class ManufacturingOrderController extends Controller
             return true;
         } else {
             return false;
+        }
+    }
+    private function storeMoDetails($data)
+    {
+        try {
+            DB::table("manufacturing_order_details")->insert($data);
+        } catch (\Throwable $th) {
+            return back()->with(["warning" => "Gagal menambah data detail MO"]);
         }
     }
 
