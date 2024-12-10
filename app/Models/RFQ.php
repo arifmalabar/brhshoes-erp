@@ -33,4 +33,18 @@ class RFQ extends Model
     {
         return $this->hasMany(DetailRFQ::class, 'rfqs_id', 'id');
     }
+    public static function getKodeRFQ()
+    {
+        $newcode= "";
+        $last = self::latest("id")->first();
+        if(self::count() != 0)
+        {
+            $number = intval(substr($last->id, 1)) + 1;
+            $newcode= "R".str_pad($number, 3, '0', STR_PAD_LEFT);
+            return $newcode;
+        } else {
+            $newcode = "R001";
+            return $newcode;
+        }
+    }
 }

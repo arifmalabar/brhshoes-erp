@@ -24,21 +24,21 @@ class RfqController extends Controller
         return view("purchase.tambahrfq",["nama" => "rfq"], compact('bahan'));
     }
     public function store(Request $request)
-{
-    $request->validate([
+    {
+    /*$request->validate([
         'kode' => 'required|string|max:100',
         'vendor_id' => 'required|string|max:100',
         'tgl_pesan' => 'required|date',
         'produk.*.components_id' => 'required|string|max:100',
         'produk.*.kuantitas' => 'required|integer|min:1',
         'produk.*.subtotal' => 'required|integer|min:0',
-    ]);
+    ]);*/
 
     DB::beginTransaction();
     try {
         // Simpan data ke tabel rfqs
         $rfq = RFQ::create([
-            'id' => Str::uuid()->toString(),
+            'id' => RFQ::getKodeRFQ(),
             'kode' => $request->kode,
             'vendor_id' => $request->vendor_id,
             'tgl_pesan' => $request->tgl_pesan,
@@ -48,7 +48,7 @@ class RfqController extends Controller
         foreach ($request->produk as $produk) {
             DetailRFQ::create([
                 'id' => Str::uuid()->toString(),
-                'rfqs_id' => $rfq->id,
+                'rfqs_id' => RFQ::getKodeRFQ(),
                 'components_id' => $produk['components_id'],
                 'kuantitas' => $produk['kuantitas'],
                 'subtotal' => $produk['subtotal'],
