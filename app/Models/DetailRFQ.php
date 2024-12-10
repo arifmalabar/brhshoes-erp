@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-use App\Models\DetailRFQ;
+use App\Models\RFQ;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class RFQ extends Model
+class DetailRFQ extends Model
 {
     use HasFactory;
 
     // Nama tabel
-    protected $table = 'rfqs';
+    protected $table = 'detail_rfqs';
 
     // Primary key
     protected $primaryKey = 'id';
@@ -25,12 +25,14 @@ class RFQ extends Model
     // Kolom yang dapat diisi
     protected $fillable = [
         'id',
-        'vendor_id',
-        'tgl_pesan',
+        'rfqs_id',
+        'components_id',
+        'kuantitas',
+        'subtotal',
     ];
 
-    public function details()
+    public function rfq()
     {
-        return $this->hasMany(DetailRFQ::class, 'rfqs_id', 'id');
+        return $this->belongsTo(RFQ::class, 'rfqs_id', 'id');
     }
 }

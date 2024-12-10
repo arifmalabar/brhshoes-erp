@@ -1,10 +1,13 @@
 @extends('layout/layout')
+
 @section('status')
     active
 @endsection
+
 @section('judul')
     Request for Quotation
 @endsection
+
 @section('content')
     <section class="content">
         <div class="container">
@@ -18,11 +21,10 @@
                         <a href="{{ route('rfq.create') }}" class="btn btn-success btn-sm mb-2 mb-md-0">
                             <i class="fas fa-plus"></i> Tambah
                         </a>
-
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="rfq-table" style="text-align: center" class="table table-bordered table-hover">
+                    <table id="rfq-table" class="table table-bordered table-hover" style="text-align: center">
                         <thead>
                             <tr>
                                 <th>Kode</th>
@@ -34,21 +36,28 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>RFQ001</td>
-                                <td>5/11/2024</td>
-                                <td>PT. SADE</td>
-                                <td>73000</td>
-                                <td>RFQ</td>
-                                <td>
-                                    <button type="button" class="btn btn-outline-info btn-sm">
-                                        <i class="fas fa-edit"></i>&nbsp;Ubah
-                                    </button>
-                                    <button type="button" class="btn btn-outline-danger btn-sm">
-                                        <i class="fas fa-trash-alt"></i>&nbsp;Hapus
-                                    </button>
-                                </td>
-                            </tr>
+                            @foreach ($RFQ as $d)
+                                <tr>
+                                    <td>{{ $d->kode }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($d->tgl_pesan)->format('d/m/Y') }}</td>
+                                    <td>{{ $d->vendor_id }}</td>
+                                    <td>{{ number_format($d->total, 0, ',', '.') }}</td>
+                                    <td>{{ $d->status }}</td>
+                                    <td>
+                                        <a href="#" class="btn btn-outline-info btn-sm">
+                                            <i class="fas fa-edit"></i>&nbsp;Ubah
+                                        </a>
+                                        <form action="#" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-outline-danger btn-sm"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus?')">
+                                                <i class="fas fa-trash-alt"></i>&nbsp;Hapus
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -56,6 +65,7 @@
         </div>
     </section>
 @endsection
+
 @section('js')
     <script>
         $(function() {

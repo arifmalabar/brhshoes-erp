@@ -1,10 +1,13 @@
 @extends('layout/layout')
+
 @section('status')
     active
 @endsection
+
 @section('judul')
     Tambah Data
 @endsection
+
 @section('content')
     <section class="content">
         <div class="container">
@@ -14,7 +17,7 @@
                     <h5 class="card-title">Purchase Data</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('rfq.store') }}" method="POST">
+                    <form action="{{ route('rfq.store') }}" method="POST" id="rfq-form">
                         @csrf
                         <div class="form-group">
                             <label for="kode">Kode</label>
@@ -22,8 +25,8 @@
                                 required>
                         </div>
                         <div class="form-group">
-                            <label for="vendor">Vendor</label>
-                            <input type="text" name="vendor" id="vendor" class="form-control"
+                            <label for="vendor_id">Vendor</label>
+                            <input type="text" name="vendor_id" id="vendor" class="form-control"
                                 placeholder="Nama Vendor" required>
                         </div>
                         <div class="form-group">
@@ -45,7 +48,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <table id="produk-table" style="text-align: center" class="table table-bordered table-hover">
+                    <table id="produk-table" class="table table-bordered table-hover text-center">
                         <thead>
                             <tr>
                                 <th>Produk</th>
@@ -56,10 +59,7 @@
                                 <th>Opsi</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                            </tr>
-                        </tbody>
+                        <tbody></tbody>
                         <tfoot>
                             <tr>
                                 <th colspan="4" class="text-center">Total</th>
@@ -70,13 +70,13 @@
                     <div class="form-group mt-2 d-flex justify-content-end gap-2">
                         <a href="{{ route('rfq.index') }}" class="btn btn-secondary">Batal</a>
                         <button type="button" class="btn btn-primary">Print RFQ</button>
-                        <button type="submit" class="btn btn-success">Konfirmasi</button>
+                        <button type="button" class="btn btn-success" id="submitForm">Konfirmasi</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Modal -->
+        <!-- Modal Produk -->
         <div class="modal fade" id="modalProduk" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-md">
                 <div class="modal-content">
@@ -87,12 +87,12 @@
                     <div class="modal-body">
                         <form id="isiProduk">
                             <div class="form-group mb-3">
-                                <label for="namaProduk">Nama Produk</label>
-                                <select id="namaProduk" name="namaProduk" class="form-select" required>
+                                <label for="nama">Nama Produk</label>
+                                <select id="nama" name="nama" class="form-select" required>
                                     <option value="" disabled selected>Pilih Produk</option>
                                     @foreach ($bahan as $item)
-                                        <option value="{{ $item->bahan }}" data-harga="{{ $item->produk_cost }}">
-                                            {{ $item->bahan }}
+                                        <option value="{{ $item->nama }}" data-harga="{{ $item->harga_modal }}">
+                                            {{ $item->nama }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -106,14 +106,14 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-primary" id="simpanProduk">Simpan</button>
+                        <button type="button" class="btn btn-primary" id="simpanProduk">Simpan</button>
                     </div>
                 </div>
             </div>
         </div>
-
     </section>
 @endsection
+
 @section('js')
     <script>
         $(function() {
@@ -131,12 +131,12 @@
         // Menambah produk ke tabel
         $(document).ready(function() {
             $('#simpanProduk').on('click', function() {
-                const namaProduk = $('#namaProduk').val();
+                const nama = $('#nama').val();
                 const kuantitas = parseInt($('#kuantitas').val());
-                const hargaSatuan = parseInt($('#namaProduk option:selected').data('harga'));
-                const subtotal = kuantitas * hargaSatuan;
+                const harga_modal = parseInt($('#nama option:selected').data('harga'));
+                const subtotal = kuantitas * harga_modal;
 
-                if (!namaProduk || !kuantitas) {
+                if (!nama || !kuantitas) {
                     Swal.fire({
                         position: "top-end",
                         icon: "error",
@@ -149,10 +149,10 @@
 
                 const newRow = `
                     <tr>
-                        <td>${namaProduk}</td>
-                        <td>${namaProduk}</td>
+                        <td>${nama}</td>
+                        <td>${nama}</td>
                         <td>${kuantitas}</td>
-                        <td>${hargaSatuan.toLocaleString()}</td>
+                        <td>${harga_modal.toLocaleString()}</td>
                         <td>${subtotal.toLocaleString()}</td>
                         <td>
                             <button class="btn btn-danger btn-sm btn-hapus">
@@ -211,19 +211,47 @@
 
             function updateTotal() {
                 let total = 0;
-                if ($('#produk-table tbody tr').length === 0) {
-                    $('#totalHarga').text('0');
-                    return;
-                }
                 $('#produk-table tbody tr').each(function() {
-                    const subtotal = parseInt($(this).find('td:eq(4)').text().replace(',', '')
-                        .trim());
+                    const subtotal = parseInt($(this).find('td:eq(4)').text().replace(',', ''));
                     if (!isNaN(subtotal)) {
                         total += subtotal;
                     }
                 });
                 $('#totalHarga').text(total.toLocaleString());
             }
+
+            $('#submitForm').on('click', function() {
+                const produkList = [];
+                $('#produk-table tbody tr').each(function() {
+                    const row = $(this);
+                    const produk = {
+                        components_id: row.find('td:eq(0)').text(),
+                        kuantitas: row.find('td:eq(2)').text(),
+                        subtotal: row.find('td:eq(4)').text().replace(',', '')
+                    };
+                    produkList.push(produk);
+                });
+
+                produkList.forEach(function(produk, index) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: `produk[${index}][components_id]`,
+                        value: produk.components_id
+                    }).appendTo('#rfq-form');
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: `produk[${index}][kuantitas]`,
+                        value: produk.kuantitas
+                    }).appendTo('#rfq-form');
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: `produk[${index}][subtotal]`,
+                        value: produk.subtotal
+                    }).appendTo('#rfq-form');
+                });
+
+                $('#rfq-form').submit();
+            });
         });
     </script>
 @endsection
