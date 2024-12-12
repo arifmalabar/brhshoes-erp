@@ -5,6 +5,7 @@ namespace App\Http\Controllers\manufacturing_order;
 use App\Http\Controllers\Controller;
 use App\Models\Component;
 use App\Models\ManufacturingOrder;
+use App\Models\ManufacturingOrderDetail;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -114,54 +115,62 @@ class ManufacturingOrderController extends Controller
     }
     public function onStep($id)
     {
-        $mo_data = ManufacturingOrder::find($id);
-        $last = $mo_data->status;
-        $is_success = false;
-        if($mo_data->status == 1)
-        {
-            if($this->checkBomValidity($mo_data->billofmaterials_id, $mo_data->quantity))
+        $mo_data = ManufacturingOrder::selectRaw("manufacturing_orders.id as id, billofmaterialsdetails.quantity * manufacturing_orders.quantity as demand, components.on_hand as on_hand, components.id as component_id, billofmaterials.id as bom_id")
+                                    ->join("billofmaterials", "billofmaterials.id", "=", "manufacturing_orders.billofmaterials_id")
+                                    ->join("billofmaterialsdetails", "billofmaterialsdetails.billofmaterials_id", "=", "billofmaterials.id")
+                                    ->rightJoin("components", "components.id", "=", "billofmaterialsdetails.components_id")                    
+                                    ->where("manufacturing_orders.id", '=', $id)
+                                    ->get();
+        $available = 0;
+        $notavailable = 0;
+        $mo_id="";
+        foreach ($mo_data as $key) {
+            if($key->on_hand <= $key->demand)
             {
-                $bomdetail = DB::table("billofmaterialsdetails")->where("billofmaterials_id", "=", $mo_data->billofmaterials_id)->get();
-                foreach ($bomdetail as $key) {
-                    $demand = $key->quantity * $mo_data->quantity;
-                    if($this->reduceComponent($key->components_id, $demand))
-                    {
-                        $component = Component::find($key->components_id);
-                        $is_success = true;
-                        $data = [
-                            "manufacturingorders_id" => $mo_data->id,
-                            "billofmaterialdetails_id" => $key->id,
-                            "needed" => $demand,
-                            "served" => $component->on_hand,
-                            "used" => ($component->on_hand - $demand)
-                        ];
-                        $this->storeMoDetails($data);
-                    } else{
-                        $is_success = false;
-                    }
-                }
-                $mo_data->status = $last + 1;
+                $notavailable++;
             } else {
-                $mo_data->status = 1;
-                return back()->with(["warning" => "Gagal produksi stok kurang"]);
+                $available++;
             }
-        } else {
-            $mo_data->status = $last + 1;
+            $mo_id = $key->id;
         }
-        $mo_data->save();
-        return back()->with("berhasil melakukan konfirmasi");
+        $mo = ManufacturingOrder::find($mo_id);
+        if($notavailable == 0 && $mo->status == 1)
+        {
+            $mo->status = $mo->status + 1;
+            $mo->save();
+            foreach ($mo_data as $key) {
+                $component = Component::find($key->component_id);
+                $mo_data = [
+                    "manufacturingorders_id" => $mo_id,
+                    "billofmaterialdetails_id" => $key->bom_id,
+                    "needed" => $key->demand,
+                    "served" => $component->on_hand,
+                    "used" => ($component->on_hand - $key->demand)
+                ];
+                ManufacturingOrderDetail::insert($mo_data);
+                $component->on_hand = $component->on_hand - $key->demand;
+                $component->save();
+            }
+            return back()->with(["success" => "berhasil melakukan produksi"]);
+        } else if ($mo->status == 0){
+            $mo->status = $mo->status + 1;
+            $mo->save();
+            return back()->with(["success" => "berhasil konfirmasi"]);
+        } else {
+            return back()->with(["warning" => "gagal melakukan produksi"]);
+        }
+        
     }
     private function checkBomValidity($billofmaterial_id, $demand)
     {
-        $bomdetail = DB::table("billofmaterialsdetails")->where("billofmaterials_id", "=", $billofmaterial_id)->get();
-        foreach ($bomdetail as $key) {
-            if($this->checkOnHandAvailability($key->components_id, $demand))
-            {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        echo $demand."<br>";
+        
+        //return $available <= $notavailable ? "kosong" : "tersedia";
+        /*
+        if($available >= $notavailable)
+        {
+            return back()->with(["warning" => "stok tidak memadahi"]);
+        }*/
     }
     private function checkOnHandAvailability($component_id, $demand)
     {
