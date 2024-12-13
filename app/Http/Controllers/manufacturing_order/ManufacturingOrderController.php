@@ -161,6 +161,16 @@ class ManufacturingOrderController extends Controller
         }
         
     }
+    public function showDetailMo($mo_id)
+    {
+        try {
+            $modata = ManufacturingOrderDetail::where("manufacturingorders_id", "=", $mo_id)
+                                                ->get();
+            return $modata;
+        } catch (\Throwable $th) {
+            return response()->json(["message" => $th->getMessage()], 400);
+        }
+    }
     private function checkBomValidity($billofmaterial_id, $demand)
     {
         echo $demand."<br>";

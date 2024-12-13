@@ -86,6 +86,7 @@ Route::controller(ManufacturingOrderController::class)->group(function ()  {
     Route::get($mo."/detail_bom_data/{id}", "getDetailBom");
     Route::post($mo."/tambah_data", "store");
     Route::get($mo."/step/{id}", "onStep")->name("manufacturing_order");
+    Route::get($mo."/detailmo/{id}", "showDetailMo");
 });
 Route::controller(VendorController::class)->group(function () {
     Route::get("/vendor/perusahaan", 'perusahaan')->name('vendor');
