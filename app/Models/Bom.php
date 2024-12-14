@@ -7,13 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bom extends Model
 {
-    protected $fillable = [
-        'id',
-        'products_id',
-        'categories_id',
-        'quantity',
-        'satuan'
-    ];
     protected $primarykey = 'id';
     use HasFactory;
     public static function getId(){

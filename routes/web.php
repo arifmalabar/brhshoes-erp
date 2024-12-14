@@ -72,15 +72,15 @@ Route::controller(BahanController::class)->group(function () {
 });
 Route::controller(BomController::class)->group(function (){
     Route::get("/bill_material", 'index')->name('bom');
-    Route::get("/bill_material/tambah", 'create')->name('bom');
-    Route::get("bill_material/edit/{id}", "edit")->name("bom");
+    Route::get("/bill_material/create", 'create')->name('bom.create');
+    Route::get("bill_material/edit/{id}", "edit")->name("bom.edit");
     Route::get("/bill_material/show/{id)", "show")->name("bom");
-    Route::post("bill_material/tambah_data", 'store')->name("bom");
+    Route::post("bill_material/tambah_data", 'store')->name("bom.store");
     Route::delete("/bill_material/hapus_data/{id", "destroy")->name("bom");
-    Route::get("/bill_material/product_data", "getProductData")->name("bom");
-    Route::get("/get_kategori", "getKategori")->name("bom");
-    Route::get("/get_component", "getComponent")->name("bom");
-    Route::get("/get_produk", "getProduk")->name("bom");
+    // Route::get("/bill_material/product_data", "getProductData")->name("bom");
+    // Route::get("/get_kategori", "getKategori")->name("bom");
+    // Route::get("/get_component", "getComponent")->name("bom");
+    // Route::get("/get_produk", "getProduk")->name("bom");
 });
 Route::controller(ManufacturingOrderController::class)->group(function ()  {
     Route::get("/manufacturing_order", 'index')->name('manufacturing_order');
