@@ -61,8 +61,12 @@ Manufacturing Order
                             <td>
                                 <a href="/manufacturing_order/mo_detail/{{ $key->id }}"
                                     class="btn btn-sm btn-outline-info"><i class="fa fa-edit"></i> Detail</a>
-                                <a href="/manufacturing_order/mo_detail/{{ $key->id }}"
-                                        class="btn btn-sm btn-outline-danger"><i class="fa fa-edit"></i> delete</a>
+                                <form method="POST" action="/manufacturing_order/delete_mo/{{ $key->id }}">
+                                    @method('delete')
+                                    @csrf
+                                    <button type="submit"
+                                        class="btn btn-sm btn-outline-danger"><i class="fa fa-trash"></i> delete</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach

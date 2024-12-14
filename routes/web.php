@@ -87,6 +87,8 @@ Route::controller(ManufacturingOrderController::class)->group(function ()  {
     Route::post($mo."/tambah_data", "store");
     Route::get($mo."/step/{id}", "onStep")->name("manufacturing_order");
     Route::get($mo."/detailmo/{id}", "showDetailMo");
+    Route::delete($mo."/delete_mo/{id}", "destroy");
+    Route::put($mo."/update_data/{id}", "update");
 });
 Route::controller(VendorController::class)->group(function () {
     Route::get("/vendor/perusahaan", 'perusahaan')->name('vendor');

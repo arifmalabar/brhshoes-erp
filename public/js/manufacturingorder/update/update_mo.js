@@ -1,7 +1,12 @@
-import { bom_detail, bom_detail_data } from "../../config/end_point.js";
+import {
+    bom_detail,
+    bom_detail_data,
+    mo_detail,
+} from "../../config/end_point.js";
 import { getDetailData } from "../../fecth/fetch.js";
 import { ProductData } from "../manufacturing_order.js";
 import { init as moDefault } from "../manufacturing_order.js";
+import { getData } from "../../fecth/fetch.js";
 var status = $(".status").val();
 var jml_produksi = 0;
 export function init() {
@@ -21,6 +26,7 @@ export function init() {
     } catch (error) {
         jml_produksi = 0;
     }
+    fetchHasilProduksi();
 }
 async function BomDetail(id) {
     try {
@@ -104,6 +110,47 @@ function tabelCekKetersediaan(dt) {
                 data: null,
                 render: function (data, type, row) {
                     return 0;
+                },
+            },
+        ],
+    });
+}
+async function fetchHasilProduksi() {
+    const id = window.location.pathname.split("/").at(3);
+    const data = await getData(`${mo_detail}/${id}`);
+    showHasilProduksi(data);
+}
+function showHasilProduksi(dt) {
+    $("#example1").DataTable({
+        paging: true,
+        lengthChange: false,
+        searching: true,
+        ordering: true,
+        info: true,
+        autoWidth: false,
+        responsive: true,
+        bDestroy: true,
+        data: dt,
+        columns: [
+            {
+                data: "billofmaterialdetails_id",
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return `${row.needed}`;
+                },
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return `${row.served}`;
+                },
+            },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return `${row.used}`;
                 },
             },
         ],
