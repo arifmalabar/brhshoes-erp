@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bom extends Model
 {
+    protected $table = 'billofmaterials';
     protected $primarykey = 'id';
     use HasFactory;
     public static function getId(){

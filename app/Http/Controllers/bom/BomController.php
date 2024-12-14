@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\bom;
 
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Models\Bom;
+use App\Models\BOMDetail;
 use App\Models\Category;
 use App\Models\Component;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -51,8 +54,31 @@ class BomController extends Controller
             'quantity' => 'required|string|max:255',
             'satuan' => 'required|string|max:255',
         ]);
-        Bom::create($validate);
-        return redirect()->route('bom.index')->with('success', 'Data berhasil ditambahkan!');
+
+        try {
+            $kodeBOM = Bom::getId();
+            $bom = Bom::create([
+             'id' => $kodeBOM,
+             'products_id' => $request->products_id,
+             'categories_id' => $request->categories_id,
+             'quantity' => $request->quantity,
+             'satuan' => $request->satuan,
+            ]);
+ 
+            foreach($request->produk as $produk){
+                BOMDetail::create([
+                    'id' => Str::uuid()->toString(),
+                    'components_id' => $produk['components_id'],
+                    'quantity' =>$produk['quantity'],
+                    'price' =>$produk['price'],
+                ]);
+                DB::commit();
+                return redirect()->route('bom.index')->with('success', 'Data berhasil disimpan!');
+            }
+         }catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+         }
     }
 
     /**
@@ -95,9 +121,31 @@ class BomController extends Controller
             'satuan' => 'required|string|max:255',
         ]);
 
-        $bom = Bom::findOrFail($id);
-        $bom->update($validate);
-        return redirect()->route('bom.index')->with('success', 'Data berhasil dirubah!');
+        try {
+            $kodeBOM = Bom::getId();
+            $bom = Bom::findOrFail($id);
+            $bom->update([
+             'id' => $kodeBOM,
+             'products_id' => $request->products_id,
+             'categories_id' => $request->categories_id,
+             'quantity' => $request->quantity,
+             'satuan' => $request->satuan,
+            ]);
+ 
+            foreach($request->produk as $produk){
+                BOMDetail::create([
+                    'id' => Str::uuid()->toString(),
+                    'components_id' => $produk['components_id'],
+                    'quantity' =>$produk['quantity'],
+                    'price' =>$produk['price'],
+                ]);
+                DB::commit();
+                return redirect()->route('bom.index')->with('success', 'Data berhasil disimpan!');
+            }
+         }catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+         }
     }
 
     /**
