@@ -106,9 +106,13 @@
                         </li>
                     </ul>
                 </li>
-
-
-
+                <li class="nav-header">Customer</li>
+                <li class="nav-item">
+                    <a href="/customer/index" class="nav-link {{ $nama == 'customer' ? 'active' : '' }}">
+                        <i class="fas nav-icon fa-user-friends"></i>
+                        <p>Customer</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

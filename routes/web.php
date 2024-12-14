@@ -6,6 +6,7 @@ use App\Http\Controllers\pembayaran\Bayar;
 use App\Http\Controllers\bom\BomController;
 use App\Http\Controllers\rfq\RfqController;
 use App\Http\Controllers\bahan\BahanController;
+use App\Http\Controllers\customer\customerController;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\gedung\GedungController;
 use App\Http\Controllers\produk\ProdukController;
@@ -92,8 +93,18 @@ Route::controller(RfqController::class)->group(function () {
     Route::get("/purchase/rfq", "index")->name("rfq.index");
     Route::get("/purchase/create", "create")->name("rfq.create");
     Route::post("/purchase/rfq", "store")->name("rfq.store");
+    Route::get("/purchase/rfq/{id}/edit", "edit")->name("rfq.edit");
+    Route::put("/purchase/rfq/{id}", "update")->name("rfq.update");
+    Route::delete("/purchase/rfq/{id}", "destroy")->name("rfq.destroy");
 });
 
+Route::controller(customerController::class)->group(function () {
+    Route::get('/customer/index', 'index')->name('customer.index');
+    Route::post('/customer/store', 'store')->name('customer.store');
+    Route::get('/customer/{id}/edit', 'edit')->name('customer.edit');
+    Route::put('/customer/{id}/update', 'update')->name('customer.update');
+    Route::delete('/customer/{id}/delete', 'delete')->name('customer.delete');
+});
 
 
 
