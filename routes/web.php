@@ -53,6 +53,7 @@ Route::controller(ProdukController::class)->group(function () {
     Route::get("/produk", 'index')->name('produk');
     Route::get("/produk/tambah", "create")->name("produk");
     Route::post("/produk/tambah_data", "storeProduk")->name("produk");
+    Route::put("/produk/update/{id}", "update");
 });
 
 Route::controller(ProdukController::class)->group(function () {
