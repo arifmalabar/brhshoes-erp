@@ -106,6 +106,7 @@
                         </li>
                     </ul>
                 </li>
+<<<<<<< HEAD
                 <li class="nav-header">Sales</li>
                 <li class="nav-item">
                     <a href="/customer" class="nav-link {{ $nama == 'customer' ? 'active' : '' }}">
@@ -116,6 +117,15 @@
                 </li>
 
 
+=======
+                <li class="nav-header">Customer</li>
+                <li class="nav-item">
+                    <a href="/customer/index" class="nav-link {{ $nama == 'customer' ? 'active' : '' }}">
+                        <i class="fas nav-icon fa-user-friends"></i>
+                        <p>Customer</p>
+                    </a>
+                </li>
+>>>>>>> origin/rfq/bahrul
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
