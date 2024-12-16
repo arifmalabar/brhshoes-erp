@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\bahan\BahanController;
 use App\Http\Controllers\bom\BomController;
+use App\Http\Controllers\customer\CustomerContoller;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Models\Penghuni;
 use Illuminate\Support\Facades\Route;
@@ -75,14 +76,29 @@ Route::controller(BomController::class)->group(function (){
     Route::get("bill_material/edit/{id}", "edit")->name("bom");
 });
 Route::controller(ManufacturingOrderController::class)->group(function ()  {
-    Route::get("/manufacturing_order", 'index')->name('manufacturing_order');
-    Route::get("/manufacturing_order/mo_detail", 'create')->name('manufacturing_order');
-    Route::get("/manufacturing_order/product_data", "getProductData");
-    Route::get("/manufacturing_order/bom_data/{id}", "getBomData");
+    $mo = "/manufacturing_order";
+    Route::get($mo, 'index')->name('manufacturing_order');
+    Route::get($mo."/detail/{id}", "show");
+    Route::get($mo."/tambah", "create")->name('manufacturing_order');
+    Route::get($mo."/mo_detail/{id}", 'edit')->name('manufacturing_order');
+    Route::get($mo."/product_data", "getProductData");
+    Route::get($mo."/bom_data/{id}", "getBomData");
+    Route::get($mo."/detail_bom_data/{id}", "getDetailBom");
+    Route::post($mo."/tambah_data", "store");
+    Route::get($mo."/step/{id}", "onStep")->name("manufacturing_order");
+    Route::get($mo."/detailmo/{id}", "showDetailMo");
 });
 Route::controller(VendorController::class)->group(function () {
     Route::get("/vendor/perusahaan", 'perusahaan')->name('vendor');
     Route::get("/vendor/perorangan", "individu")->name("vendor");
+});
+Route::controller(CustomerContoller::class)->group(function() {
+    $cust = "/customer";
+    Route::get($cust, "index")->name("customer");
+    Route::get($cust."/data", "getCustomerData");
+    Route::post($cust."/tambah", "store");
+    Route::put($cust."/update/{id}", "update");
+    Route::delete($cust."/delete/{id}", "destroy");
 });
 
 // Route::get('/register', function () {
