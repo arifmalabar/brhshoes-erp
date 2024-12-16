@@ -14,8 +14,8 @@ class AlterModetails extends Migration
     public function up()
     {
         Schema::table('manufacturing_order_details', function (Blueprint $table) {
-            $table->char("manufacturingorders_id", 100)->after("manufacturingorderdetails_id");
-            $table->dropColumn("manufacturingorderdetails_id ");
+            //$table->char("manufacturingorders_id", 100)->after("manufacturingorderdetails_id");
+            //$table->dropColumn("manufacturingorderdetails_id ");
         });
     }
 

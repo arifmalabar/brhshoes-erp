@@ -117,13 +117,13 @@ Route::controller(RfqController::class)->group(function () {
     Route::delete("/purchase/rfq/{id}", "destroy")->name("rfq.destroy");
 });
 
-Route::controller(customerController::class)->group(function () {
+/*Route::controller(customerController::class)->group(function () {
     Route::get('/customer/index', 'index')->name('customer.index');
     Route::post('/customer/store', 'store')->name('customer.store');
     Route::get('/customer/{id}/edit', 'edit')->name('customer.edit');
     Route::put('/customer/{id}/update', 'update')->name('customer.update');
     Route::delete('/customer/{id}/delete', 'delete')->name('customer.delete');
-});
+});*/
 
 
 

@@ -23,8 +23,7 @@
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                data-accordion="false">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-header">Menu Utama</li>
 
                 <li class="nav-item">
@@ -106,26 +105,13 @@
                         </li>
                     </ul>
                 </li>
-<<<<<<< HEAD
-                <li class="nav-header">Sales</li>
-                <li class="nav-item">
-                    <a href="/customer" class="nav-link {{ $nama == 'customer' ? 'active' : '' }}">
-                        <i class="fas nav-icon fa-users">
-                        </i>
-                        <p>Customer</p>
-                    </a>
-                </li>
-
-
-=======
                 <li class="nav-header">Customer</li>
                 <li class="nav-item">
-                    <a href="/customer/index" class="nav-link {{ $nama == 'customer' ? 'active' : '' }}">
+                    <a href="/customer" class="nav-link {{ $nama == 'customer' ? 'active' : '' }}">
                         <i class="fas nav-icon fa-user-friends"></i>
                         <p>Customer</p>
                     </a>
                 </li>
->>>>>>> origin/rfq/bahrul
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
