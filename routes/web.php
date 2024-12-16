@@ -6,13 +6,14 @@ use App\Http\Controllers\pembayaran\Bayar;
 use App\Http\Controllers\bom\BomController;
 use App\Http\Controllers\rfq\RfqController;
 use App\Http\Controllers\bahan\BahanController;
-use App\Http\Controllers\customer\customerController;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\gedung\GedungController;
 use App\Http\Controllers\produk\ProdukController;
 use App\Http\Controllers\vendor\VendorController;
 use App\Http\Controllers\ruangan\RuanganController;
 use App\Http\Controllers\tagihan\TagihanController;
+use App\Http\Controllers\PO\purchaseOrderController;
+use App\Http\Controllers\customer\customerController;
 use App\Http\Controllers\penghuni\PenghuniController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Http\Controllers\grafik_penghuni\GrafikPenghuni;
@@ -104,6 +105,16 @@ Route::controller(customerController::class)->group(function () {
     Route::get('/customer/{id}/edit', 'edit')->name('customer.edit');
     Route::put('/customer/{id}/update', 'update')->name('customer.update');
     Route::delete('/customer/{id}/delete', 'delete')->name('customer.delete');
+});
+
+Route::controller(purchaseOrderController::class)->group(function () {
+    Route::get("/purchase/order", "order")->name("purchaseorder");
+    Route::post("/purchase/order/create", "store")->name("purchaseorder.store");
+    Route::get("/purchase/validasi{kode}", "validasi")->name("purchasevalidasi");
+    Route::post('/update-tanggal-diterima', 'updateTanggalDiterima')->name('updateTanggalDiterima');
+    Route::get("/purchase/bayar{kode}", "bayar")->name("purchasebayar");
+    Route::get("/purchase/konfirmasi{kode}", "konfirmasi")->name("purchasekonfirmasi");
+    Route::get("/purchase/selesai{kode}", "selesai")->name("purchaseselesai");
 });
 
 
