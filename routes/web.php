@@ -1,9 +1,5 @@
 <?php
 
-use App\Http\Controllers\bahan\BahanController;
-use App\Http\Controllers\bom\BomController;
-use App\Http\Controllers\customer\CustomerContoller;
-use App\Http\Controllers\dashboard\DashboardController;
 use App\Models\Penghuni;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\pembayaran\Bayar;
@@ -23,6 +19,7 @@ use App\Http\Controllers\pembayaran\PembayaranController;
 use App\Http\Controllers\grafik_pendapatan\GrafikPendapatan;
 use App\Http\Controllers\manufacturing\ManufacturingController;
 use App\Http\Controllers\manufacturing_order\ManufacturingOrderController;
+use App\Http\Controllers\customer\CustomerContoller;
 
 /*
 |--------------------------------------------------------------------------
