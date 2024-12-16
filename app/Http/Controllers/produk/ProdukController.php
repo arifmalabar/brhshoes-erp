@@ -19,7 +19,7 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        
+
         return view("produk/produk", ["nama"=> "manufacturing"]);
     }
     public function getKategori()
@@ -82,12 +82,6 @@ class ProdukController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Produk  $produk
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         try {
@@ -100,7 +94,7 @@ class ProdukController extends Controller
             }
         } catch (\Throwable $th) {
             return response()->json(["status" => "error", "message" => $th->getMessage()], 500);
-        }   
+        }
     }
 
     /**

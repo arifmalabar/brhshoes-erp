@@ -3,7 +3,7 @@
     active
 @endsection
 @section('judul')
-    Tambah Produk dan Bahan
+    Tambah Produk
 @endsection
 @section('content')
 <section class="content">
@@ -30,12 +30,12 @@
                                             class="form-control"
                                             id="inputEmail3"
                                             placeholder="Masukan Nama Produk/Bahan"
-                                            
+
                                         />
                                     </div>
                                 </div>
                             </div>
-            
+
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label
@@ -50,7 +50,7 @@
                                             class="form-control"
                                             id="inputEmail3"
                                             placeholder="Masukan Harga Modal"
-                                            
+
                                         />
                                     </div>
                                 </div>
@@ -66,15 +66,15 @@
                                     <div class="col-sm-10">
                                         <select
                                             class="form-control"
-                                            
+
                                         >
                                             <option>Pilih Kategori</option>
-                                            
+
                                         </select>
                                     </div>
                                 </div>
                             </div>
-            
+
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label
@@ -89,7 +89,7 @@
                                             class="form-control"
                                             id="inputEmail3"
                                             placeholder="Harga Jual"
-                                            
+
                                         />
                                     </div>
                                 </div>
@@ -108,12 +108,12 @@
                                             class="form-control"
                                             id="inputEmail3"
                                             placeholder="Email"
-                                            
+
                                         />
                                     </div>
                                 </div>
                             </div>
-            
+
                             <div class="col-md-12">
                                 <div class="form-group row">
                                     <label
@@ -123,24 +123,24 @@
                                 </div>
                             </div>
                         </div>
-            
-                        <div class="col-md-3">
+
+                        <!-- <div class="col-md-3">
                             <div class="col-md-12">
-                                
+
                             </div>
                             <div class="col-md-12">
                                 <input
                                     type="file"
                                     placeholder="Upload File Disini"
                                     class="form-control"
-                                    
+
                                 />
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-12">
                             <button
                                 class="btn btn-success w-100"
-                                
+
                             >
                                 <i class="fa fa-plus"></i>
                                 Tambah Data

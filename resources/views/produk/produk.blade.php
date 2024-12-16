@@ -28,7 +28,10 @@ Produk
                                 <tr>
                                     <th>No</th>
                                     <th>Nama</th>
-                                    <th>Harga</th>
+                                    <th>Harga Modal</th>
+                                    <th>Kategori</th>
+                                    <th>Harga Jual</th>
+                                    <th>Internal Reference</th>
                                     <th>Opsi</th>
                                 </tr>
                             </thead>
@@ -37,11 +40,14 @@ Produk
                                     <td>1</td>
                                     <td>asas</td>
                                     <td>asas</td>
+                                    <td>asas</td>
+                                    <td>asas</td>
+                                    <td>asas</td>
                                     <td>
                                         <center>
                                             <button
                                                 class="btn btn-outline-info btn-sm"
-                                                
+
                                             >
                                                 <i class="fas fa-pencil-alt"></i>&nbsp;Ubah
                                             </button>
@@ -49,7 +55,7 @@ Produk
                                             <button
                                                 type="button"
                                                 class="btn btn-outline-danger btn-sm"
-                                                
+
                                             >
                                                 <i class="fas fa-trash-alt"></i>&nbsp;Hapus
                                             </button>

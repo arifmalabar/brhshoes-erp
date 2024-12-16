@@ -1,179 +1,63 @@
-@extends('layout/layout')
-@section('status')
-    active
-@endsection
-@section('judul')
-    Bahan
-@endsection
+@extends('layout.layout')
+
+@section('status', 'active')
+@section('judul', 'Data Bahan')
+
 @section('content')
 <section class="content">
-        
     <div class="container-fluid">
-        
         <div class="card card-default">
             <div class="card-header">
-                <h4 class="card-title">Informasi Bahan</h4>
+                <h4 class="card-title">Data Bahan</h4>
                 <div class="card-tools">
-                    <button class="btn btn-success btn-sm" data-toggle="modal"
-                            data-target="#tambahGedungModal">
-                            <i class="fa fa-plus"></i>&nbsp;Tambah Produk
-                        </button>
+                    <a href="{{ route('bahan.create') }}" class="btn btn-success btn-sm">
+                        <i class="fa fa-plus"></i> Tambah Bahan
+                    </a>
                 </div>
             </div>
             <div class="card-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        
-                        <table id="example2" class="table table-bordered table-hover" style="text-align: center">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama</th>
-                                    <th>Harga</th>
-                                    <th>Opsi</th>
-                                </tr>
-                            </thead>
-                            <tbody id="product-data">
-                                <tr>
-                                    <td>1</td>
-                                    <td>asasa</td>
-                                    <td>aasas</td>
-                                    <td>
-                                        <center>
-                                            <button
-                                                class="btn btn-outline-info btn-sm"
-                                                data-toggle="modal"
-                                                data-target="#editRuanganModal"
-                                                data-kode=""
-                                                data-gedung=""
-                                                data-ruang=""
-                                                data-nomor=""
-                                                data-kapasitas=""
-                                            >
-                                                <i class="fas fa-pencil-alt"></i>&nbsp;Ubah
-                                            </button>
-                                            &nbsp;
-                                            <button type="button" class="btn btn-outline-danger btn-sm">
-                                                <i class="fas fa-trash-alt"></i>&nbsp;Hapus
-                                            </button>
-                                        </center>
-                                    </td>
-                                </tr> 
-                            </tbody>
-                        </table>
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
                     </div>
-                </div>
+                @endif
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nama</th>
+                            <th>Kuantitas</th>
+                            <th>Harga Modal</th>
+                            <th>Jenis Bahan</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($data as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->kuantitas }}</td>
+                                <td>{{ $item->harga_modal }}</td>
+                                <td>{{ $item->jenis_bahan }}</td>
+                                <td>
+                                    <a href="{{ route('bahan.edit', $item->id) }}" class="btn btn-warning btn-sm">
+                                        <i class="fa fa-edit"></i> Edit
+                                    </a>
+                                    <form action="{{ route('bahan.delete', $item->id) }}" method="POST" style="display:inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <i class="fa fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </section>
-
-<!-- Modal Tambah Gedung -->
-<div class="modal fade" id="tambahGedungModal" tabindex="-1" role="dialog" aria-labelledby="tambahGedungModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="tambahGedungModalLabel">Tambah Gedung</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="formTambahGedung" action="{{ url('/setting_gedung/store') }}" method="POST">
-                    @csrf
-                    <div class="form-group">
-                        <label for="">Nama Gedung<sup>*</sup>:</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-tag"></i></span>
-                            </div>
-                            <input type="text" class="form-control" name="nama_gedung"
-                                placeholder="Masukan Nama Gedung" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Alamat Gedung<sup>*</sup>:</label>
-                        <div class="input-group mb-3">
-                            <textarea name="alamat_gedung" placeholder="Masukan Alamat Gedung" id="" cols="30" rows="5"
-                                class="form-control"></textarea>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary" form="formTambahGedung">Simpan</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Edit Gedung -->
-<div class="modal fade" id="editGedungModal" tabindex="-1" role="dialog" aria-labelledby="editGedungModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editGedungModalLabel">Edit Gedung</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="formEditGedung" action="" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="form-group">
-                        <label for="">Kode Gedung<sup>*</sup>:</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span>
-                            </div>
-                            <input type="text" class="form-control" id="editKodeGedung" name="kode_gedung"
-                                readonly>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Nama Gedung<sup>*</sup>:</label>
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-tag"></i></span>
-                            </div>
-                            <input type="text" class="form-control" id="editNamaGedung" name="nama_gedung"
-                                required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="">Alamat Gedung<sup>*</sup>:</label>
-                        <div class="input-group mb-3">
-                            <textarea id="editAlamatGedung" name="alamat_gedung" id="" cols="30" rows="5"
-                                class="form-control"></textarea>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                <button type="submit" class="btn btn-primary" form="formEditGedung">Edit</button>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
-@section('js')
-    <script src="{{ mix('js/bahan.js') }}"></script>
-    <script>
-        $(function() {
-            $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-            });
-        });
-    </script>  
 @endsection
