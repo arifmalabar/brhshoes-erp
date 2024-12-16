@@ -17,10 +17,13 @@ class ProdukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct() {
+        $this->model = new Product();
+    }
     public function index()
     {
-
-        return view("produk/produk", ["nama"=> "manufacturing"]);
+        
+        return view("produk/produk", ["nama"=> "manufacturing", "data" => $this->getData()]);
     }
     public function getKategori()
     {
@@ -35,20 +38,7 @@ class ProdukController extends Controller
     {
         return $this->getData();
     }
-    private function getData()
-    {
-        try {
-            $query = Product::get();
-            if($query)
-            {
-                return response()->json(["status" => "success", "data" => $query], 200);
-            } else {
-                throw new Exception("Error Processing Request", 1);
-            }
-        } catch (\Throwable $th) {
-            return response()->json(["status" => "error", "message" => $th->getMessage()], 401);
-        }
-    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -68,17 +58,12 @@ class ProdukController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $request->only(["nama_produk", "harga_modal", "harga_jual", "internal_reference"]);
         try {
             $query = Product::insert($data);
-            if($query)
-            {
-                return response()->json(["status" => "success"], 200);
-            } else {
-                throw new Exception("Gagal menambah data");
-            }
+            return back()->with("success", "Berhasil menambah data");
         } catch (\Throwable $th) {
-            return response()->json(["status" => "error", "message" => $th->getMessage()], 401);
+            return $th->getMessage();
         }
     }
 
@@ -117,17 +102,13 @@ class ProdukController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = $request->all();
+        $data = $request->only(["nama_produk", "harga_modal", "harga_jual", "internal_reference"]);
         try {
             $query = Product::find($id)->update($data);
-            if($query)
-            {
-                return response()->json(["status" => "success"], 200);
-            } else {
-                throw new Exception("Gagal menambah data", 1);
-            }
+            return back()->with("success", "Berhasil mengubah data");
         } catch (\Throwable $th) {
-            return response()->json(["status" => "error", "message" => $th->getMessage()], 401);
+            return $th->getMessage();
+            //return back()->with("error", "gagal mengubah data ".$th->getMessage());
         }
     }
 
