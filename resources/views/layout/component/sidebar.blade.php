@@ -57,6 +57,13 @@
                         <p>Manufacturing Order</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="/purchase/order"
+                        class="nav-link {{ $nama == 'purchase order' ? 'active' : '' }}">
+                        <i class="fas nav-icon fa-money-bill"></i>
+                        <p>Purchase Order</p>
+                    </a>
+                </li>
                 <li class="nav-header">Vendor</li>
                 <li class="nav-item">
                     <a href="#" class="nav-link {{ $nama == 'manufacturing order' ? 'active' : '' }}">
@@ -68,7 +75,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="/vendor/perusahaan" class="nav-link">
+                            <a href="/vendor/company" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Company</p>
                             </a>
