@@ -15,7 +15,7 @@
                     <div class="card-header">
                         <h4 class="card-title">Bill Of Material Detail</h4>
                         <div class="card-tools">
-                            <a href="/bill_material/tambah" class="btn btn-success btn-sm">
+                            <a href="{{ route('bom.create') }}" class="btn btn-success btn-sm">
                             <i class="fa fa-plus"></i>&nbsp;Tambah Komposisi
                         </a>
                         </div>

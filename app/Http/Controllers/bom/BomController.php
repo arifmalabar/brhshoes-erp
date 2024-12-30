@@ -2,8 +2,16 @@
 
 namespace App\Http\Controllers\bom;
 
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
+use App\Models\Bom;
+use App\Models\BOMDetail;
+use App\Models\Category;
+use App\Models\Component;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Exception;
 
 class BomController extends Controller
 {
@@ -14,7 +22,8 @@ class BomController extends Controller
      */
     public function index()
     {
-        return view("bom/bom", ["nama"=> "bom"]);
+        $data = Bom::all();
+        return view("bom/bom", ["nama"=> "bom"], compact('data'));
     }
 
     /**
@@ -24,7 +33,10 @@ class BomController extends Controller
      */
     public function create()
     {
-        return view("bom/tambah_bom", ["nama"=> "bom"]);
+        $bahan = Component::all();
+        $produk = Product::all();
+        $kategori = Category::all();
+        return view("bom.tambah_bom", ["nama"=> "bom"], compact('bahan', 'produk', 'kategori'));
     }
 
     /**
@@ -35,7 +47,38 @@ class BomController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validate = $request->validate([
+            'id' => 'required|string|max:4',
+            'products_id',
+            'categories_id',
+            'quantity' => 'required|string|max:255',
+            'satuan' => 'required|string|max:255',
+        ]);
+
+        try {
+            $kodeBOM = Bom::getId();
+            $bom = Bom::create([
+             'id' => $kodeBOM,
+             'products_id' => $request->products_id,
+             'categories_id' => $request->categories_id,
+             'quantity' => $request->quantity,
+             'satuan' => $request->satuan,
+            ]);
+ 
+            foreach($request->produk as $produk){
+                BOMDetail::create([
+                    'id' => Str::uuid()->toString(),
+                    'components_id' => $produk['components_id'],
+                    'quantity' =>$produk['quantity'],
+                    'price' =>$produk['price'],
+                ]);
+                DB::commit();
+                return redirect()->route('bom.index')->with('success', 'Data berhasil disimpan!');
+            }
+         }catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+         }
     }
 
     /**
@@ -57,7 +100,8 @@ class BomController extends Controller
      */
     public function edit($id)
     {
-        return view("bom/update_bom", ["nama"=> "bom"]);
+        $bom = Bom::findOrFail($id);
+        return view("bom.edit", ["nama"=> "bom"], compact('bom'));
     }
 
     /**
@@ -69,7 +113,39 @@ class BomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validate = $request->validate([
+            'id' => 'required|string|max:4',
+            'products_id',
+            'categories_id',
+            'quantity' => 'required|string|max:255',
+            'satuan' => 'required|string|max:255',
+        ]);
+
+        try {
+            $kodeBOM = Bom::getId();
+            $bom = Bom::findOrFail($id);
+            $bom->update([
+             'id' => $kodeBOM,
+             'products_id' => $request->products_id,
+             'categories_id' => $request->categories_id,
+             'quantity' => $request->quantity,
+             'satuan' => $request->satuan,
+            ]);
+ 
+            foreach($request->produk as $produk){
+                BOMDetail::create([
+                    'id' => Str::uuid()->toString(),
+                    'components_id' => $produk['components_id'],
+                    'quantity' =>$produk['quantity'],
+                    'price' =>$produk['price'],
+                ]);
+                DB::commit();
+                return redirect()->route('bom.index')->with('success', 'Data berhasil disimpan!');
+            }
+         }catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+         }
     }
 
     /**
@@ -80,6 +156,9 @@ class BomController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bom = Bom::findOrFail($id);
+        $bom->delete();
+        return redirect()->route('bom.index')->with('success', 'Data berhasil dihapus!');
     }
 }
+

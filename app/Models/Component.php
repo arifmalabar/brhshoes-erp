@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Component extends Model
 {
     use HasFactory;
+    protected $table = 'components';
+    public $timestamps = false;
+    protected $fillable = [
+        'nama',
+        'kuantitas',
+        'harga_modal',
+    ];
 }

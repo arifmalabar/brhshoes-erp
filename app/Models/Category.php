@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    static function getCategoryData()
-    {
-        return Category::get();
-    }
+    protected $table = 'categories';
+    public $timestamps = false;
+    protected $fillable = [
+        'nama_kategori',
+    ];
 }

@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     use HasFactory;
-    public static function getProduct()
-    {
-        try {
-            return Product::get();
-        } catch (\Throwable $th) {
-            return [];
-        }
-    }
+    protected $table = 'products';
+    public $timestamps = false;
+    protected $fillable = [
+        'category_id',
+        'nama_produk',
+        'harga_modal',
+        'harga_jual',
+        'internal_reference',
+    ];
 }
