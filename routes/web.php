@@ -46,6 +46,15 @@ Route::controller(DashboardController::class)->group(function() {
     Route::get('/dashboard', 'index')->name('dashboard');
     Route::get('/informasikost', 'informasiKostJson');
 });
+Route::prefix('bahan')->group(function () {
+    Route::get('/', [BahanController::class, 'index'])->name('bahan.index'); // Menampilkan semua bahan
+    Route::get('/tambah', [BahanController::class, 'create'])->name('bahan.create'); // Form tambah bahan
+    Route::post('/store', [BahanController::class, 'store'])->name('bahan.store'); // Menyimpan bahan
+    Route::get('/edit/{id}', [BahanController::class, 'edit'])->name('bahan.edit'); // Form edit bahan
+    Route::put('/update/{id}', [BahanController::class, 'update'])->name('bahan.update'); // Memperbarui bahan
+    Route::delete('/delete/{id}', [BahanController::class, 'destroy'])->name('bahan.delete'); // Menghapus bahan
+});
+
 
 Route::controller(ManufacturingController::class)->group(function () {
     Route::get("/manufacturing", 'index')->name('manufacturing');
