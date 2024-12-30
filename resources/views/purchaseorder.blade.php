@@ -11,7 +11,8 @@
             <div class="card-header">
                 <h4 class="card-title">Data Purchase Orders</h4>
                 <div class="card-tools">
-                    <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-lg" onclick="resetForm()">
+                    <button class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-lg"
+                        onclick="resetForm()">
                         <i class="fa fa-plus"></i>
                         Tambah Purchase Order
                     </button>
@@ -42,10 +43,11 @@
                             <td>{{ $purchase->status }}</td>
                             <td>
                                 @if($purchase->status !== 'Tagihan Selesai')
-                                    <a href="{{ route('purchasevalidasi', ['kode' => $purchase->kode]) }}" class="btn btn-primary mb-3">Proses</a>
+                                <a href="{{ route('purchasevalidasi', ['kode' => $purchase->kode]) }}"
+                                    class="btn btn-primary mb-3">Proses</a>
                                 @endif
                             </td>
-                            
+
                         </tr>
                         @endforeach
                     </tbody>
@@ -69,7 +71,8 @@
                     @csrf
                     <div class="form-group">
                         <label for="inputKode">Kode</label>
-                        <input type="text" class="form-control" id="inputKode" name="kode" placeholder="Masukkan Kode" required>
+                        <input type="text" class="form-control" id="inputKode" name="kode" placeholder="Masukkan Kode"
+                            required>
                     </div>
                     <div class="form-group">
                         <label for="inputTanggal">Tanggal Pesan</label>
@@ -77,33 +80,36 @@
                     </div>
                     {{-- <div class="form-group">
                         <label for="inputVendor">Vendor</label>
-                        <input type="text" class="form-control" id="inputVendor" name="vendor" placeholder="Masukkan Vendor" required>
+                        <input type="text" class="form-control" id="inputVendor" name="vendor"
+                            placeholder="Masukkan Vendor" required>
                     </div> --}}
 
-                   
-                        @csrf
-                        <div class="form-group">
-                            <label for="inputVendor">Vendor</label>
-                            <select class="form-control" id="inputVendor" name="vendor" required>
-                                @foreach ($vendors as $vendor)
-                                    <option value="{{ $vendor->name }}">{{ $vendor->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                
-                 
-                    
-                    
+
+                    @csrf
+                    <div class="form-group">
+                        <label for="inputVendor">Vendor</label>
+                        <select class="form-control" id="inputVendor" name="vendor" required>
+                            @foreach ($vendors as $vendor)
+                            <option value="{{ $vendor->name }}">{{ $vendor->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+
+
+
                     <div class="form-group">
                         <label for="inputTotal">Total</label>
-                        <input type="number" class="form-control" id="inputTotal" name="total" placeholder="Masukkan Total" required>
+                        <input type="number" class="form-control" id="inputTotal" name="total"
+                            placeholder="Masukkan Total" required>
                     </div>
                     <div class="form-group">
                         <label for="inputStatus">Status</label>
-                        <input type="text" class="form-control" id="inputStatus" name="status" value="Tagihan Belum Terbayar" readonly required>
+                        <input type="text" class="form-control" id="inputStatus" name="status" value="0" readonly
+                            required>
                     </div>
-                    
-                    
+
+
                     <button type="submit" class="btn btn-primary">Kirim</button>
                 </form>
             </div>

@@ -49,21 +49,21 @@ class PurchaseorderController extends Controller
 
     public function validasi($kode)
     {
-        $purchases = PurchaseOrder::where('kode', $kode)->get();
+        $purchases = PurchaseOrder::where('kode', $kode)->first();
         // Ambil tanggal yang unik
         $tanggalPesan = PurchaseOrder::select('tanggal_pesan')->distinct()->get();
         $tanggalDiterima = PurchaseOrder::select('tanggal_diterima')->distinct()->get();
-        if ($purchases->isEmpty()) {
+        /*if ($purchases->isEmpty()) {
             return redirect()->back()->with('error', 'Data dengan kode tersebut tidak ditemukan.');
-        }
-
+        }*/
         return view('purchase_validasi', [
             "nama" => "Purchasevalidasi",
             "purchases" => $purchases,
             "tanggalPesan" => $tanggalPesan,
-            "tanggalDiterima" => $tanggalDiterima
+            "tanggalDiterima" => $tanggalDiterima,
         ]);
     }
+    
 
     public function bayar($kode)
     {
@@ -130,8 +130,19 @@ class PurchaseorderController extends Controller
     }
     public function updateTanggalDiterima(Request $request)
     {
-        return $request;
-        // Validasi input
+        $kode = $request->kode;
+        $tgl_diterima = $request->tanggal_diterima;
+
+        try {
+            $po = PurchaseOrder::find($kode);
+            $po->tanggal_diterima = $tgl_diterima;
+            $po->status = $po->status + 1;
+            $po->save();
+            return back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+        // Validasi inpu
         /*$request->validate([
             'tanggal_diterima' => 'required|date',
         ]);
