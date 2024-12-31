@@ -40,7 +40,26 @@
                             <td>{{ $purchase->tanggal_pesan }}</td>
                             <td>{{ $purchase->vendor }}</td>
                             <td>{{ $purchase->total }}</td>
-                            <td>{{ $purchase->status }}</td>
+                            <td>
+                                @switch((int) $purchase->status)
+                                @case(0)
+                                <small class="badge badge-danger">Belum Validiasi</small>
+                                @break
+                                @case(1)
+                                <small class="badge badge-primary">Tervalidiasi</small>
+                                @break
+                                @case(2)
+                                <small class="badge badge-warning">Terkonfirmasi</small>
+                                @break
+                                @case(3)
+                                <small class="badge badge-success">Selesai</small>
+                                @break
+                                @default
+                                <small class="badge badge-danger">Belum Validiasi</small>
+                                @break
+
+                                @endswitch
+                            </td>
                             <td>
                                 @if($purchase->status !== 'Tagihan Selesai')
                                 <a href="{{ route('purchasevalidasi', ['kode' => $purchase->kode]) }}"

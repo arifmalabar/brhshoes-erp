@@ -14,43 +14,53 @@
 
             <div class="card-body">
                 <div class="row mb-3">
-                    <div class="col-md-3">
+                    <div class="col-md-6">
                         <label for="filterKode">Kode <i class="fas fa-key"></i></label> <!-- Ikon kunci -->
-                        <select id="filterKode" class="form-control" disabled>
-                            @foreach ($purchases as $purchase)
-                            <option value="{{ $purchase->kode }}">{{ $purchase->kode }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" readonly name="kode" readonly value="{{ $purchases->kode }}"
+                            class="form-control">
                     </div>
-                
-                    <div class="col-md-3">
-                        <label for="filterVendor">Vendor <i class="fas fa-industry"></i></label> <!-- Ikon vendor -->
-                        <select id="filterVendor" class="form-control" disabled>
-                            @foreach ($purchases as $purchase)
-                            <option value="{{ $purchase->vendor }}">{{ $purchase->vendor }}</option>
-                            @endforeach
-                        </select>
+
+                    <div class="col-md-6">
+                        <label for="filterVendor">Vendor <i class="fas fa-industry"></i></label>
+                        <!-- Ikon vendor -->
+                        <input type="text" name="vendor" readonly value="{{ $purchases->vendor }}" class="form-control">
                     </div>
-                
-                    <div class="col-md-3">
-                        <label for="filterTanggalPesan">Tanggal Pesan <i class="fas fa-calendar-alt"></i></label> <!-- Ikon kalender -->
-                        <select id="filterTanggalPesan" class="form-control" disabled>
-                            @foreach ($purchases as $purchase)
-                            <option value="{{ $purchase->tanggal_pesan }}">{{ $purchase->tanggal_pesan }}</option>
-                            @endforeach
-                        </select>
+
+                    <div class="col-md-6">
+                        <label for="filterTanggalPesan">Tanggal Pesan <i class="fas fa-calendar-alt"></i></label>
+                        <!-- Ikon kalender -->
+                        <input type="text" name="tanggal_pesan" readonly value="{{ $purchases->tanggal_pesan }}"
+                            class="form-control">
                     </div>
-                
-                    <div class="col-md-3">
-                        <label for="filterTanggalDiterima">Tanggal Diterima <i class="fas fa-calendar-check"></i></label> <!-- Ikon kalender cek -->
-                        <select id="filterTanggalDiterima" class="form-control" disabled>
-                            @foreach ($purchases as $purchase)
-                            <option value="{{ $purchase->tanggal_diterima }}">{{ $purchase->tanggal_diterima }}</option>
-                            @endforeach
+
+                    <div class="col-md-6">
+                        <label for="filterTanggalDiterima">Tanggal Diterima <i
+                                class="fas fa-calendar-check"></i></label> <!-- Ikon kalender cek -->
+                        <input type="date" id="filterTanggalDiterima" value="{{ date('Y-m-d') }}" class="form-control"
+                            readonly name="tanggal_diterima">
+                    </div>
+                    <div class="col-md-12">
+                        <label for="filterpembayaran">Pilih Pembayaran <i class="fas fa-money-bill-wave"></i></label>
+                        <!-- Ikon pembayaran -->
+                        <select id="filterpembayaran" disabled name="metode_pembayaran" class="form-control">
+                            <option value="" disabled selected>Pilih Pembayaran</option>
+                            @switch($purchases->metode_pembayaran)
+                            @case("Cash")
+                            <option value="Cash" selected>Cash</option>
+                            <option value="Bank">Bank</option>
+                            @break
+                            @case("Bank")
+                            <option value="Cash">Cash</option>
+                            <option value="Bank" selected>Bank</option>
+                            @break
+                            @default
+                            <option value="Cash">Cash</option>
+                            <option value="Bank">Bank</option>
+                            @endswitch
                         </select>
                     </div>
                 </div>
-                
+
 
                 <table id="example2" class="table table-bordered table-hover" style="text-align: center">
                     <thead>
@@ -89,11 +99,20 @@
 
 
                 <!-- Tombol Proses yang diletakkan di bawah kanan -->
-                <div class="d-flex justify-content-end mt-3">
-                    <a href="{{ route('purchaseorder', ['kode' => $purchase->kode]) }}" class="btn btn-secondary mb-3">Cetak</a>
-                    <a href="{{ route('purchaseorder', ['kode' => $purchase->kode]) }}" class="btn btn-primary mb-3">Selesai</a>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a href="{{ route('purchaseorder', ['kode' => $purchases->kode]) }}"
+                            class="btn btn-secondary mb-3 float-left">Cetak</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="/purchase/order" class="btn btn-primary mb-3 float-right">Kembali</a>
+                    </div>
                 </div>
-                
+                <div class="d-flex justify-content-end mt-3">
+
+
+                </div>
+
             </div>
         </div>
     </div>

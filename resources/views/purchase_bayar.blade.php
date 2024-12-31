@@ -13,66 +13,43 @@
             </div>
 
             <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <label for="filterKode">Kode</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-key"></i></span> <!-- Ikon Kunci -->
+                <div class="row">
+                    <form action="/update-tanggal-diterima" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="filterKode">Kode <i class="fas fa-key"></i></label> <!-- Ikon kunci -->
+                                <input type="text" readonly name="kode" readonly value="{{ $purchases->kode }}"
+                                    class="form-control">
                             </div>
-                            <select id="filterKode" class="form-control" disabled>
-                                @foreach ($purchases as $purchase)
-                                <option value="{{ $purchase->kode }}">{{ $purchase->kode }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    
-                    
-                    <div class="col-md-3">
-                        <label for="filterVendor">Vendor</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-industry"></i></span> <!-- Ikon untuk Vendor -->
+
+                            <div class="col-md-3">
+                                <label for="filterVendor">Vendor <i class="fas fa-industry"></i></label>
+                                <!-- Ikon vendor -->
+                                <input type="text" name="vendor" readonly value="{{ $purchases->vendor }}"
+                                    class="form-control">
                             </div>
-                            <select id="filterVendor" class="form-control" disabled>
-                                @foreach ($purchases as $purchase)
-                                <option value="{{ $purchase->vendor }}">{{ $purchase->vendor }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <label for="filterTanggalPesan">Tanggal Pesan</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span> <!-- Ikon untuk Tanggal Pesan -->
+
+                            <div class="col-md-3">
+                                <label for="filterTanggalPesan">Tanggal Pesan <i
+                                        class="fas fa-calendar-alt"></i></label>
+                                <!-- Ikon kalender -->
+                                <input type="text" name="tanggal_pesan" readonly value="{{ $purchases->tanggal_pesan }}"
+                                    class="form-control">
                             </div>
-                            <select id="filterTanggalPesan" class="form-control" disabled>
-                                @foreach ($purchases as $purchase)
-                                <option value="{{ $purchase->tanggal_pesan }}">{{ $purchase->tanggal_pesan }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <label for="filterTanggalDiterima">Tanggal Diterima</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-calendar-check"></i></span> <!-- Ikon untuk Tanggal Diterima -->
+
+                            <div class="col-md-3">
+                                <label for="filterTanggalDiterima">Tanggal Diterima <i
+                                        class="fas fa-calendar-check"></i></label> <!-- Ikon kalender cek -->
+                                <input type="date" id="filterTanggalDiterima" value="{{ date('Y-m-d') }}"
+                                    class="form-control" readonly name="tanggal_diterima">
                             </div>
-                            <select id="filterTanggalDiterima" class="form-control">
-                                @foreach ($purchases as $purchase)
-                                    <option value="{{ $purchase->tanggal_diterima }}">{{ $purchase->tanggal_diterima }}</option>
-                                @endforeach
-                            </select>
-                            
+                            <div class="col-md-12">
+                                <br>
+                                <button type="submit" class="btn btn-primary float-right">Bayar</button>
+                            </div>
                         </div>
-                    </div>
-                    
-                 
+                    </form>
                 </div>
 
                 <table id="example2" class="table table-bordered table-hover" style="text-align: center">
@@ -112,10 +89,7 @@
 
 
                 <!-- Tombol Proses yang diletakkan di bawah kanan -->
-                <div class="d-flex justify-content-end mt-3">
-                    <a href="{{ route('purchasekonfirmasi', ['kode' => $purchase->kode]) }}"
-                        class="btn btn-primary mb-3">Konfirmasi</a>
-                </div>
+
             </div>
         </div>
     </div>

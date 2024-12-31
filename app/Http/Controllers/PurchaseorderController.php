@@ -50,7 +50,27 @@ class PurchaseorderController extends Controller
     public function validasi($kode)
     {
         $purchases = PurchaseOrder::where('kode', $kode)->first();
-        // Ambil tanggal yang unik
+        switch ($purchases->status) {
+            case 0:
+                    return $this->validasiPage($kode, $purchases);
+                break;
+            case 1:
+                    return $this->bayar($kode);
+                break;
+            case 2:
+                    return $this->konfirmasi($kode);
+                break;
+            case 3:
+                    return $this->selesai($kode);
+                break;
+            default:
+                    return redirect("/purchase/order");
+                break;
+        }
+    }
+    
+    public function validasiPage($kode, PurchaseOrder $purchases)
+    {
         $tanggalPesan = PurchaseOrder::select('tanggal_pesan')->distinct()->get();
         $tanggalDiterima = PurchaseOrder::select('tanggal_diterima')->distinct()->get();
         /*if ($purchases->isEmpty()) {
@@ -63,17 +83,12 @@ class PurchaseorderController extends Controller
             "tanggalDiterima" => $tanggalDiterima,
         ]);
     }
-    
-
     public function bayar($kode)
     {
-        $purchases = PurchaseOrder::where('kode', $kode)->get();
+        $purchases = PurchaseOrder::where('kode', $kode)->first();
         // Ambil tanggal yang unik
         $tanggalPesan = PurchaseOrder::select('tanggal_pesan')->distinct()->get();
         $tanggalDiterima = PurchaseOrder::select('tanggal_diterima')->distinct()->get();
-        if ($purchases->isEmpty()) {
-            return redirect()->back()->with('error', 'Data dengan kode tersebut tidak ditemukan.');
-        }
 
         return view('purchase_bayar', [
             "nama" => "purchase_bayar",
@@ -85,13 +100,11 @@ class PurchaseorderController extends Controller
 
     public function konfirmasi($kode)
     {
-        $purchases = PurchaseOrder::where('kode', $kode)->get();
+        $purchases = PurchaseOrder::where('kode', $kode)->first();
         // Ambil tanggal yang unik
         $tanggalPesan = PurchaseOrder::select('tanggal_pesan')->distinct()->get();
         $tanggalDiterima = PurchaseOrder::select('tanggal_diterima')->distinct()->get();
-        if ($purchases->isEmpty()) {
-            return redirect()->back()->with('error', 'Data dengan kode tersebut tidak ditemukan.');
-        }
+        
 
         return view('purchase_konfirmasi', [
             "nama" => "purchase_konfirmasi",
@@ -104,18 +117,16 @@ class PurchaseorderController extends Controller
     public function selesai($kode)
     {
         // Ambil purchase order berdasarkan kode
-        $purchases = PurchaseOrder::where('kode', $kode)->get();
+        $purchases = PurchaseOrder::where('kode', $kode)->first();
 
         // Pastikan ada purchase order yang ditemukan
-        if ($purchases->isEmpty()) {
-            return redirect()->back()->with('error', 'Data dengan kode tersebut tidak ditemukan.');
-        }
+        
 
         // Update status untuk setiap purchase order
-        foreach ($purchases as $purchase) {
+        /*foreach ($purchases as $purchase) {
             $purchase->status = 'Tagihan Selesai';
             $purchase->save();  // Simpan perubahan status
-        }
+        }*/
 
         // Ambil tanggal yang unik
         $tanggalPesan = PurchaseOrder::select('tanggal_pesan')->distinct()->get();
@@ -132,10 +143,14 @@ class PurchaseorderController extends Controller
     {
         $kode = $request->kode;
         $tgl_diterima = $request->tanggal_diterima;
-
         try {
             $po = PurchaseOrder::find($kode);
             $po->tanggal_diterima = $tgl_diterima;
+            if($po->status == 2)
+            {
+                $metode_bayar = $request->metode_pembayaran;
+                $po->metode_pembayaran = $metode_bayar;
+            }
             $po->status = $po->status + 1;
             $po->save();
             return back();
