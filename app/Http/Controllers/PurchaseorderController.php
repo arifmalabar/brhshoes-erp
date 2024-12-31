@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\PurchaseOrder;
 use App\Models\VendorCompany;
 use App\Models\VendorIndividu;
+use Illuminate\Support\Facades\DB;
 
 class PurchaseorderController extends Controller
 {
@@ -19,6 +20,7 @@ class PurchaseorderController extends Controller
         $purchases = PurchaseOrder::all(); // Get all purchase orders
         $vendorsCompany = VendorCompany::all();
         $vendorsIndividu = VendorIndividu::all();
+        $rfq = DB::table("rfqs")->get();
         $vendors = $vendorsIndividu->merge($vendorsCompany);
         return view("purchaseorder", ["nama" => "Purchaseorder", "purchases" => $purchases, "vendors" => $vendors]);
     }
@@ -31,19 +33,9 @@ class PurchaseorderController extends Controller
      */
     public function store(Request $request)
     {
-        // Validate the request data
-        $request->validate([
-            'kode' => 'required|string|max:10',
-            'tanggal_pesan' => 'required|date',
-            'vendor' => 'required|string|max:255',
-            'total' => 'required|numeric',
-            'status' => 'required|string|max:255',
-            'tanggal_diterima' => 'string|date',
-        ]);
-
-        // Create a new purchase order record
-        PurchaseOrder::create($request->all());
-
+        $data = $request->except(["kode", "_token"]);
+        $data["kode"] = PurchaseOrder::getKode();
+        PurchaseOrder::insert($data);
         return redirect()->route('purchaseorder')->with('success', 'Purchase order created successfully!');
     }
 

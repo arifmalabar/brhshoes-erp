@@ -23,6 +23,19 @@ class PurchaseOrder extends Model
         'status',
         'tanggal_diterima'
     ];
+    public static function getKode()
+    {
+        $last = self::first();
+        $length = self::count();
+        $new = "";
+        if($length == 0){
+            $new = "P001";
+        } else {
+            $number = (int) substr($last->kode, 1);
+            $new = "P".str_pad($number+1, 3, '0', STR_PAD_LEFT);
+        }
+        return $new;
+    }
     public function vendor(){
         return $this->belongsTo(VendorCompany::class, 'vendor_id', 'id');
     }
