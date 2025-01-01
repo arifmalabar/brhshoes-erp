@@ -88,11 +88,7 @@
             <div class="modal-body">
                 <form action="{{ route('purchaseorder.store') }}" method="POST" id="purchaseForm">
                     @csrf
-                    <div class="form-group">
-                        <label for="inputKode">Kode</label>
-                        <input type="text" class="form-control" id="inputKode" name="kode" placeholder="Masukkan Kode"
-                            required>
-                    </div>
+
                     <div class="form-group">
                         <label for="inputTanggal">Tanggal Pesan</label>
                         <input type="date" class="form-control" id="inputTanggal" name="tanggal_pesan" required>
@@ -117,7 +113,7 @@
 
 
 
-                    <div class="form-group">
+                    <!--<div class="form-group">
                         <label for="inputTotal">Total</label>
                         <input type="number" class="form-control" id="inputTotal" name="total"
                             placeholder="Masukkan Total" required>
@@ -126,7 +122,7 @@
                         <label for="inputStatus">Status</label>
                         <input type="text" class="form-control" id="inputStatus" name="status" value="0" readonly
                             required>
-                    </div>
+                    </div>-->
 
 
                     <button type="submit" class="btn btn-primary">Kirim</button>

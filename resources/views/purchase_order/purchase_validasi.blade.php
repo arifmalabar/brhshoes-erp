@@ -19,7 +19,8 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <label for="filterKode">Kode <i class="fas fa-key"></i></label> <!-- Ikon kunci -->
-                                <input type="text" name="kode" value="{{ $purchases->kode }}" class="form-control">
+                                <input type="text" name="kode" readonly value="{{ $purchases->kode }}"
+                                    class="form-control">
                             </div>
 
                             <div class="col-md-3">

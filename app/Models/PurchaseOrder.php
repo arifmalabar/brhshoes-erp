@@ -25,7 +25,7 @@ class PurchaseOrder extends Model
     ];
     public static function getKode()
     {
-        $last = self::first();
+        $last = self::orderBy("kode", "DESC")->first();
         $length = self::count();
         $new = "";
         if($length == 0){

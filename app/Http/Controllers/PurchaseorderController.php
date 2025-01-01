@@ -47,6 +47,7 @@ class PurchaseorderController extends Controller
         $data["kode"] = PurchaseOrder::getKode();
         PurchaseOrder::insert($data);
         return redirect()->route('purchaseorder')->with('success', 'Purchase order created successfully!');
+        
     }
 
     public function validasi($kode)
@@ -90,12 +91,15 @@ class PurchaseorderController extends Controller
     public function tambahBahan(Request $request)
     {
         $data = $request->except("_token");
-        $kodePo = $request->component_id;
+        $kodeComponent = $request->component_id;
         try {
-            $component = Component::find($kodePo);
+            $component = Component::find($kodeComponent);
             $data["harga_satuan"] = $component->harga_modal;
             $data["subtotal"] = $component->harga_modal * $request->kuantitas;
             $data["diterima"] = 0;
+            $po = PurchaseOrder::find($request->purchase_order_id);
+            $po->total += $component->harga_modal * $request->kuantitas;
+            $po->save();
             PurchaseOrderDetail::insert($data);
             return back();
         } catch (\Throwable $th) {
@@ -159,6 +163,7 @@ class PurchaseorderController extends Controller
             "nama" => "purchase_selesai",
             "purchases" => $purchases,
             "bahan" => $this->component->get(),
+            "detail" => $this->detail->getPoDetail($kode),
             "tanggalPesan" => $tanggalPesan,
             "tanggalDiterima" => $tanggalDiterima
         ]);
@@ -174,7 +179,8 @@ class PurchaseorderController extends Controller
             {
                 $metode_bayar = $request->metode_pembayaran;
                 $po->metode_pembayaran = $metode_bayar;
-                return $this->terimaBahan($kode);
+                //ubah detail
+                $this->terimaBahan($kode);
             }
             $po->status = $po->status + 1;
             $po->save();
@@ -204,12 +210,19 @@ class PurchaseorderController extends Controller
         $po_details = PurchaseOrderDetail::where("purchase_order_id", "=", $kode);
         foreach ($po_details->get() as $key) {
             $key->diterima = $key->kuantitas;
+            $fix_podetail = [
+                "purchase_order_id" => $key->purchase_order_id,
+                "component_id" => $key->component_id,
+                "kuantitas" => $key->kuantitas,
+                "diterima" => $key->kuantitas,
+                "harga_satuan" => $key->harga_satuan,
+                "subtotal" => $key->subtotal,
+                "deskripsi" => $key->deskripsi
+            ];
+            PurchaseOrderDetail::where("purchase_order_id",  $kode)->update($fix_podetail);
             $component = Component::find($key->component_id);
-            $component->on_hand = $key->kuantitas;
-            $component->save();
-            //PurchaseOrderDetail::where("purchase_order_details", "=", $key->purchase_order_details)->update($key);
-            
+            $component->on_hand += $key->kuantitas;
+            $component->save(); 
         }
-
     }
 }
