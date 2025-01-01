@@ -43,6 +43,7 @@
                                 <input type="date" id="filterTanggalDiterima" value="{{ date('Y-m-d') }}"
                                     class="form-control" name="tanggal_diterima">
                             </div>
+
                             <div class="col-md-12">
                                 <br>
                                 <button type="submit" class="btn btn-primary float-right">Validasi</button>
@@ -77,38 +78,12 @@
                             }
                         }*/
                     </script>
+                    @include('purchase_order/component/modal_addbahan')
 
 
                 </div>
+                @include('purchase_order/component/tabel_bahan')
 
-                <table id="example2" class="table table-bordered table-hover" style="text-align: center">
-                    <thead>
-                        <tr>
-                            <th>Produk</th>
-                            <th>Deksripsi</th>
-                            <th>Kuantitas</th>
-                            <th>Diterima</th>
-                            <th>Ditagih</th>
-                            <th>Harga Satuan</th>
-                            <th>Sub Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($purchases as $purchase)
-                        <tr>
-                            <td>Kanvas</td>
-                            <td>Kanvas</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>30.000</td>
-                            <td>30.000</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-
-
-                </table>
 
 
                 <!-- Tombol Proses yang diletakkan di bawah kanan -->

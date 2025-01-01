@@ -100,6 +100,7 @@ Route::controller(VendorIndividuController::class)->group(function () {
 Route::controller(PurchaseorderController::class)->group(function () {
     Route::get("/purchase/order", "order")->name("purchaseorder");
     Route::post("/purchase/order/create", "store")->name("purchaseorder.store"); 
+    Route::post("/purchase/tambah_pesanan", "tambahBahan");
     Route::get("/purchase/validasi{kode}", "validasi")->name("purchasevalidasi");
     Route::post('/update-tanggal-diterima', 'updateTanggalDiterima')->name('updateTanggalDiterima');
     Route::get("/purchase/bayar{kode}", "bayar")->name("purchasebayar");

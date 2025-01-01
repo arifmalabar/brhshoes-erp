@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Component;
 use Illuminate\Http\Request;
 use App\Models\PurchaseOrder;
+use App\Models\PurchaseOrderDetail;
 use App\Models\VendorCompany;
 use App\Models\VendorIndividu;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +17,14 @@ class PurchaseorderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $path;
+    public Component $component;
+    public PurchaseOrderDetail $detail;
+    public function __construct() {
+        $this->path = "purchase_order/";
+        $this->component = new Component();
+        $this->detail = new PurchaseOrderDetail();
+    }
     public function order()
     {
         $purchases = PurchaseOrder::all(); // Get all purchase orders
@@ -22,7 +32,7 @@ class PurchaseorderController extends Controller
         $vendorsIndividu = VendorIndividu::all();
         $rfq = DB::table("rfqs")->get();
         $vendors = $vendorsIndividu->merge($vendorsCompany);
-        return view("purchaseorder", ["nama" => "Purchaseorder", "purchases" => $purchases, "vendors" => $vendors]);
+        return view($this->path."purchaseorder", ["nama" => "Purchaseorder", "purchases" => $purchases, "vendors" => $vendors]);
     }
 
     /**
@@ -68,12 +78,19 @@ class PurchaseorderController extends Controller
         /*if ($purchases->isEmpty()) {
             return redirect()->back()->with('error', 'Data dengan kode tersebut tidak ditemukan.');
         }*/
-        return view('purchase_validasi', [
+        return view($this->path.'purchase_validasi', [
             "nama" => "Purchasevalidasi",
             "purchases" => $purchases,
+            "bahan" => $this->component->get(),
+            "detail" => $this->detail->get(),
             "tanggalPesan" => $tanggalPesan,
             "tanggalDiterima" => $tanggalDiterima,
         ]);
+    }
+    public function tambahBahan(Request $request)
+    {
+        $data = $request->except("_token");
+        return $data;
     }
     public function bayar($kode)
     {
@@ -82,9 +99,10 @@ class PurchaseorderController extends Controller
         $tanggalPesan = PurchaseOrder::select('tanggal_pesan')->distinct()->get();
         $tanggalDiterima = PurchaseOrder::select('tanggal_diterima')->distinct()->get();
 
-        return view('purchase_bayar', [
+        return view($this->path.'purchase_bayar', [
             "nama" => "purchase_bayar",
             "purchases" => $purchases,
+            "bahan" => $this->component->get(),
             "tanggalPesan" => $tanggalPesan,
             "tanggalDiterima" => $tanggalDiterima
         ]);
@@ -98,9 +116,10 @@ class PurchaseorderController extends Controller
         $tanggalDiterima = PurchaseOrder::select('tanggal_diterima')->distinct()->get();
         
 
-        return view('purchase_konfirmasi', [
+        return view($this->path.'purchase_konfirmasi', [
             "nama" => "purchase_konfirmasi",
             "purchases" => $purchases,
+            "bahan" => $this->component->get(),
             "tanggalPesan" => $tanggalPesan,
             "tanggalDiterima" => $tanggalDiterima
         ]);
@@ -124,9 +143,10 @@ class PurchaseorderController extends Controller
         $tanggalPesan = PurchaseOrder::select('tanggal_pesan')->distinct()->get();
         $tanggalDiterima = PurchaseOrder::select('tanggal_diterima')->distinct()->get();
 
-        return view('purchase_selesai', [
+        return view($this->path.'purchase_selesai', [
             "nama" => "purchase_selesai",
             "purchases" => $purchases,
+            "bahan" => $this->component->get(),
             "tanggalPesan" => $tanggalPesan,
             "tanggalDiterima" => $tanggalDiterima
         ]);
