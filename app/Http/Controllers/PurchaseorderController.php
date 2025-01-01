@@ -82,7 +82,7 @@ class PurchaseorderController extends Controller
             "nama" => "Purchasevalidasi",
             "purchases" => $purchases,
             "bahan" => $this->component->get(),
-            "detail" => $this->detail->get(),
+            "detail" => $this->detail->getPoDetail($kode),
             "tanggalPesan" => $tanggalPesan,
             "tanggalDiterima" => $tanggalDiterima,
         ]);
@@ -90,7 +90,17 @@ class PurchaseorderController extends Controller
     public function tambahBahan(Request $request)
     {
         $data = $request->except("_token");
-        return $data;
+        $kodePo = $request->component_id;
+        try {
+            $component = Component::find($kodePo);
+            $data["harga_satuan"] = $component->harga_modal;
+            $data["subtotal"] = $component->harga_modal * $request->kuantitas;
+            $data["diterima"] = 0;
+            PurchaseOrderDetail::insert($data);
+            return back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
     public function bayar($kode)
     {
@@ -103,6 +113,7 @@ class PurchaseorderController extends Controller
             "nama" => "purchase_bayar",
             "purchases" => $purchases,
             "bahan" => $this->component->get(),
+            "detail" => $this->detail->getPoDetail($kode),
             "tanggalPesan" => $tanggalPesan,
             "tanggalDiterima" => $tanggalDiterima
         ]);
@@ -120,6 +131,7 @@ class PurchaseorderController extends Controller
             "nama" => "purchase_konfirmasi",
             "purchases" => $purchases,
             "bahan" => $this->component->get(),
+            "detail" => $this->detail->getPoDetail($kode),
             "tanggalPesan" => $tanggalPesan,
             "tanggalDiterima" => $tanggalDiterima
         ]);
@@ -162,6 +174,7 @@ class PurchaseorderController extends Controller
             {
                 $metode_bayar = $request->metode_pembayaran;
                 $po->metode_pembayaran = $metode_bayar;
+                return $this->terimaBahan($kode);
             }
             $po->status = $po->status + 1;
             $po->save();
@@ -185,5 +198,18 @@ class PurchaseorderController extends Controller
         }
 
         return response()->json(['success' => false]);*/
+    }
+    private function terimaBahan($kode) 
+    {   
+        $po_details = PurchaseOrderDetail::where("purchase_order_id", "=", $kode);
+        foreach ($po_details->get() as $key) {
+            $key->diterima = $key->kuantitas;
+            $component = Component::find($key->component_id);
+            $component->on_hand = $key->kuantitas;
+            $component->save();
+            //PurchaseOrderDetail::where("purchase_order_details", "=", $key->purchase_order_details)->update($key);
+            
+        }
+
     }
 }

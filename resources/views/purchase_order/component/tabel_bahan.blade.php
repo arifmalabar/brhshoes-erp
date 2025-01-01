@@ -10,14 +10,20 @@
         </tr>
     </thead>
     <tbody>
+        @php
+        $total = 0;
+        @endphp
         @foreach ($detail as $key)
         <tr>
-            <td>Kanvas</td>
-            <td>Kanvas</td>
-            <td>1</td>
-            <td>0</td>
-            <td>30.000</td>
-            <td>30.000</td>
+            <td>{{ $key->nama }}</td>
+            <td>{{ $key->deskripsi }}</td>
+            <td>{{ $key->kuantitas }}</td>
+            <td>{{ $key->diterima }}</td>
+            <td>{{ $key->harga_satuan }}</td>
+            <td>{{ $key->subtotal }}</td>
+            @php
+            $total += $key->subtotal;
+            @endphp
         </tr>
         @endforeach
 
@@ -25,7 +31,7 @@
     <tfoot>
         <tr>
             <th colspan="5">Total</th>
-            <th>3000</th>
+            <th>{{ $total }}</th>
         </tr>
     </tfoot>
 </table>

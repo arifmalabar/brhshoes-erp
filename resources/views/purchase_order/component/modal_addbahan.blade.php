@@ -28,16 +28,12 @@
                                     @endforeach
                                 </select>
                             </div>
-                            <div class="col-md-6 form-group">
+                            <div class="col-md-12 form-group">
                                 <label for="">Kuantitas</label>
                                 <input class="form-control" placeholder="masukan jml kuantitas" type="number"
                                     name="kuantitas" id="">
                             </div>
-                            <div class="col-md-6 form-group">
-                                <label for="">Diterima</label>
-                                <input class="form-control" placeholder="masukan jml diterima" type="number"
-                                    name="diterima" id="">
-                            </div>
+
                             <div class="col-md-12 form-group">
                                 <label for="">Deskripsi</label>
                                 <textarea name="deskripsi" placeholder="masukan deksripsi" id="" cols="30" rows="10"

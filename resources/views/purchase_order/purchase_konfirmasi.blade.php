@@ -62,40 +62,7 @@
                     </form>
 
                 </div>
-
-
-                <table id="example2" class="table table-bordered table-hover" style="text-align: center">
-                    <thead>
-                        <tr>
-                            <th>Produk</th>
-                            <th>Deksripsi</th>
-                            <th>Kuantitas</th>
-                            <th>Harga Satuan</th>
-                            <th>Sub Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($purchases as $purchase)
-                        <tr>
-                    <tbody>
-                        @foreach ($purchases as $purchase)
-                        <tr>
-                            <td>Kanvas</td>
-                            <td>Kanvas</td>
-                            <td>1</td>
-                            <td>30.000</td>
-                            <td>30.000</td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    </tr>
-                    @endforeach
-                    </tbody>
-
-
-                </table>
-
-
+                @include('purchase_order/component/tabel_bahan')
                 <!-- Tombol Proses yang diletakkan di bawah kanan -->
             </div>
         </div>

@@ -79,8 +79,6 @@
                         }*/
                     </script>
                     @include('purchase_order/component/modal_addbahan')
-
-
                 </div>
                 @include('purchase_order/component/tabel_bahan')
 
