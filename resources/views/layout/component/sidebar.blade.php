@@ -24,7 +24,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-header">Menu Utama</li>
+                <li class="nav-header">Manufacturing</li>
 
                 <li class="nav-item">
                     <a href="/dashboard" class="nav-link {{ $nama == 'dashboard' ? 'active' : '' }}">
@@ -57,14 +57,20 @@
                         <p>Manufacturing Order</p>
                     </a>
                 </li>
+                <li class="nav-header">Purchasing</li>
                 <li class="nav-item">
-                    <a href="/purchase/order"
-                        class="nav-link {{ $nama == 'purchase order' ? 'active' : '' }}">
+                    <a href="/purchase/rfq" class="nav-link {{ $nama == 'purchase order' ? 'active' : '' }}">
+                        <i class="fas nav-icon fa-money-bill"></i>
+                        <p>Request For Quotation</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/purchase/order" class="nav-link {{ $nama == 'purchase order' ? 'active' : '' }}">
                         <i class="fas nav-icon fa-money-bill"></i>
                         <p>Purchase Order</p>
                     </a>
                 </li>
-                <li class="nav-header">Vendor</li>
+
                 <li class="nav-item">
                     <a href="#" class="nav-link {{ $nama == 'manufacturing order' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
@@ -88,7 +94,8 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-header">Purchase</li>
+
+                <!--<li class="nav-header">Purchase</li>
                 <li class="nav-item">
                     <a href="#" class="nav-link {{ $nama == 'purchase' ? 'active' : '' }}">
                         <i class="fas fa-cart-plus"></i>
@@ -111,8 +118,8 @@
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-header">Customer</li>
+                </li>-->
+                <li class="nav-header">Sales</li>
                 <li class="nav-item">
                     <a href="/customer" class="nav-link {{ $nama == 'customer' ? 'active' : '' }}">
                         <i class="fas nav-icon fa-user-friends"></i>
