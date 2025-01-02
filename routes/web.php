@@ -88,6 +88,16 @@ Route::controller(ProdukController::class)->group(function () {
     Route::post("/produk/tambah_data", 'store')->name("produk");
     Route::delete("/produk/hapus_data/{id}", "destroy")->name("produk");
 });
+Route::controller(PurchaseorderController::class)->group(function () {
+    Route::get("/purchase/order", "order")->name("purchaseorder");
+    Route::post("/purchase/order/create", "store")->name("purchaseorder.store"); 
+    Route::post("/purchase/tambah_pesanan", "tambahBahan");
+    Route::get("/purchase/validasi{kode}", "validasi")->name("purchasevalidasi");
+    Route::post('/update-tanggal-diterima', 'updateTanggalDiterima')->name('updateTanggalDiterima');
+    Route::get("/purchase/bayar{kode}", "bayar")->name("purchasebayar");
+    Route::get("/purchase/konfirmasi{kode}", "konfirmasi")->name("purchasekonfirmasi");
+    Route::get("/purchase/selesai{kode}", "selesai")->name("purchaseselesai");
+});
 Route::controller(BahanController::class)->group(function () {
     Route::get("/bahan", 'index')->name('bahan');
     
