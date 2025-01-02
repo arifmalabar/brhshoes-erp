@@ -1,26 +1,32 @@
 <?php
 
+use App\Http\Controllers\bahan\BahanController;
+use App\Http\Controllers\bom\BomController;
+use App\Http\Controllers\dashboard\DashboardController;
 use App\Models\Penghuni;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\pembayaran\Bayar;
-use App\Http\Controllers\bom\BomController;
-use App\Http\Controllers\rfq\RfqController;
-use App\Http\Controllers\bahan\BahanController;
-use App\Http\Controllers\customer\customerController;
-use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\gedung\GedungController;
-use App\Http\Controllers\produk\ProdukController;
-use App\Http\Controllers\vendor\VendorController;
-use App\Http\Controllers\ruangan\RuanganController;
-use App\Http\Controllers\tagihan\TagihanController;
-use App\Http\Controllers\penghuni\PenghuniController;
-use App\Http\Controllers\dashboard\DashboardController;
-use App\Http\Controllers\grafik_penghuni\GrafikPenghuni;
-use App\Http\Controllers\pembayaran\PembayaranController;
 use App\Http\Controllers\grafik_pendapatan\GrafikPendapatan;
+use App\Http\Controllers\grafik_penghuni\GrafikPenghuni;
+use App\Http\Controllers\ruangan\RuanganController;
+use App\Http\Controllers\penghuni\PenghuniController;
+use App\Http\Controllers\pembayaran\PembayaranController;
+use App\Http\Controllers\tagihan\TagihanController;
+use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\manufacturing\ManufacturingController;
 use App\Http\Controllers\manufacturing_order\ManufacturingOrderController;
+use App\Http\Controllers\produk\ProdukController;
+use App\Http\Controllers\vendor\VendorController;
+use App\Http\Controllers\VendorCompanyController;
+use App\Http\Controllers\VendorIndividuController;
+use App\Http\Controllers\PurchaseorderController;
 use App\Http\Controllers\customer\CustomerContoller;
+use App\Http\Controllers\rfq\RfqController;
+
+
+
+
 
 
 /*
@@ -34,7 +40,7 @@ use App\Http\Controllers\customer\CustomerContoller;
 |
 */
 
-Route::get('/', [LoginController::class,'index'])->name('login')->middleware('guest');
+Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -42,7 +48,7 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
     return view('dashboard/dashboard', ["nama" => "dashboard"]);
 })->name('dashboard');*/
 
-Route::controller(DashboardController::class)->group(function() {
+Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'index')->name('dashboard');
     Route::get('/informasikost', 'informasiKostJson');
 });
@@ -82,27 +88,41 @@ Route::controller(ProdukController::class)->group(function () {
     Route::post("/produk/tambah_data", 'store')->name("produk");
     Route::delete("/produk/hapus_data/{id}", "destroy")->name("produk");
 });
+Route::controller(BahanController::class)->group(function () {
+    Route::get("/bahan", 'index')->name('bahan');
+    
+});
 Route::controller(BomController::class)->group(function (){
     Route::get("/bill_material", 'index')->name('bom');
     Route::get("/bill_material/tambah", 'create')->name('bom');
     Route::get("bill_material/edit/{id}", "edit")->name("bom");
 });
 Route::controller(ManufacturingOrderController::class)->group(function ()  {
-    $mo = "/manufacturing_order";
-    Route::get($mo, 'index')->name('manufacturing_order');
-    Route::get($mo."/detail/{id}", "show");
-    Route::get($mo."/tambah", "create")->name('manufacturing_order');
-    Route::get($mo."/mo_detail/{id}", 'edit')->name('manufacturing_order');
-    Route::get($mo."/product_data", "getProductData");
-    Route::get($mo."/bom_data/{id}", "getBomData");
-    Route::get($mo."/detail_bom_data/{id}", "getDetailBom");
-    Route::post($mo."/tambah_data", "store");
-    Route::get($mo."/step/{id}", "onStep")->name("manufacturing_order");
-    Route::get($mo."/detailmo/{id}", "showDetailMo");
+    Route::get("/manufacturing_order", 'index')->name('manufacturing_order');
+    Route::get("/manufacturing_order/mo_detail", 'create')->name('manufacturing_order');
 });
-Route::controller(VendorController::class)->group(function () {
-    Route::get("/vendor/perusahaan", 'perusahaan')->name('vendor');
+Route::controller(VendorCompanyController::class)->group(function () {
+    Route::get("/vendor/company", 'company')->name('vendorcompany');
+    Route::post("/vendor/company/create", "store")->name("vendorcompany.store"); 
+    Route::put("/vendor/company/{kode}/update", "update")->name("vendorcompany.update"); 
+    Route::delete("/vendor/company/{kode}/delete", "destroy")->name("vendorcompany.destroy"); 
+});
+Route::controller(VendorIndividuController::class)->group(function () {
     Route::get("/vendor/perorangan", "individu")->name("vendor");
+    Route::post("/vendor/perorangan/create", "store")->name("vendor.store"); 
+    Route::put("/vendor/perorangan/{kode}/update", "update")->name("vendor.update"); 
+    Route::delete("/vendor/perorangan/{kode}/delete", "destroy")->name("vendor.destroy"); 
+});
+
+Route::controller(PurchaseorderController::class)->group(function () {
+    Route::get("/purchase/order", "order")->name("purchaseorder");
+    Route::post("/purchase/order/create", "store")->name("purchaseorder.store"); 
+    Route::post("/purchase/tambah_pesanan", "tambahBahan");
+    Route::get("/purchase/validasi{kode}", "validasi")->name("purchasevalidasi");
+    Route::post('/update-tanggal-diterima', 'updateTanggalDiterima')->name('updateTanggalDiterima');
+    Route::get("/purchase/bayar{kode}", "bayar")->name("purchasebayar");
+    Route::get("/purchase/konfirmasi{kode}", "konfirmasi")->name("purchasekonfirmasi");
+    Route::get("/purchase/selesai{kode}", "selesai")->name("purchaseselesai");
 });
 Route::controller(CustomerContoller::class)->group(function() {
     $cust = "/customer";
@@ -138,8 +158,8 @@ Route::controller(RfqController::class)->group(function () {
 //     return view("register/register", ["nama"=> "register"]);
 // });
 
-Route::get("/profile", function(){
-    return view("profile/profile", ["nama"=> "profile"]);
+Route::get("/profile", function () {
+    return view("profile/profile", ["nama" => "profile"]);
 })->name('profile')->middleware('auth');
 
 // Route::get("/penghuni_ruang", function () {
@@ -150,7 +170,7 @@ Route::get("/profile", function(){
 //     return view("pindah_ruang/pindahruang", ["nama"=> "pindah ruang"]);
 // });
 
-Route::get("/laporan_pendapatan", function(){
+Route::get("/laporan_pendapatan", function () {
     //return view("laporan_pendapatan/laporan_pendapatan", ["nama" => "laporan pendapatan"])->middleware('auth');
     return view("laporan_pendapatan/laporan_pendapatan", ["nama" => "laporan pendapatan"]);
 });

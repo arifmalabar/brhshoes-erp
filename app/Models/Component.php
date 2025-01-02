@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Component extends Model
 {
     use HasFactory;
-
     protected $table = 'components';
     protected $primaryKey = 'id';
     public $incrementing = true; // Menunjukkan bahwa primary key otomatis bertambah
@@ -21,7 +20,5 @@ class Component extends Model
         'harga_modal',
         'jenis_bahan',
     ];
-
-    // Jangan menambahkan bigint di $casts
 }
 
