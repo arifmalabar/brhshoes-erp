@@ -108,20 +108,31 @@ Route::controller(BomController::class)->group(function (){
     Route::get("bill_material/edit/{id}", "edit")->name("bom");
 });
 Route::controller(ManufacturingOrderController::class)->group(function ()  {
-    Route::get("/manufacturing_order", 'index')->name('manufacturing_order');
-    Route::get("/manufacturing_order/mo_detail", 'create')->name('manufacturing_order');
-});
-Route::controller(VendorCompanyController::class)->group(function () {
-    Route::get("/vendor/company", 'company')->name('vendorcompany');
-    Route::post("/vendor/company/create", "store")->name("vendorcompany.store"); 
-    Route::put("/vendor/company/{kode}/update", "update")->name("vendorcompany.update"); 
-    Route::delete("/vendor/company/{kode}/delete", "destroy")->name("vendorcompany.destroy"); 
+    $mo = "/manufacturing_order";
+    Route::get($mo, 'index')->name('manufacturing_order');
+    Route::get($mo."/detail/{id}", "show");
+    Route::get($mo."/tambah", "create")->name('manufacturing_order');
+    Route::get($mo."/mo_detail/{id}", 'edit')->name('manufacturing_order');
+    Route::get($mo."/product_data", "getProductData");
+    Route::get($mo."/bom_data/{id}", "getBomData");
+    Route::get($mo."/detail_bom_data/{id}", "getDetailBom");
+    Route::post($mo."/tambah_data", "store");
+    Route::get($mo."/step/{id}", "onStep")->name("manufacturing_order");
+    Route::get($mo."/detailmo/{id}", "showDetailMo");
+    Route::delete($mo."/delete_mo/{id}", "destroy");
+    Route::put($mo."/update_data/{id}", "update");
 });
 Route::controller(VendorIndividuController::class)->group(function () {
     Route::get("/vendor/perorangan", "individu")->name("vendor");
     Route::post("/vendor/perorangan/create", "store")->name("vendor.store"); 
     Route::put("/vendor/perorangan/{kode}/update", "update")->name("vendor.update"); 
     Route::delete("/vendor/perorangan/{kode}/delete", "destroy")->name("vendor.destroy"); 
+});
+Route::controller(VendorCompanyController::class)->group(function () {
+    Route::get("/vendor/company", 'company')->name('vendorcompany');
+    Route::post("/vendor/company/create", "store")->name("vendorcompany.store"); 
+    Route::put("/vendor/company/{kode}/update", "update")->name("vendorcompany.update"); 
+    Route::delete("/vendor/company/{kode}/delete", "destroy")->name("vendorcompany.destroy"); 
 });
 
 Route::controller(PurchaseorderController::class)->group(function () {

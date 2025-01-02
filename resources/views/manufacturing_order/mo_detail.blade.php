@@ -44,168 +44,106 @@ $modata = $data["mo_data"];
                         <!-- your steps content here -->
                         <input type="hidden" value="{{ csrf_token() }}" class="token">
                         <input type="hidden" value="{{ $modata->status }}" class="status">
-                        <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">
-                            <div class="row">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Produk <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <select name="" id="product-data" class="form-control select2bs4">
-                                                @foreach($data["data_produk"] as $key)
-                                                @if($modata->product_id == $key->product_id)
-                                                <option selected value="{{ $key->id }}">{{ $key->nama_produk }}</option>
-                                                @elseif($modata->product_id != $key->product_id)
-                                                <option value="{{ $key->id }}">{{ $key->nama_produk }}</option>
-                                                @endif
-                                                @endforeach
-                                            </select>
+                        <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger">                            
+                            <form action="/manufacturing_order/update_data/{{ $modata->id }}" method="post">
+                                @method('put')
+                                @csrf
+                                <div class="row">
+                                    
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label" for="">Produk <sup>*</sup></label>
+                                            <div class="col-sm-10">
+                                                <select id="product-data" name="products_id" class="form-control select2bs4">
+                                                    @foreach($data["data_produk"] as $key)
+                                                    @if($modata->product_id == $key->product_id)
+                                                    <option selected value="{{ $key->id }}">{{ $key->nama_produk }}</option>
+                                                    @elseif($modata->product_id != $key->product_id)
+                                                    <option value="{{ $key->id }}">{{ $key->nama_produk }}</option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Bill Of Material
-                                            <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <select name="" id="bom-data" class="form-control select2bs4">
-                                                @foreach($data["data_bom"] as $key)
-                                                @if($modata->bom_id == $key->id)
-                                                <option selected value="{{ $key->id }}">{{ $key->id }}</option>
-                                                @elseif($modata->bom_id != $key->id)
-                                                <option value="{{ $key->id }}">{{ $key->id }}</option>
-                                                @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label" for="">Bill Of Material
+                                                <sup>*</sup></label>
+                                            <div class="col-sm-10">
+                                                <select id="bom-data" name="billofmaterials_id" class="form-control select2bs4">
+                                                    @foreach($data["data_bom"] as $key)
+                                                    @if($modata->bom_id == $key->id)
+                                                    <option selected value="{{ $key->id }}">{{ $key->id }}</option>
+                                                    @elseif($modata->bom_id != $key->id)
+                                                    <option value="{{ $key->id }}">{{ $key->id }}</option>
+                                                    @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
 
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Jml Produksi <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <input type="number" class="form-control jml_produksi" name="NIK"
-                                                id="kuantitas" placeholder="Masukan Masukan Kuantias"
-                                                value="{{ $modata->quantity }}" required>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Estimasi <sup>*</sup></label>
-                                        <div class="col-sm-5">
-                                            <input type="date" class="form-control" id="et-mulai"
-                                                placeholder="Masukan Nama Produk" value="{{ $modata->schedule }}"
-                                                required>
-                                        </div>
-                                        <div class="col-sm-5">
-                                            <input type="date" class="form-control" id="et-selesai" name="NIK"
-                                                placeholder="Masukan Nama Produk" value="{{ $modata->late }}" required>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label" for="">Jml Produksi <sup>*</sup></label>
+                                            <div class="col-sm-10">
+                                                <input type="number" name="quantity" class="form-control jml_produksi" name="NIK"
+                                                    id="kuantitas" placeholder="Masukan Masukan Kuantias"
+                                                    value="{{ $modata->quantity }}" required>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <table id="example2" style="text-align: center"
-                                        class="table table-bordered table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>Komponen</th>
-                                                <th>Membutuhkan</th>
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label" for="">Estimasi <sup>*</sup></label>
+                                            <div class="col-sm-5">
+                                                <input type="date" class="form-control" id="et-mulai"
+                                                    placeholder="Masukan Nama Produk" name="schedule" value="{{ $modata->schedule }}"
+                                                    required>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <input type="date" class="form-control" name="late" id="et-selesai" name="NIK"
+                                                    placeholder="Masukan Nama Produk" value="{{ $modata->late }}" required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <table id="example2" style="text-align: center"
+                                            class="table table-bordered table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Komponen</th>
+                                                    <th>Membutuhkan</th>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
-                                        </tbody>
+                                            </tbody>
 
-                                    </table>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-6 btn-update-place">
+                                        <br>
+                                        @if($modata->status == 0)
+                                        <button class="btn btn-warning text-white next-btn float-left"><i
+                                                class="fa fa-solid fa-edit"></i>&nbsp;Update</button>
+                                        @endif
+                                    </div>
+                                    <div class="col-md-6">
+                                        <br>
+                                        <a class="btn btn-info text-white next-btn float-right btn-konfirm"
+                                            href="/manufacturing_order/step/{{ $modata->id }}"><i
+                                                class="fa fa-solid fa-check"></i>&nbsp;Konfirmasi</a>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 btn-update-place">
-                                    <br>
-                                    @if($modata->status == 0)
-                                    <button class="btn btn-warning text-white next-btn float-left"
-                                        onclick="stepper.next()" id="custom-tabs-four-profile-tab" data-toggle="pill"
-                                        href="#custom-tabs-four-profile" role="tab"
-                                        aria-controls="custom-tabs-four-profile" aria-selected="false"><i
-                                            class="fa fa-solid fa-edit"></i>&nbsp;Update</button>
-                                    @endif
-                                </div>
-                                <div class="col-md-6">
-                                    <br>
-                                    <a class="btn btn-info text-white next-btn float-right btn-konfirm"
-                                        href="/manufacturing_order/step/{{ $modata->id }}"><i
-                                            class="fa fa-solid fa-check"></i>&nbsp;Konfirmasi</a>
-                                    <!-- <button class="btn btn-info text-white next-btn float-right"
-                                        onclick="stepper.next()" id="custom-tabs-four-profile-tab" data-toggle="pill"
-                                        href="#custom-tabs-four-profile" role="tab"
-                                        aria-controls="custom-tabs-four-profile" aria-selected="false"><i
-                                            class="fa fa-solid fa-check"></i>&nbsp;Konfirmasi</button>-->
-                                </div>
-                            </div>
+                            </form>
                         </div>
                         <div id="information-part" class="content" role="tabpanel"
                             aria-labelledby="information-part-trigger">
                             <div class="row">
-                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Produk <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <select name="" id="product-data" disabled class="form-control select2bs4">
-                                                @foreach($data["data_produk"] as $key)
-                                                @if($modata->product_id == $key->product_id)
-                                                <option selected value="{{ $key->id }}">{{ $key->nama_produk }}</option>
-                                                @elseif($modata->product_id != $key->product_id)
-                                                <option value="{{ $key->id }}">{{ $key->nama_produk }}</option>
-                                                @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Bill Of Material
-                                            <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <select name="" id="bom-data" disabled class="form-control select2bs4">
-                                                @foreach($data["data_bom"] as $key)
-                                                @if($modata->bom_id == $key->id)
-                                                <option selected value="{{ $key->id }}">{{ $key->id }}</option>
-                                                @elseif($modata->bom_id != $key->id)
-                                                <option value="{{ $key->id }}">{{ $key->id }}</option>
-                                                @endif
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Jml Produksi <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <input type="number" disabled class="form-control jml_produksi" name="NIK"
-                                                id="kuantitas" placeholder="Masukan Masukan Kuantias"
-                                                value="{{ $modata->quantity }}" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Estimasi <sup>*</sup></label>
-                                        <div class="col-sm-5">
-                                            <input type="date" class="form-control" disabled id="et-mulai"
-                                                placeholder="Masukan Nama Produk" value="{{ $modata->schedule }}"
-                                                required>
-                                        </div>
-                                        <div class="col-sm-5">
-                                            <input type="date" class="form-control" disabled id="et-selesai" name="NIK"
-                                                placeholder="Masukan Nama Produk" value="{{ $modata->late }}" required>
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('manufacturing_order.component.form_detail')
                                 <div class="col-md-12">
                                     <table id="example3" style="text-align: center"
                                         class="table table-bordered table-hover">
@@ -234,55 +172,16 @@ $modata = $data["mo_data"];
                         <div id="selesai-part" class="content" role="tabpanel" aria-labelledby="selesai-part-trigger">
                             <div class="row">
                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Poduk <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <select name="" id="product-data" disabled class="form-control select2bs4">
-                                                <option value="SP001">Sepau Sekolah</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Bill Of Material
-                                            <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <select name="" id="bom-data" class="form-control select2bs4">
-                                                <option value="SP001">[PSS] Sepatu Sekolah</option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Kuantitas <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <input type="number" class="form-control" name="Kuantitias"
-                                                placeholder="Masukan Masukan Kuantias" value="10" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label" for="">Jadwal <sup>*</sup></label>
-                                        <div class="col-sm-10">
-                                            <input type="date" class="form-control" name="NIK"
-                                                placeholder="Masukan Nama Produk" value="2024-10-24" required>
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('manufacturing_order.component.form_detail')
                                 <div class="col-md-12">
                                     <table id="example1" style="text-align: center"
                                         class="table table-bordered table-hover">
                                         <thead>
                                             <tr>
                                                 <th>Komponen</th>
-                                                <th>Membutuhkan</th>
+                                                <th>Dibutuhkan</th>
                                                 <th>Disediakan</th>
-                                                <th>Diproduksi</th>
+                                                <th>Dipakai</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -405,40 +304,7 @@ $modata = $data["mo_data"];
                 ]
             });
             
-            $('#example1').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-                "bDestroy": true,   
-                data : dt,
-                columns: [
-                    {
-                        data : 'komponen',
-                    },
-                    {
-                        data : null,
-                        render: function (data, type, row) {
-                            return `${row.membutuhkan} ${row.satuan}`
-                        }
-                    },
-                    {
-                        data : null,
-                        render: function (data, type, row) {
-                            return `${row.membutuhkan} ${row.satuan}`
-                        }
-                    },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return `${row.membutuhkan} ${row.satuan}`
-                        }
-                    }
-                ]
-            });
+            
         });
         $('.select2').select2()
 

@@ -1,8 +1,10 @@
 import {
     bom_data,
     bom_detail_data,
+    mo_detail,
     product_data,
 } from "../config/end_point.js";
+import { getData } from "../fecth/fetch.js";
 
 export function init() {
     $("#product-data").on("change", function (params) {

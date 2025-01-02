@@ -8,3 +8,5 @@ export const data_customer = "/customer/data";
 export const tambah_customer = "/customer/tambah";
 export const update_customer = "/customer/update";
 export const delete_customer = "/customer/delete";
+
+export const mo_detail = "/manufacturing_order/detailmo";

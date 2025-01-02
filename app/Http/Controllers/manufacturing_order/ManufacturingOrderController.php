@@ -216,10 +216,20 @@ class ManufacturingOrderController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-        return $this->updateData($id, $data);
+        try {
+            ManufacturingOrder::find($id)->update($data);
+            return back()->with("success", "berhasil mengubah data");
+        } catch (\Throwable $th) {
+            return back()->with("error", "gagal mengubah data ".$th->getMessage());
+        }
     }
     public function destroy($id)
     {
-        return $this->deleteData($id);
+        try {
+            ManufacturingOrder::find($id)->delete();
+            return back()->with("success", "berhasil mengahpus data");
+        } catch (\Throwable $th) {
+            return back()->with("error", "gagal menghapus data ".$th->getMessage());
+        }
     }
 }

@@ -13,8 +13,13 @@ class RenameManufacturingOrder extends Migration
      */
     public function up()
     {
+<<<<<<< HEAD
         //Schema::rename("manufacturingorders", "manufacturing_orders");
         //Schema::rename("manufacturingorderdetails", "manufacturing_order_details");
+=======
+        /*Schema::rename("manufacturingorders", "manufacturing_orders");
+        Schema::rename("manufacturingorderdetails", "manufacturing_order_details");*/
+>>>>>>> mo/ridho
     }
 
     /**
