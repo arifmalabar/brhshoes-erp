@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\bahan\BahanController;
-use App\Http\Controllers\bom\BomController;
 use App\Http\Controllers\dashboard\DashboardController;
 use App\Models\Penghuni;
 use Illuminate\Support\Facades\Route;
@@ -18,20 +17,18 @@ use App\Http\Controllers\manufacturing\ManufacturingController;
 use App\Http\Controllers\manufacturing_order\ManufacturingOrderController;
 use App\Http\Controllers\produk\ProdukController;
 use App\Http\Controllers\vendor\VendorController;
-<<<<<<< HEAD
+use Illuminate\Routing\Route as RoutingRoute;
 use App\Http\Controllers\VendorCompanyController;
 use App\Http\Controllers\VendorIndividuController;
 use App\Http\Controllers\PurchaseorderController;
 use App\Http\Controllers\customer\CustomerContoller;
 use App\Http\Controllers\rfq\RfqController;
+use App\Http\Controllers\bom\BomController;
 
 
 
 
 
-=======
-use Illuminate\Routing\Route as RoutingRoute;
->>>>>>> bom/alif
 
 /*
 |--------------------------------------------------------------------------
@@ -44,7 +41,7 @@ use Illuminate\Routing\Route as RoutingRoute;
 |
 */
 
-Route::get('/', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::get('/', [LoginController::class,'index'])->name('login')->middleware('guest');
 Route::post('/login-proses', [LoginController::class, 'login_proses'])->name('login-proses');
 Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
@@ -110,7 +107,7 @@ Route::controller(BomController::class)->group(function (){
     Route::get("/bill_material", 'index')->name('bom');
     Route::get("/bill_material/create", 'create')->name('bom.create');
     Route::get("bill_material/edit/{id}", "edit")->name("bom.edit");
-    Route::put("bill_material/{id}", "update")->name("bom.update");
+    Route::put("/bill_material/{id}", "update")->name("bom.update");
     Route::get("/bill_material/show/{id}", "show")->name("bom");
     Route::post("/bill_material/tambah_data", 'store')->name("bom.store");
     Route::delete("/bill_material/hapus_data/{id", "destroy")->name("bom");
@@ -194,8 +191,8 @@ Route::controller(RfqController::class)->group(function () {
 //     return view("register/register", ["nama"=> "register"]);
 // });
 
-Route::get("/profile", function () {
-    return view("profile/profile", ["nama" => "profile"]);
+Route::get("/profile", function(){
+    return view("profile/profile", ["nama"=> "profile"]);
 })->name('profile')->middleware('auth');
 
 // Route::get("/penghuni_ruang", function () {
@@ -206,7 +203,7 @@ Route::get("/profile", function () {
 //     return view("pindah_ruang/pindahruang", ["nama"=> "pindah ruang"]);
 // });
 
-Route::get("/laporan_pendapatan", function () {
+Route::get("/laporan_pendapatan", function(){
     //return view("laporan_pendapatan/laporan_pendapatan", ["nama" => "laporan pendapatan"])->middleware('auth');
     return view("laporan_pendapatan/laporan_pendapatan", ["nama" => "laporan pendapatan"]);
 });
