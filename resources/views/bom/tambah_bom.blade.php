@@ -16,7 +16,7 @@
                     </div>
                     <div class="card-body">
                         <form action="{{ route('bom.store') }}" method="POST">
-                            @csrf
+                            <input type="hidden" id="token" value="{{ csrf_token() }}" name="">
                             <div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -24,10 +24,10 @@
                                             <label>
                                                 Produk
                                             </label>
-                                            <select id="nama_produk" name="nama_produk" class="form-select" required>
+                                            <select id="product_id" name="nama_produk" class="form-select" required>
                                                 <option value="" disabled selected>Pilih Produk</option>
                                                 @foreach ($produk as $item)
-                                                    <option value="{{ $item->nama_produk }}">
+                                                    <option value="{{ $item->id }}">
                                                         {{ $item->nama_produk }}
                                                     </option>
                                                 @endforeach
@@ -63,17 +63,13 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>
-                                                Kuantitas
+                                                Satuan
                                             </label>
                                             <input type="text" id="satuan" name="satuan" class="form-control" 
                                                     placeholder="Satuan" required>
                                         </div>
                                     </div>
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-success btn-sm float-left" id="#simpanBOM">
-                                            <i class="fa fa-plus"></i> Tambah Data
-                                        </button>
-                                    </div>
+                                    
                                 </div>
                             </div>
                            </form>
@@ -104,12 +100,10 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label>Bahan</label>
-                                                        <select id="nama" name="nama" class="form-select" required>
+                                                        <select id="components_id" name="nama" class="form-select" required>
                                                             <option value="" disabled selected>Pilih Bahan</option>
                                                             @foreach ($bahan as $item)
-                                                                <option value="{{ $item->nama }}">
-                                                                    {{ $item->nama }}
-                                                                </option>
+                                                                <option value="{{ $item->id }}">{{ $item->nama }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -118,22 +112,27 @@
                                                     <div class="form-group">
                                                         <label>Kuantitas</label>
                                                         <div class="row">
-                                                            <div class="col-md-10">
-                                                                <input type="number" id="quantity" name="quantity" class="form-control" 
+                                                            <div class="col-md-12">
+                                                                <input type="number" id="kuantitas" name="quantity" class="form-control" 
                                                                 placeholder="Masukkan Kuantitas" required>
                                                             </div>
-                                                            <div class="col-md-2">
-                                                                <input type="text" id="satuan" name="satuan" class="form-control" 
-                                                                placeholder="Satuan" required>
-                                                            </div>
+                                                            
                                                         </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Harga</label>
+                                                        <input type="number" id="harga" name="quantity" class="form-control" 
+                                                                        placeholder="Masukkan Kuantitas" required>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                            <button type="submit" class="btn btn-primary" id="#simpanBahan">Simpan</button>
+                                            <button type="button" data-dismiss="modal" class="btn btn-primary" id="simpanBahan">Simpan Item</button>
                                         </div>
                                     </div>
                                 </div>
@@ -141,7 +140,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="bahan-table" class="table table-bordered table-hover" style="text-align: center">
+                        <table id="example2" class="table table-bordered table-hover" style="text-align: center">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -156,14 +155,22 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="card-footer">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-success btn-sm float-right" id="simpanBOM">
+                                <i class="fa fa-plus"></i> Tambah Data
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
         </div>
     </div>
 </section>
 @endsection
 @section('js')
-    <script src="{{ mix("js/tambah_bom.js") }}"></script>
+    <script src="{{ asset("js/bom/index.js") }}" type="module"></script>
     <script>
         $('.select2').select2()
 
@@ -171,15 +178,7 @@
         $('.select2bs4').select2({
         theme: 'bootstrap4'
         })
-        $('#example2').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
-        });
+        
 
         $(document).ready(function() {
             $('#simpanBOM'),on('click', funstion(){

@@ -76,7 +76,7 @@ Route::controller(BomController::class)->group(function (){
     Route::get("bill_material/edit/{id}", "edit")->name("bom.edit");
     Route::put("bill_material/{id}", "update")->name("bom.update");
     Route::get("/bill_material/show/{id)", "show")->name("bom");
-    Route::post("bill_material/tambah_data", 'store')->name("bom.store");
+    Route::post("/bill_material/tambah_data", 'store')->name("bom.store");
     Route::delete("/bill_material/hapus_data/{id", "destroy")->name("bom");
     // Route::get("/bill_material/product_data", "getProductData")->name("bom");
     // Route::get("/get_kategori", "getKategori")->name("bom");

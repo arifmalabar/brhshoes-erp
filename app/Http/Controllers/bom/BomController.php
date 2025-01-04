@@ -22,8 +22,23 @@ class BomController extends Controller
      */
     public function index()
     {
-        $data = Bom::all();
+        $data = $this->getDataBOM();
         return view("bom/bom", ["nama"=> "bom"], compact('data'));
+    }
+    private function getDataBOM()
+    {
+        try {
+            $data = BOM::selectRaw("
+                        products.nama_produk, 
+                        products.internal_reference, billofmaterials.id,
+                        (SELECT COUNT(*) FROM `billofmaterialsdetails` WHERE billofmaterials_id =  billofmaterials.id) AS total
+                        ")
+                        ->join("products", "products.id" , "=", "billofmaterials.products_id")
+                        ->get();
+            return $data;
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     /**
@@ -47,7 +62,26 @@ class BomController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $request->validate([
+        try {
+            $data_bom = $request->bom;
+            $data_bom["id"] = BOM::getId();
+            BOM::insert($data_bom);
+            $dt = [];
+            foreach ($request->detail as $key) {
+                $bod = [
+                    "id" => BOMDetail::getId(),
+                    "billofmaterials_id" => $data_bom["id"],
+                    "components_id" => $key["components_id"],
+                    "quantity"=> $key["quantity"],
+                    "price" => $key["price"]
+                ];
+                BOMDetail::insert($bod);
+            }
+            return response()->json(["status"=>"success"], 200);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), 400);
+        }
+        /*$validate = $request->validate([
             'id' => 'required|string|max:4',
             'products_id',
             'categories_id',
@@ -78,7 +112,7 @@ class BomController extends Controller
          }catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
-         }
+         }*/
     }
 
     /**
