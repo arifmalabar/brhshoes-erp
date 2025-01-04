@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\penghuni\PenghuniController;
+use App\Http\Controllers\bom\BomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,16 +19,13 @@ use App\Http\Controllers\penghuni\PenghuniController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::controller(PenghuniController::class)->group(function () {
-    Route::get('/penghuni_ruang', 'index')->name('penghuni.index');
-    Route::get('/penghuni_ruang/status_ruangan/{id}', 'getRuanganKosong')->name('penghuni.getRuanganKosong');
-    Route::get('/penghuni_ruang/tambah_penghuni', 'halamanTambah')->name('penghuni.halamanTambah');
-    Route::get('/penghuni_ruang/detail_penghuni/{id}', 'detailPenghuni')->name('penghuni.detailPenghuni');
-    Route::get('/penghuni_ruang/getDetailPenghuniData/{id}', 'getDetailPenghuniData')->name('penghuni.getDetailPenghuniData');
-    Route::get('/penghuni_ruang/update_penghuni', 'halamanTambah')->name('penghuni.halamanTambah');
-    Route::post('/penghuni_ruang/store', 'store')->name('penghuni.store');
-    Route::get('/penghuni_ruang/{NIK}/edit', 'edit')->name('penghuni.edit');
-    Route::put('/penghuni_ruang/update', 'update')->name('penghuni.update');
-    Route::delete('/penghuni_ruang/{NIK}/delete', 'delete')->name('penghuni.delete');
 
+Route::controller(BomController::class)->group(function (){
+    Route::get("/bill_material", 'index')->name('bom');
+    Route::get("/bill_material/create", 'create')->name('bom.create');
+    Route::get("bill_material/edit/{id}", "edit")->name("bom.edit");
+    Route::put("bill_material/{id}", "update")->name("bom.update");
+    Route::get("/bill_material/show/{id)", "show")->name("bom");
+    Route::post("/bill_material/tambah_data", 'store')->name("bom.store");
+    Route::delete("/bill_material/hapus_data/{id", "destroy")->name("bom");
 });

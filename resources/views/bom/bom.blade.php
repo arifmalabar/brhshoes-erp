@@ -15,13 +15,53 @@
                     <div class="card-header">
                         <h4 class="card-title">Bill Of Material Detail</h4>
                         <div class="card-tools">
-                            <a href="/bill_material/tambah" class="btn btn-success btn-sm">
+                            <a href="{{ route('bom.create') }}" class="btn btn-success btn-sm">
                             <i class="fa fa-plus"></i>&nbsp;Tambah Komposisi
                         </a>
                         </div>
                     </div>
-                    <div class="card-body" id="bom-data">
-                        
+                    <div class="card-body row" id="bom-data">
+                        <div class="col-md-12">
+                            <table
+                                id="example2"
+                                class="table table-bordered table-hover text-center">                            >
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Produk</th>
+                                        <th>Reference</th>
+                                        <th>Total Komponen</th>
+                                        <th>Opsi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($data as $key)
+                                    <tr>
+                                        <td>{{ $key->id }}</td>
+                                        <td>{{ $key->nama_produk }}</td>
+                                        <td>{{ $key->internal_reference }}</td>
+                                        <td>{{ $key->total }}</td>
+                                        <td>
+                                            <a
+                                                href="/bill_material/show/{{ $key->id }}"
+                                                class="btn btn-sm btn-outline-info"
+                                            >
+                                                <i class="fa fa-edit"></i> Update
+                                            </a>
+                                            &nbsp;
+                                            <a
+                                                href="/bill_material/hapus/"
+                                                class="btn btn-sm btn-outline-danger btn-hapus"
+                                                
+                                            >
+                                                <i class="fa fa-trash"></i> Hapus
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -30,7 +70,6 @@
 </section>
 @endsection
 @section('js')
-    <script src="{{ mix("js/bom.js") }}"></script>
     <script>
         $(function() {
             $('.select2').select2();
