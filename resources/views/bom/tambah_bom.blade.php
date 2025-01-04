@@ -18,13 +18,12 @@
                         <form action="{{ route('bom.store') }}" method="POST">
                             @csrf
                             <div>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="form-group row">
-                                            <label for="inputEmail3" className="col-sm-2 col-form-label">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>
                                                 Produk
                                             </label>
-                                            <div className="col-sm-10">
                                             <select id="nama_produk" name="nama_produk" class="form-select" required>
                                                 <option value="" disabled selected>Pilih Produk</option>
                                                 @foreach ($produk as $item)
@@ -33,45 +32,46 @@
                                                     </option>
                                                 @endforeach
                                             </select>
-                                            </div>
+                                            
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
-                                        <div className="form-group row">
-                                            <label for="inputEmail3" className="col-sm-2 col-form-label">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>
                                                 Kategori
                                             </label>
-                                            <div className="col-sm-10">
-                                                <select id="nama_kategori" name="nama_kategori" class="form-select" required>
-                                                    <option value="" disabled selected>Pilih Kategori</option>
-                                                    @foreach ($kategori as $item)
-                                                        <option value="{{ $item->nama_kategori}}">
-                                                            {{ $item->nama_kategori }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
+                                            <select id="nama_kategori" name="nama_kategori" class="form-select" required>
+                                                <option value="" disabled selected>Pilih Kategori</option>
+                                                @foreach ($kategori as $item)
+                                                    <option value="{{ $item->nama_kategori}}">
+                                                        {{ $item->nama_kategori }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
-                                    <div className="col-md-12">
-                                        <div className="form-group row">
-                                            <label for="inputEmail3" className="col-sm-2 col-form-label">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>
                                                 Kuantitas
                                             </label>
-                                            <div className="col-sm-8">
-                                                <input type="number" id="quantity" name="quantity" class="form-control" 
+                                            <input type="number" id="quantity" name="quantity" class="form-control" 
                                                     placeholder="Masukkan Kuantitas" required>
-                                            </div>
-                                            <div className="col-sm-2">
-                                                <input type="text" id="satuan" name="satuan" class="form-control" 
-                                                    placeholder="Satuan" required>
-                                            </div>
+                                            
                                         </div>
                                     </div>
-                                    <div className="col-md-2"></div>
-                                    <div className="col-md-10">
-                                        <button type="submit" className="btn btn-success btn-sm" id="#simpanBOM">
-                                            <i className="fa fa-plus"></i> Tambah Data
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>
+                                                Kuantitas
+                                            </label>
+                                            <input type="text" id="satuan" name="satuan" class="form-control" 
+                                                    placeholder="Satuan" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-success btn-sm float-left" id="#simpanBOM">
+                                            <i class="fa fa-plus"></i> Tambah Data
                                         </button>
                                     </div>
                                 </div>
@@ -100,9 +100,9 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <div className="row">
-                                                <div className="col-md-12">
-                                                    <div className="form-group">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
                                                         <label>Bahan</label>
                                                         <select id="nama" name="nama" class="form-select" required>
                                                             <option value="" disabled selected>Pilih Bahan</option>
@@ -114,15 +114,15 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div className="col-md-12">
-                                                    <div className="form-group">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
                                                         <label>Kuantitas</label>
-                                                        <div className="row">
-                                                            <div className="col-md-10">
+                                                        <div class="row">
+                                                            <div class="col-md-10">
                                                                 <input type="number" id="quantity" name="quantity" class="form-control" 
                                                                 placeholder="Masukkan Kuantitas" required>
                                                             </div>
-                                                            <div className="col-md-2">
+                                                            <div class="col-md-2">
                                                                 <input type="text" id="satuan" name="satuan" class="form-control" 
                                                                 placeholder="Satuan" required>
                                                             </div>
