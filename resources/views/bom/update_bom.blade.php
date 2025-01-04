@@ -28,11 +28,9 @@
                                             <div className="col-sm-10">
                                             <select id="nama_produk" name="nama_produk" class="form-select" required>
                                                 <option value="" disabled selected>Pilih Produk</option>
-                                                @foreach ($produk as $item)
-                                                    <option value="{{ $item->nama_produk }}">
-                                                        {{ $item->nama_produk }}
-                                                    </option>
-                                                @endforeach
+                                                <option value="">Sepatu Sekolah</option>
+                                                <option value="">Sepatu Pantofel</option>
+                                                <option value="">Sepatu Kets</option>
                                             </select>
                                             </div>
                                         </div>
@@ -45,11 +43,7 @@
                                             <div className="col-sm-10">
                                                 <select id="nama_kategori" name="nama_kategori" class="form-select" required>
                                                     <option value="" disabled selected>Pilih Kategori</option>
-                                                    @foreach ($kategori as $item)
-                                                        <option value="{{ $item->nama_kategori}}">
-                                                            {{ $item->nama_kategori }}
-                                                        </option>
-                                                    @endforeach
+                                                    <option value="">Sepatu</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -107,11 +101,9 @@
                                                         <label>Bahan</label>
                                                         <select id="nama" name="nama" class="form-select" required>
                                                             <option value="" disabled selected>Pilih Bahan</option>
-                                                            @foreach ($bahan as $item)
-                                                                <option value="{{ $item->nama }}">
-                                                                    {{ $item->nama }}
-                                                                </option>
-                                                            @endforeach
+                                                            <option value="">Karet</option>
+                                                            <option value="">Sol sepatu</option>
+                                                            <option value="">Benang</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -153,7 +145,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                
+                                @foreach ($data as $index => $bomitem)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $bomitem->nama }}</td>
+                                    <td>{{ $bomitem->quantity}}</td>
+                                    <td>{{ $bomitem->price}}</td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

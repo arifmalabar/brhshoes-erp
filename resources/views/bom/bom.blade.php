@@ -21,7 +21,37 @@
                         </div>
                     </div>
                     <div class="card-body" id="bom-data">
-                        
+                        <table id="example2" className="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Produk</th>
+                                    <th>Reference</th>
+                                    <th>Total Komponen</th>
+                                    <th>Opsi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($data as $index => $bomitem)
+                                    <tr>
+                                        <td>{{ $index + 1}}</td>
+                                        <td>{{ $bomitem->id }}</td>
+                                        <td>{{ $bomitem->nama_produk}}</td>
+                                        <td>{{ $bomitem->internal_reference}}</td>
+                                        <td>
+                                            <button href="{{ route('bom.update'), $bomitem->id}}" class="btn btn-warning btn-sm" >
+                                            Edit
+                                            </button>
+                                            <form action="{{ route('bom.destroy', $bomitem->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
