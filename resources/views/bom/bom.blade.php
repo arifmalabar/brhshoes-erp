@@ -43,7 +43,7 @@
                                         <td>{{ $key->total }}</td>
                                         <td>
                                             <a
-                                                href=""
+                                                href="/bill_material/show/{{ $key->id }}"
                                                 class="btn btn-sm btn-outline-info"
                                             >
                                                 <i class="fa fa-edit"></i> Update

@@ -123,7 +123,33 @@ class BomController extends Controller
      */
     public function show($id)
     {
-        //
+        $bahan = Component::all();
+        $produk = Product::all();
+        $kategori = Category::all();
+
+        $bom_data = BOM::find($id);
+        $bom_detail = BOMDetail::selectRaw("billofmaterialsdetails.id, billofmaterialsdetails.quantity, billofmaterialsdetails.price, components.nama")->join("components", "components.id", "=", "billofmaterialsdetails.components_id")->where("billofmaterials_id", "=", $id)->get();
+        return view("bom/update_bom", ["nama"=> "bom", "bom" => $bom_data, "bom_detail" => $bom_detail, "bahan" => $bahan, "produk" => $produk, "kategori" => $kategori]);
+    }
+    public function tambahBahan(Request $request)
+    {
+        try {
+            $data = $request->except("_token");
+            $data["id"] = BOMDetail::getId();
+            BOMDetail::insert($data);
+            return back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+    }
+    public function hapusBahan($id)
+    {
+        try {
+            BOMDetail::find($id)->delete();
+            return back();
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
     }
 
     /**
@@ -147,7 +173,14 @@ class BomController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validate = $request->validate([
+        $data = $request->except("_token");
+        try {
+            $update = BOM::find($id)->update($data);
+            return redirect("/bill_material");
+        } catch (\Throwable $th) {
+            return $th->getMessage();
+        }
+        /*$validate = $request->validate([
             'id' => 'required|string|max:4',
             'products_id',
             'categories_id',
@@ -179,7 +212,7 @@ class BomController extends Controller
          }catch (\Exception $e) {
             DB::rollback();
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
-         }
+         }*/
     }
 
     /**
