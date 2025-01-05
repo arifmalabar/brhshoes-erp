@@ -13,67 +13,69 @@
             </div>
 
             <div class="card-body">
-                <div class="row mb-3">
-                    <div class="col-md-3">
-                        <label for="filterKode">Kode <i class="fas fa-key"></i></label> <!-- Ikon kunci -->
-                        <select id="filterKode" class="form-control" disabled>
-                            @foreach ($purchases as $purchase)
-                            <option value="{{ $purchase->kode }}">{{ $purchase->kode }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                <div class="row">
+                    <form action="/update-tanggal-diterima" method="post">
+                        @csrf
+                        <div class="row">
+                            <div class="col-md-3">
+                                <label for="filterKode">Kode <i class="fas fa-key"></i></label> <!-- Ikon kunci -->
+                                <input type="text" name="kode" value="{{ $purchases->kode }}" class="form-control">
+                            </div>
 
-                    <div class="col-md-3">
-                        <label for="filterVendor">Vendor <i class="fas fa-industry"></i></label> <!-- Ikon vendor -->
-                        <select id="filterVendor" class="form-control" disabled>
-                            @foreach ($purchases as $purchase)
-                            <option value="{{ $purchase->vendor }}">{{ $purchase->vendor }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                            <div class="col-md-3">
+                                <label for="filterVendor">Vendor <i class="fas fa-industry"></i></label>
+                                <!-- Ikon vendor -->
+                                <input type="text" name="vendor" disabled value="{{ $purchases->vendor }}"
+                                    class="form-control">
+                            </div>
 
-                    <div class="col-md-3">
-                        <label for="filterTanggalPesan">Tanggal Pesan <i class="fas fa-calendar-alt"></i></label>
-                        <!-- Ikon kalender -->
-                        <select id="filterTanggalPesan" class="form-control" disabled>
-                            @foreach ($purchases as $purchase)
-                            <option value="{{ $purchase->tanggal_pesan }}">{{ $purchase->tanggal_pesan }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                            <div class="col-md-3">
+                                <label for="filterTanggalPesan">Tanggal Pesan <i
+                                        class="fas fa-calendar-alt"></i></label>
+                                <!-- Ikon kalender -->
+                                <input type="text" name="tanggal_pesan" disabled value="{{ $purchases->tanggal_pesan }}"
+                                    class="form-control">
+                            </div>
 
-                    <div class="col-md-3">
-                        <label for="filterTanggalDiterima">Tanggal Diterima <i
-                                class="fas fa-calendar-check"></i></label> <!-- Ikon kalender cek -->
-                        <input type="date" id="filterTanggalDiterima" class="form-control" name="tanggal_diterima">
-                    </div>
+                            <div class="col-md-3">
+                                <label for="filterTanggalDiterima">Tanggal Diterima <i
+                                        class="fas fa-calendar-check"></i></label> <!-- Ikon kalender cek -->
+                                <input type="date" id="filterTanggalDiterima" value="{{ date('Y-m-d') }}"
+                                    class="form-control" name="tanggal_diterima">
+                            </div>
+                            <div class="col-md-12">
+                                <br>
+                                <button type="submit" class="btn btn-primary float-right">Validasi</button>
+                            </div>
+                        </div>
+                    </form>
                     <script>
                         /*function simpanTanggalDiterima() {
-    let tanggalDiterima = document.getElementById("filterTanggalDiterima").value;
-    
-    // Cek apakah tanggal diisi
-    if (tanggalDiterima) {
-        // Mengirim data menggunakan AJAX
-        $.ajax({
-            url: "{{ route('updateTanggalDiterima') }}", // Ganti dengan route yang sesuai
-            type: "POST",
-            data: {
-                _token: "{{ csrf_token() }}", // CSRF token untuk keamanan
-                tanggal_diterima: tanggalDiterima
-            },
-            success: function(response) {
-                if (response.success) {
-                    alert("Tanggal diterima berhasil disimpan!");
-                } else {
-                    alert("Gagal menyimpan tanggal diterima.");
-                }
-            },
-            error: function() {
-                alert("Terjadi kesalahan.");
-            }
-        });
-    }
-}*/
+                            let tanggalDiterima = document.getElementById("filterTanggalDiterima").value;
+                            
+                            // Cek apakah tanggal diisi
+                            if (tanggalDiterima) {
+                                // Mengirim data menggunakan AJAX
+                                $.ajax({
+                                    url: "{{ route('updateTanggalDiterima') }}", // Ganti dengan route yang sesuai
+                                    type: "POST",
+                                    data: {
+                                        _token: "{{ csrf_token() }}", // CSRF token untuk keamanan
+                                        tanggal_diterima: tanggalDiterima
+                                    },
+                                    success: function(response) {
+                                        if (response.success) {
+                                            alert("Tanggal diterima berhasil disimpan!");
+                                        } else {
+                                            alert("Gagal menyimpan tanggal diterima.");
+                                        }
+                                    },
+                                    error: function() {
+                                        alert("Terjadi kesalahan.");
+                                    }
+                                });
+                            }
+                        }*/
                     </script>
 
 
@@ -110,10 +112,7 @@
 
 
                 <!-- Tombol Proses yang diletakkan di bawah kanan -->
-                <div class="d-flex justify-content-end mt-3">
-                    <a href="{{ route('purchasebayar', ['kode' => $purchase->kode]) }}"
-                        class="btn btn-primary mb-3">Validasi</a>
-                </div>
+
             </div>
         </div>
     </div>
