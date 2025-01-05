@@ -37,18 +37,18 @@ class VendorCompanyController extends Controller
     public function store(Request $request)
     {
         // Validate the request data
-        $request->validate([
+        /*$request->validate([
             'kode' => 'required|string|max:10',
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'no_telp' => 'required|string|max:20',
             'alamat' => 'required|string|max:255',
             'website' => 'required|string|max:255',
-        ]);
+        ]);*/
 
         // Create a new vendor record
         VendorCompany::create([
-            'kode' => $request->kode,
+            'kode' => VendorCompany::getKode(),
             'name' => $request->name,
             'email' => $request->email,
             'no_telp' => $request->no_telp,

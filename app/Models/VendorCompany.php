@@ -21,4 +21,17 @@ class VendorCompany extends Model
         'alamat',
         'website',
     ];
+    public static function getKode()
+    {
+        $last = self::orderBy("kode", "DESC")->first();
+        $new = "";
+        if (self::count() != 0) {
+            $number = (int) substr($last->kode, 3);
+            $increment = $number + 1;
+            $new = "VC".str_pad($increment, 3, '0', STR_PAD_LEFT);
+        } else {
+            $new = "VC001";
+        }
+        return $new;
+    }
 }

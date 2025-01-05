@@ -87,7 +87,7 @@ Vendor Company
 
                     <div class="form-group">
                         <label for="inputKode">Kode</label>
-                        <input type="text" class="form-control" id="inputKode" name="kode" placeholder="Masukkan Kode" required>
+                        <input type="text" readonly class="form-control" id="inputKode" name="kode" placeholder="Masukkan Kode" required>
                     </div>
 
                     <div class="form-group">
