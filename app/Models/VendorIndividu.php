@@ -22,4 +22,20 @@ class VendorIndividu extends Model
         'no_telp',
         'alamat',
     ];
+    public static function getKode()
+    {
+        $last = self::orderBy("kode", "DESC")->first();
+        $new = "";
+        if(self::count() != 0)
+        {
+            $number = (int) substr($last->kode, 3);
+            $increment = $number+1;
+            $new = "VI".str_pad($increment, 3, '0', STR_PAD_LEFT);
+            //$new = $increment;
+        } else {
+            $new = "VI001";
+        }
+        return $new;
+
+    }
 }
