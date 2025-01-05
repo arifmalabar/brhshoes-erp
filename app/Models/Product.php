@@ -17,4 +17,12 @@ class Product extends Model
         'harga_jual',
         'internal_reference',
     ];
+    public static function getProduct()
+    {
+        try {
+            return Product::get();
+        } catch (\Throwable $th) {
+            return [];
+        }
+    }
 }
