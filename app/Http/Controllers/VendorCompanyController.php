@@ -15,7 +15,7 @@ class VendorCompanyController extends Controller
     public function company()
     {
         $vendors = VendorCompany::all(); // Get all vendors
-        return view("vendor.company", ["nama" => "vendorcompany", "vendors" => $vendors]);
+        return view("vendor.company", ["nama" => "vendor", "vendors" => $vendors]);
     }
 
     /**

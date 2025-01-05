@@ -59,20 +59,20 @@
                 </li>
                 <li class="nav-header">Purchasing</li>
                 <li class="nav-item">
-                    <a href="/purchase/rfq" class="nav-link {{ $nama == 'purchase order' ? 'active' : '' }}">
+                    <a href="/purchase/rfq" class="nav-link {{ $nama == 'rfq' ? 'active' : '' }}">
                         <i class="fas nav-icon fa-money-bill"></i>
                         <p>Request For Quotation</p>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="/purchase/order" class="nav-link {{ $nama == 'purchase order' ? 'active' : '' }}">
+                    <a href="/purchase/order" class="nav-link {{ $nama == 'Purchaseorder' ? 'active' : '' }}">
                         <i class="fas nav-icon fa-money-bill"></i>
                         <p>Purchase Order</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ $nama == 'manufacturing order' ? 'active' : '' }}">
+                    <a href="#" class="nav-link {{ $nama == 'vendor' ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Vendor

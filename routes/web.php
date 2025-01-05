@@ -5,14 +5,17 @@ use App\Http\Controllers\dashboard\DashboardController;
 use App\Models\Penghuni;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\pembayaran\Bayar;
+use App\Http\Controllers\bom\BomController;
+use App\Http\Controllers\rfq\RfqController;
+use App\Http\Controllers\customer\customerController;
+use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\gedung\GedungController;
 use App\Http\Controllers\grafik_pendapatan\GrafikPendapatan;
 use App\Http\Controllers\grafik_penghuni\GrafikPenghuni;
 use App\Http\Controllers\ruangan\RuanganController;
+use App\Http\Controllers\tagihan\TagihanController;
 use App\Http\Controllers\penghuni\PenghuniController;
 use App\Http\Controllers\pembayaran\PembayaranController;
-use App\Http\Controllers\tagihan\TagihanController;
-use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\manufacturing\ManufacturingController;
 use App\Http\Controllers\manufacturing_order\ManufacturingOrderController;
 use App\Http\Controllers\produk\ProdukController;
@@ -22,8 +25,6 @@ use App\Http\Controllers\VendorCompanyController;
 use App\Http\Controllers\VendorIndividuController;
 use App\Http\Controllers\PurchaseorderController;
 use App\Http\Controllers\customer\CustomerContoller;
-use App\Http\Controllers\rfq\RfqController;
-use App\Http\Controllers\bom\BomController;
 
 
 
@@ -177,13 +178,13 @@ Route::controller(RfqController::class)->group(function () {
     Route::delete("/purchase/rfq/{id}", "destroy")->name("rfq.destroy");
 });
 
-/*Route::controller(customerController::class)->group(function () {
+Route::controller(customerController::class)->group(function () {
     Route::get('/customer/index', 'index')->name('customer.index');
     Route::post('/customer/store', 'store')->name('customer.store');
     Route::get('/customer/{id}/edit', 'edit')->name('customer.edit');
     Route::put('/customer/{id}/update', 'update')->name('customer.update');
     Route::delete('/customer/{id}/delete', 'delete')->name('customer.delete');
-});*/
+});
 
 
 
